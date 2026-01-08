@@ -1,0 +1,248 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Allocating Mutation Details</span>
+
+                    <span class="pull-right"><a routerLink='/ViewAllocatingMutation'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+                <form [formGroup]="mutationAllocatingForm">
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="proceedingNo" title="Proceeding No.">Proceeding
+                                        No.</label>
+                                    <ng-select title="Proceeding No." [items]="proceedingNoData"
+                                        formControlName="proceedingNo" bindLabel="pproceedingnowithvillage"
+                                        bindValue="pproceedingno" placeholder="Select" [searchable]=true
+                                        [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                        (change)="proceedingNoChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.proceedingNo}">
+                                    </ng-select>
+
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.proceedingNo">{{PlotsLayoutsValidationErrors.proceedingNo}}</span>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-3 col-xl-3">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="surveyNo" title="Survey No.">Survey
+                                        No.</label>
+                                    <ng-select title="Survey No." [items]="surveyData"
+                                        formControlName="surveyNo" bindLabel="psurveyno"
+                                        bindValue="psurveyno" placeholder="Select" [searchable]=true
+                                        [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                        (change)="surveyNoChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                    </ng-select>
+
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.surveyNo">{{PlotsLayoutsValidationErrors.surveyNo}}</span>
+                                </div>
+                            </div> -->
+                        </div>
+
+                    </div>
+
+                </form>
+                <div class="card-box mt-2 mb-3">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <!-- <td>S.No</td> -->
+                                    <td>Proceeding Date</td>
+                                    <td>Issued By</td>
+                                    <td>Katha No.</td>
+                                    <td>Village</td>
+                                    <td>Survey No.</td>
+                                    <td>Sub Survey No.</td>
+                                    <td>Land Area (Acres)</td>
+                                    <td>Land Area (Sq. Ys.)</td>
+                                    <td colspan="2">Dharani Details</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                    <td>Area (Acres)</td>
+                                    <td>Area (Square Yards)</td>
+                                </tr>
+                                <tr *ngFor="let dataList of mutationDetailsList let i = index">
+                                    <td>{{dataList.pproceedingdate | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{dataList.pissuedby}}</td>
+                                    <td>{{dataList.ppattakhathano}}</td>
+                                    <td>{{dataList.pvillagemandal}}</td>
+                                    <span class="badge-success badge p-1 font-weight-strong ml-2">
+                                        <td (click)="selectSurvey(dataList)">
+                                            {{dataList.psurveyno}}
+                                        </td>
+                                    </span>
+                                    
+                                    <td>{{dataList.psubsurveyno}}</td>
+                                    <td>{{dataList.ptotallandareainacres}}</td>
+                                    <td>{{dataList.ptotallandareainsqyards | mycurrencypipe}}</td>
+                                    <td class="text-right">{{dataList.ptotallandareaasperdharani}}</td>
+                                    <td class="text-right">{{dataList.ptotallandareainsqydsasperdharani |
+                                        mycurrencypipe}}</td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+                <form [formGroup]="mutationAddToGridForm">
+
+                    <div class="card-box mt-2 mb-3" *ngIf="mutationDocumentsList.length != ''">
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>Document No.</td>
+                                            <td>Survey No.</td>
+                                            <td>Area (Acres)</td>
+                                            <td>Area (sq. ys.)</td>
+                                            <td style="text-align: center;">Land Area</td>
+                                            <!-- <td>Sub Area</td> -->
+                                            <td>Total</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let mutationDocList of mutationDocumentsList let i = index">
+                                            <td>{{mutationDocList.pregistereddocument}}</td>
+                                            <td>{{mutationDocList.psurveyno}}</td>
+                                            <td>{{mutationDocList.ptotallandareainacres}}</td>
+                                            <td>{{mutationDocList.ptotallandareainsqyards | mycurrencypipe}}</td>
+                                            <td>
+
+                                                <div class="d-flex">
+                                                    <div class="form-group" style="flex: 1; margin-right: 10px;">
+                                                        <div class="input-group">
+                                                            <input class="form-control" type="text"
+                                                                formControlName="primaryLandareaValue" appNumbersonly
+                                                                maxlength="2"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValue}"
+                                                                (change)="ChangeInput(mutationDocList,$event,i)">
+
+                                                            <label id="primarylandareauom" title="Land Uom"
+                                                                hidden="true">Land Uom</label>
+                                                            <div class="input-group-append">
+                                                                <select class="form-control" disabled
+                                                                    formControlName="primarylandareauom"
+                                                                    (change)="primaryUom_Change($event)"
+                                                                    (change)="ChangeInput(mutationDocList,$event,i)"
+                                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauom}">
+                                                                    <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                        [value]="Primaryauom.primarylandareauom"
+                                                                        selected="true">
+                                                                        {{Primaryauom.primarylandareauomname}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            <span
+                                                                *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValue">
+                                                                {{PlotsLayoutsValidationErrors.primaryLandareaValue}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" style="flex: 1;">
+                                                        <div class="input-group">
+                                                            <input class="form-control" type="text"
+                                                                formControlName="secondarylandareavalue"
+                                                                (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalue}"
+                                                                (change)="ChangeInput(mutationDocList,$event,i)">
+                                                            <label id="secondarylandareauom" title="Land Uom"
+                                                                hidden="true">Land Uom</label>
+                                                            <div class="input-group-append">
+                                                                <select class="form-control"
+                                                                    formControlName="secondarylandareauom"
+                                                                    (change)="secondaryUom_Change($event)"
+                                                                    (change)="ChangeInput(mutationDocList,$event,i)"
+                                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauom}">
+                                                                    <option value="" ng-selected="selected">Select
+                                                                    </option>
+                                                                    <option
+                                                                        *ngFor="let secondaryuom of secondaryUomdata"
+                                                                        [value]="secondaryuom.secondarylandareauom">
+                                                                        {{secondaryuom.secondarylandareauomname}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            <span
+                                                                *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalue">
+                                                                {{PlotsLayoutsValidationErrors.secondarylandareavalue}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{mutationDocList.ptotalmutationlandareainacres}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </form>
+
+
+
+
+
+
+
+
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+                        <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                class="mr-3" />Clear</button>
+
+
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveMutationDocument()"
+                            class="btn btn-s-icon px-3 border-0">
+                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+                            {{savebutton}}
+                        </button>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

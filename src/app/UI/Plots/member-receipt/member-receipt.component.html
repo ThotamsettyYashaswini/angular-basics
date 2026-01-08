@@ -1,0 +1,231 @@
+<div class="row">
+    <div class="col-md-12 col-xl-12 mt-3">
+        <p class="bc-2">Member Receipt</p>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6 col-xl-4">
+        <div class="form-group"><label id="pDattransdate" title="Date">Date</label>
+            <input type="text" value="" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="ml-3 mb-3 rounded border pl-2 pr-2 badge-light ">
+        search by
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input" type="radio" name="instrument" id="cheque" value="cheque" checked="">
+            <label class="mt-1" for="cheque"> Permit Number </label>
+        </div>
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input " type="radio" name="instrument" id="net" value="net">
+            <label class="mt-1" for="net"> Member Name </label>
+        </div>
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input " type="radio" name="instrument" id="debit" value="debit">
+            <label class="mt-1" for="debit"> Mobile No </label>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="mt-1 mb-4 col-12 ">
+
+        <div class="rounded border p-2 pt-3 pl-3 shadow-sm bg-white ">
+            <p class="bc-2">Mode of Receipt</p>
+            <div class="form-group mt-2  pl-0">
+                <div class="form-check form-check-inline radio-btn">
+                    <input class="form-check-input" type="radio" name="pmodofreceipt" formControlName="pmodofreceipt" id="CASH" value="CASH">
+                    <label class="mt-1 w-m-100 text-center" (click)="Paymenttype('Cash')" for="CASH" checked> Cash - 9,92,77,251.7 Dr </label>
+                </div>
+                <div class="form-check form-check-inline radio-btn ">
+                    <input class="form-check-input" type="radio" name="pmodofreceipt" formControlName="pmodofreceipt" id="BANK" value="BANK">
+                    <label class="mt-1 w-m-100 text-center" (click)="Paymenttype('Bank')" for="BANK">  Bank - 2,500 Dr</label>
+                </div>
+
+
+            </div>
+
+
+            <!-- cheque-radio-toggle -->
+        </div>
+    </div>
+
+    <div class="ml-3 mb-3 rounded border pl-2 pr-2 badge-light ">
+        search by
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input" type="radio" name="instrument" id="cheque" value="cheque" checked="">
+            <label class="mt-1" for="cheque"> Permit Number </label>
+        </div>
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input " type="radio" name="instrument" id="net" value="net">
+            <label class="mt-1" for="net"> Member Name </label>
+        </div>
+        <div class="form-check form-check-inline radio-btn-secondary">
+            <input class="form-check-input " type="radio" name="instrument" id="debit" value="debit">
+            <label class="mt-1" for="debit"> Mobile No </label>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <hr>
+    <div class="col-md-6 col-xl-6 ">
+        <div class="form-group">
+            <label id="loanname" title="Select Permit Number">Permit Number</label>
+            <select class="form-control w-100 ng-touched ng-dirty ng-valid" formcontrolname="loanname" placeholder="Loan Type" autocomplete="off">
+                <option ng-selected="selected" value="">L.P.NO. 57/2011</option>
+                <option>L.P.NO. 87/2015</option>
+                <option>L.P.NO. 63/2019</option>
+            </select>
+
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-6 ">
+        <div class="form-group">
+            <label id="loanname" title="Select Plot Number">Plot Number</label>
+            <select class="form-control w-100 ng-touched ng-dirty ng-valid" formcontrolname="loanname" placeholder="Loan Type" autocomplete="off">
+                <option ng-selected="selected" value="">Select</option>
+                <option>1</option>
+                <option>2</option>
+            </select>
+
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-6 ">
+        <div class="border rounded bg-white p-2">
+            <label class="col-12 bc-2 p-0"><strong>Plot Details</strong></label>
+            <hr class="light">
+            <div class="row">
+                <label class="col-6 text-dark">Plot Area- <strong class="bc-2">0.00</strong></label>
+                <label class="col-6 text-dark">Sale Type- <strong class="bc-2">Full</strong></label>
+                <label class="col-6 text-dark">Plot Cost- <strong class="bc-2">0.00</strong></label>
+                <label class="col-6 text-dark">Registration Cost - <strong class="bc-2">0</strong></label>
+                <label class="col-12 text-dark">Net Total - <strong class="bc-2">0</strong></label>
+                <label class="col-6 text-dark">Paid Amount- <strong class="bc-2">0.00</strong></label>
+                <label class="col-6 text-dark">Balance Amount  - <strong class="bc-2">0.00</strong></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-6 ">
+        <div class="form-group"><a class="btn btn-sec mr-2" data-target="#recenttransaction" data-toggle="modal"> Recent Transactions&nbsp;&nbsp;&nbsp;</a><a class="btn btn-sec mr-2" data-target="#Loandetails" data-toggle="modal">Member Details</a><a class="btn btn-sec" data-target="#Installment"
+                data-toggle="modal">Receivables Details</a>
+
+            <a class="btn btn-sec p-2" style="margin-top: 5px;" data-target="#recenttransaction" data-toggle="modal"> Pending Cheques Info.</a></div>
+        <label class="col-6 text-dark p-0">Last Paid Date - <strong class="bc-2">31/01/2020</strong></label>
+        <label class="col-6 text-dark p-0">Last Paid Amount - <strong class="bc-2">785.30</strong></label>
+    </div>
+    <hr>
+    <div class="col-md-6 col-xl-6 ">
+        <div class="form-group">
+            <label id="loanname" title="Select Loan Type">Account Name</label>
+            <select class="form-control w-100 ng-touched ng-dirty ng-valid" formcontrolname="loanname" placeholder="Loan Type" autocomplete="off">
+            <option>Please Select</option>
+            <option selected="selected">Plot Cost</option>
+        </select>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-6 col-xl-6 ">
+        <div class="form-group">
+            <label id="loanname" title="Select Loan Type">Company Name</label>
+            <select class="form-control w-100 ng-touched ng-dirty ng-valid" formcontrolname="loanname" placeholder="Loan Type" autocomplete="off">
+            <option ng-selected="selected" value="">Nalgonda Realtors Pvt. Ltd.</option>
+            <option>kapil homes</option>
+            <option>kapil homes</option>
+        </select>
+
+        </div>
+    </div> -->
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xl-12 ">
+        <div class="border rounded p-2 bg-white  mt-2 ">
+            <h2 class="sec-head-bold">Receivables</h2>
+            <table class="table h-100 overflow-auto" id="example" style="width:100%">
+                <thead class="position-sticky position-fixed">
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Particulars</th>
+                        <th>Amount Due</th>
+                        <th>Waiver/Deduction</th>
+                        <th>Amount Received</th>
+                        <th class="text-right">Balance Due</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!---->
+                    <tr>
+                        <td>1</td>
+                        <!---->
+                        <!---->
+                        <td>Installment/Receipt Amount</td>
+                        <td class="text-right" style="width: 11%;">7,176.60</td>
+                        <td>
+                            <!----><input appdecimalwithcurrencyformat="" approundecimal="8@2" class="form-control w-75 ng-untouched ng-pristine ng-valid" style="text-align:right;" type="text"></td>
+                        <td><input appdecimalwithcurrencyformat="" approundecimal="8@2" class="form-control w-75 ng-untouched ng-pristine ng-valid" style="text-align:right;" type="text"></td>
+                        <!---->
+                        <td class="text-right">7,176.60</td>
+                        <td>
+                            <a src="">
+                                <!---->
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <!---->
+                        <!---->
+                        <td>Penalty</td>
+                        <td class="text-right" style="width: 11%;">350</td>
+                        <td>
+                            <!----><input appdecimalwithcurrencyformat="" approundecimal="8@2" class="form-control w-75 ng-untouched ng-pristine ng-valid" style="text-align:right;" type="text"></td>
+                        <td><input appdecimalwithcurrencyformat="" approundecimal="8@2" class="form-control w-75 ng-untouched ng-pristine ng-valid" style="text-align:right;" type="text"></td>
+                        <!---->
+                        <td class="text-right">350</td>
+                        <td>
+                            <a src="">
+                                <!---->
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="2"><span class="bc-2-bold"> Grand Total </span></td>
+                        <td><span class="lc-title">7,526.60</span></td>
+                        <td><span class="lc-title">0.00</span></td>
+                        <td><span class="lc-title">0.00</span></td>
+                        <td><span class="lc-title">7,526.60</span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-xl-12 ">
+        <div class="col-6 p-0 form-group mt-4"><label>Narration</label><textarea class="form-control ng-pristine ng-valid ng-touched" maxlength="150" autocomplete="off"></textarea>
+            <div class="invalid-feedback-cst">
+                <!---->
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12 col-xl-12 pr-0">
+    <div class="d-flex justify-content-end mt-4">
+        <a class="btn btn-g-icon mr-4 px-3 border-0"><img class="mr-3" height="20px" src="assets/images/icon-cancel-white.svg" width="20px">Clear</a> <button appbuttondoubleclick="" aria-controls="hot" aria-selected="false" class="btn btn-b-icon px-3 border-0 " data-toggle="tab" role="tab" autocomplete="off"><img class="mr-3" height="20px" src="assets/images/icon-check-white.svg" width="20px">Save</button></div>
+</div>

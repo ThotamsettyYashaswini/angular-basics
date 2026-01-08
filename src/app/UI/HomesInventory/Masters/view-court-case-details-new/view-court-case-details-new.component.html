@@ -1,0 +1,224 @@
+<div class="section-container">
+
+
+<div id="styling">
+    <div class="row mt-2" hidden>
+        <div class="col-md-12">
+            <div class="form-group pt-2">
+                <div class="d-flex justify-content-end" *ngIf="courtCaseData.length!=0">
+                    <a class="export-icons" (click)="pdfOrprint('Pdf')">
+                        <img src="assets/images/pdf-icon-blue.svg " title="pdf" width="18px">
+                    </a>
+
+                    <a class="export-icons" (click)="pdfOrprint('Print')"><img src="assets/images/print-icon-blue.svg "
+                            title="Print" width="18px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form [formGroup]="runningCourtForm">
+
+        <div class="card-box" >
+           
+
+    <div class="row">
+
+    <div class="col-md-3 col-xl-3">
+        <div class="form-group">
+            <label id="region" title="Region">Region</label>
+            <ng-select title="Region" [items]="getRegion" formControlName="region"
+                bindLabel="psector" bindValue="psector" placeholder="Select" [searchable]=true (change)="regionChange($event)"
+                [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                >
+            </ng-select>
+
+           
+        </div>
+    </div>
+</div>
+</div>
+</form>
+
+    <kendo-grid [kendoGridBinding]="courtCaseData" [pageSize]="pageSize" [skip]="gridState.skip"
+        [pageable]="{buttonCount: 2}" [reorderable]="true" [sortable]="true" [resizable]="true" [sort]="gridState.sort">
+        <ng-template kendoGridToolbarTemplate>
+            <div class="row mb-5" *ngIf="courtCaseData.length>0">
+                <div class="col-4 pl-0 mt-n1">
+                    <input placeholder="Search in all columns..." kendoTextBox class="form-control search-k-cst sb"
+                        (input)="onFilter($event.target.value)" />
+                </div>
+                <div class="col-7 pr-0 pl-4 ml-4">
+                    <ul class="temp-ul mt-n1 mr-n2  pull-right">
+                        <!-- <li class="temp-ico ml-2">
+                            <a kendoGridPDFCommand><img class="pt-2" src="assets/images/pdf-icon-blue.svg " title="pdf"
+                                    width="20px"></a>
+                        </li> -->
+
+                        <li class="temp-ico ml-2">
+                            <a class="export-icons" (click)="pdfOrprint('Print')"><img src="assets/images/print-icon-blue.svg "
+                                title="Print" width="18px"></a>
+                        </li>
+
+                        <li class="temp-ico ml-2">
+                            <a class="export-icons" (click)="pdfOrprint('Pdf')">
+                                <img src="assets/images/pdf-icon-blue.svg " title="pdf" width="18px">
+                            </a>
+                        </li>
+                        
+
+                        <li class="temp-ico ml-2">
+                            <a kendoGridExcelCommand><img class="pt-2" src="assets/images/icon-excel.svg " title="excel"
+                                    width="20px"></a>
+                        </li>
+                        <!-- <li class="temp-ico ml-2"><a kendoGridExcelCommand><img class="pt-2" src="assets/images/print-icon-blue.svg " title="Excel" width="20px"></a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+        </ng-template>
+
+        <kendo-grid-column field="pcaseorder" width="70" title="SL.NO." [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center">
+            <!-- <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                {{rowIndex+ 1}}
+            </ng-template> -->
+        </kendo-grid-column>
+
+        <!-- <kendo-grid-column field="psubid" width="70" title="Sub Id" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center"></kendo-grid-column> -->
+
+            <kendo-grid-column field="phearingstatus" width="120" title="Hearing Status" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center"></kendo-grid-column>
+
+            
+
+        <kendo-grid-column field="pPlaintiff" title="Plaintiff/ Appealant" [headerClass]="{'kendo-g-center': true}"
+            width="180" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="pDefendant" title="Defendant/Respondant" [headerClass]="{'kendo-g-center': true}"
+            width="180" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="pcourtname" title="Court Name" [headerClass]="{'kendo-g-center': true}" width="120"
+            class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="plbcasenumber" title="Case No." [headerClass]="{'kendo-g-center': true}" width="120"
+            class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="plbcasehearingdate" title="Filing Date" [headerClass]="{'kendo-g-center': true}"
+            width="110" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.plbcasehearingdate | date: 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="ptotallandareainacres" title="Suit Extent" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="padvocatename" title="Advocate Name" [headerClass]="{'kendo-g-center': true}"
+            width="140" class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="padvocatemobile" title="Contact No." [headerClass]="{'kendo-g-center': true}"
+            width="130" class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="padvocatemail" title="Mail-ID" [headerClass]="{'kendo-g-center': true}" width="130"
+            class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pnexthearingdate" title="Next Hearing Date" [headerClass]="{'kendo-g-center': true}"
+            width="140" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pnexthearingdate | date: 'yyyy-MM-dd'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="poutcome" title="Status" [headerClass]="{'kendo-g-center': true}" width="120"
+            class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="phearingattendedby" title="Case Persuing by" [headerClass]="{'kendo-g-center': true}"
+            width="140" class="kendo-center"></kendo-grid-column>
+
+
+        <kendo-grid-column field="pwhoiswithdiscussioninpurchaseland" title="First Represented By"
+            [headerClass]="{'kendo-g-center': true}" width="160" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="pnameofland" title="Related Site/ Venture" [headerClass]="{'kendo-g-center': true}"
+            width="160" class="kendo-center"></kendo-grid-column>
+
+
+        <kendo-grid-column field="pdocno" title="Related Documents" [headerClass]="{'kendo-g-center': true}" width="160"
+            class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="psituatedat" title="Situated At" [headerClass]="{'kendo-g-center': true}" width="160"
+            class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="psurveyno" title="Survey Nos." [headerClass]="{'kendo-g-center': true}" width="160"
+            class="kendo-center">
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pwhoiswithdiscussioninpurchaseland" title="Purchase Through"
+            [headerClass]="{'kendo-g-center': true}" width="150" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="pTypeofCaseReasonsforCaseFiling" title="Type of Case and Reasons for Case Filing"
+            [headerClass]="{'kendo-g-center': true}" width="290" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-column field="padvperformance" title="Case Order" [headerClass]="{'kendo-g-center': true}"
+            width="140" class="kendo-center"></kendo-grid-column>
+
+        <kendo-grid-pdf fileName="Court_Details_New.pdf" [allPages]="true" paperSize="A3" [repeatHeaders]="true"
+            [landscape]="true" [scale]="0.43" [landscape]="true">
+            <ng-template kendoGridPDFTemplate>
+                <div class="page-template">
+                    <div class="header bc-2 text-center">
+                        <h5 [ngClass]="{ 'bold-text': isBold }"> <b>COURT CASES LIST</b> </h5>
+                    </div>
+                </div>
+            </ng-template>
+            <kendo-grid-pdf-margin top="1cm" left="0.2cm" right="0.2cm" bottom="1cm"></kendo-grid-pdf-margin>
+
+            <!-- <kendo-grid-column field="pLandname" title="Site Name" [headerClass]="{'kendo-g-center': true}" width="120" class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="plbCaseNumber" title="Case No." [headerClass]="{'kendo-g-center': true}" width="80" class="kendo-center"></kendo-grid-column>
+           
+            <kendo-grid-column field="plbFilingDate" title="Filling Date" [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.plbFilingDate | date: 'dd-MM-yyyy'}}
+            </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="plbCaseType" title="Case Type" [headerClass]="{'kendo-g-center': true}" width="90" class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="pCourtName" title="Court Name" [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="pCourtLocation" title="Court Loc." [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+           
+            <kendo-grid-column field="pRepresentedbydocumentinland" title="Rep. By Doc No." [headerClass]="{'kendo-g-center': true}" width="140" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="plbcasehearingdate" title="Hearing Date" [headerClass]="{'kendo-g-center': true}" width="150" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.plbcasehearingdate | date: 'dd-MM-yyyy'}}
+            </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pnexthearingdate" title="Next Hearing Date" [headerClass]="{'kendo-g-center': true}" width="150" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pnexthearingdate | date: 'dd-MM-yyyy'}}
+            </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="phearing_details" title="Hearing Details" [headerClass]="{'kendo-g-center': true}" width="120" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="poutcome" title="Remarks" [headerClass]="{'kendo-g-center': true}" width="150" class="kendo-center"></kendo-grid-column> -->
+                </kendo-grid-pdf>
+
+        <kendo-grid-excel fileName="Running Court Case Details.xlsx" [fetchData]="allData">
+        </kendo-grid-excel>
+    </kendo-grid>
+</div>
+</div>
+
+<style>
+    .bold-text {
+        font-weight: bold;
+    }
+</style>

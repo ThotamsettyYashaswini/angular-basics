@@ -1,0 +1,574 @@
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+
+    </div>
+  </ng-template>
+  <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>
+
+</div>
+<div class="shadow-bg-view  p-0">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="card-box">
+        <div class="col-12 mt-2 ">
+          <div class="col-md-12 col-xl-12 mt-3">
+            <div class="section-content">
+              <form [formGroup]="layoutForm">
+                <div class="row mt-3">
+                  <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                      <label class="required-field" id="companyName" title="Company Name">Company Name</label>
+                      <ng-select [items]="companyData" formControlName="companyName" bindLabel="companyname"
+                        bindValue="companyname" [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                        dropdownPosition="bottom" [clearOnBackspace]=true (change)="companyName_Change($event)">
+                      </ng-select>
+
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                      <label class="required-field" id="villageName" title="Village Name">Village
+                        Name</label>
+                      <ng-select [items]="villageList" formControlName="villageName" bindLabel="cityvillage"
+                        bindValue="cityvillage" [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                        dropdownPosition="bottom" [clearOnBackspace]=true (change)="villageName_Change($event)">
+                      </ng-select>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                      <label class="required-field" id="documentno" title="Document No">Document
+                        No.</label>
+                      <ng-select [items]="documentList" formControlName="documentno" bindLabel="pdocumentno"
+                        bindValue="pdocumentno" [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                        dropdownPosition="bottom" [clearOnBackspace]=true (change)="documentNo_Change($event)">
+                      </ng-select>
+
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                      <label class="required-field" id="surveyNo" title="Survey
+                                                No.">Survey
+                        No.</label>
+                      <ng-select [items]="surveyNoList" formControlName="surveyNo" bindLabel="psurveyno"
+                        bindValue="psurveyno" [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                        dropdownPosition="bottom" [clearOnBackspace]=true (change)="surveyNo_Change($event)">
+                      </ng-select>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="d-flex justify-content-end mt-4 mb-4">
+                      <div class="form-group mt-4">
+                        <a aria-controls="hot" aria-selected="false" class="btn btn-b-icon px-3 border-0"
+                          data-toggle="tab" role="tab" (click)="getLayoutDetails()">
+                          <i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>
+                          <span *ngIf="!isLoading">
+                            <img class="mr-3" height="20px" src="assets/images/reports-white.svg" width="20px">
+                          </span> Show
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar no-pdf" style="margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-4">
+        <input placeholder="Search..." kendoTextBox class="form-control" (input)="onFilter($event.target.value)" />
+      </div>
+      <div class="col-8 text-right">
+        <a (click)="exportPDF()">
+          <img src="assets/images/pdf-icon-blue.svg" width="20" title="Download PDF" />
+        </a>
+        <a (click)="downloadExcel()">
+          <img src="assets/images/icon-excel.svg" width="20" title="Download Excel" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3" class="purchaseLand">
+    <div #pdfContent id="pdfContent">
+
+      <div class="pdf-header">
+        <h4>{{layoutForm.controls.companyName.value}}</h4>
+        <h5>{{layoutForm.controls.villageName.value}}</h5>
+        <h6>Layout Details</h6>
+      </div>
+
+      <kendo-grid [kendoGridBinding]="layoutPlotData" [pageSize]="pageSize" [pageable]="{buttonCount: 2}"
+        [reorderable]="true" [sortable]="true" [resizable]="true" [sort]="gridState.sort">
+        <ng-template kendoGridToolbarTemplate>
+          <div class="row mb-5" hidden>
+            <div class="col-4 pl-0 mt-n1">
+              <input placeholder="Search in all columns..." kendoTextBox class="form-control search-k-cst sb"
+                (input)="onFilter($event.target.value)" />
+            </div>
+            <div class="col-7 pr-0 pl-4 ml-4">
+              <ul class="temp-ul mt-n1 mr-n2  pull-right">
+                <li class="temp-ico ml-2">
+                  <a kendoGridPDFCommand><img class="pt-2" src="assets/images/pdf-icon-blue.svg " title="pdf"
+                      width="20px"></a>
+                </li>
+                <li class="temp-ico ml-2">
+                  <a (click)="downloadExcel()">
+                    <img class="pt-2" src="assets/images/icon-excel.svg" title="excel" width="20px">
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+        </ng-template>
+        <kendo-grid-column-group title="Layout Details" [headerClass]="{'kendo-g-center' : true}">
+
+          <kendo-grid-column field="plptcpdpno" title="LP / TCP / DP No." [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pproceedingno" title="Proceeding No." [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pproceedingdate" title="Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pproceedingdate}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="pissuedby" title="Issued By" [headerClass]="{'kendo-g-center': true}" width="100"
+            class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="playoutname" title="Layout Name" [headerClass]="{'kendo-g-center': true}"
+            width="100" class="kendo-center"></kendo-grid-column>
+
+
+          <kendo-grid-column field="land_area_in_acres_total" title="Land Area" [headerClass]="{'kendo-g-center': true}"
+            width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="land_area_in_sqys_total" title="Land Area(sq.yds)"
+            [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.land_area_in_sqys_total | mycurrencypipe}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="primaryLandareaValueNetPlotArea" title="Net Land Area"
+            [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="secondarylandareavalueNetPlotArea" title="Net Land Area(sq.yds)"
+            [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.secondarylandareavalueNetPlotArea | mycurrencypipe}}
+            </ng-template>
+          </kendo-grid-column>
+
+
+
+
+          <kendo-grid-column field="totalarea" title="View Layout Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120" *ngIf="!isExporting">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData(dataItem)" class="text-primary">View Doc</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column>
+
+
+          <kendo-grid-column field="totalarea" title="View Deed Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120" *ngIf="!isExporting">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData1(dataItem)" class="text-primary">View Doc Deed</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column>
+
+
+
+        </kendo-grid-column-group>
+
+        <!-- 23-10-24 -->
+
+        <ng-template kendoGridDetailTemplate let-dataItem>
+
+          <kendo-grid [data]="dataItem.layoutDetailslist">
+
+
+
+            <kendo-grid-column field="pdocumentno" title="Document No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+
+
+
+            <!-- <kendo-grid-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+
+              <kendo-grid-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center">
+               <ng-template kendoGridCellTemplate let-dataItem>
+                                        <ng-container *ngIf="splitSurveyNo(dataItem.psurveyno) as parts">
+                                            <ng-container *ngFor="let part of parts; let i = index">
+                                                <ng-container *ngFor="let char of part">
+                                                    <span class="a"
+                                                        [ngStyle]="{'font-family': isTeluguChar(char) ? 'NotoSansTelugu' : 'Roboto','font-size': '12px'}">
+                                                        {{ char }}
+                                                    </span>
+                                                </ng-container>
+                                                <span *ngIf="i < parts.length - 1">/</span>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="ptotallandareainacres" title="Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="ptotallandareainsqyds" title="Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.ptotallandareainsqyds | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+
+
+
+
+
+
+
+
+          </kendo-grid>
+
+        </ng-template>
+
+        <kendo-grid-pdf fileName="Layout_Details.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+          [landscape]="true" [scale]="0.4" [landscape]="true">
+          <ng-template kendoGridPDFTemplate>
+            <div class="page-template">
+              <div class="header bc-2 text-center">
+                <h5> Layout Details </h5>
+              </div>
+            </div>
+          </ng-template>
+          <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+
+          <kendo-grid-column-group title="Layout Details" [headerClass]="{'kendo-g-center' : true}">
+
+            <kendo-grid-column field="plptcpdpno" title="LP / TCP / DP No." [headerClass]="{'kendo-g-center': true}"
+              width="120" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pproceedingno" title="Proceeding No." [headerClass]="{'kendo-g-center': true}"
+              width="120" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pproceedingdate" title="Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+              width="120" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pproceedingdate}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pissuedby" title="Issued By" [headerClass]="{'kendo-g-center': true}" width="100"
+              class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="playoutname" title="Layout Name" [headerClass]="{'kendo-g-center': true}"
+              width="100" class="kendo-center"></kendo-grid-column>
+
+
+            <kendo-grid-column field="land_area_in_acres_total" title="Land Area"
+              [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="land_area_in_sqys_total" title="Land Area(sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.land_area_in_sqys_total | mycurrencypipe}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="primaryLandareaValueNetPlotArea" title="Net Land Area"
+              [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="secondarylandareavalueNetPlotArea" title="Net Land Area(sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="roadarea" title="Road Area" [headerClass]="{'kendo-g-center': true}" width="70"
+              class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="parkarea" title="Park Area" [headerClass]="{'kendo-g-center': true}" width="70"
+              class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="roadsaffectedarea" title="Road Affected Area"
+              [headerClass]="{'kendo-g-center': true}" width="70" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="othersarea" title="Others Area" [headerClass]="{'kendo-g-center': true}"
+              width="70" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="total_extra_land_area_inacres" title="Total Extra Area"
+              [headerClass]="{'kendo-g-center': true}" width="70" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="total_extra_land_area_insqyds" title="Total Extra Area(sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" width="70" class="kendo-center"></kendo-grid-column>
+
+
+
+
+
+
+          </kendo-grid-column-group>
+
+          <!-- 23-10-24 -->
+
+          <ng-template kendoGridDetailTemplate let-dataItem>
+
+            <kendo-grid [data]="dataItem.layoutDetailslist">
+
+
+
+              <kendo-grid-column field="pdocumentno" title="Document No." [headerClass]="{'kendo-g-center': true}"
+                class="kendo-center"></kendo-grid-column>
+
+
+
+              <kendo-grid-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+                class="kendo-center"></kendo-grid-column>
+
+
+            </kendo-grid>
+
+          </ng-template>
+
+        </kendo-grid-pdf>
+      </kendo-grid>
+    </div>
+  </div>
+</div>
+<!--  -->
+
+<!-- MODAL OPEN -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadVehicleDocs"
+  [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+  <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+
+    <div class="modal-xl modal-content">
+      <div class="modal-header">
+        <div class="col-12">
+          <h3 class="bc-2">View File Details</h3>
+
+        </div>
+
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="body">
+        <div class="col-md-12 col-xl-12">
+          <div>
+            <!-- <div *ngIf="filetypeDocs !='pdf' &&  filetypeDocs !='PDF'"> -->
+
+            <!-- <div *ngFor="let data of fileNameDocs"> -->
+
+            <div *ngIf="extension !='PDF'">
+
+
+
+              <hr>
+              <div class="card-box">
+
+                <h4>{{pfilename}}</h4>
+
+
+              </div>
+              <div class="over-box">
+
+                <img [src]="path+fileDownload" alt="img" class="image img-fluid">
+
+                <div class="overlay">
+                  <div class="text" (click)="downloadimgData(pfilename)">Download <i class="fa fa-download"></i></div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <div>
+              <div *ngIf="extension =='PDF'">
+                <hr>
+                <div class="card-box">
+                  <!-- <h4>{{data.documentfilename}}</h4> -->
+                  <h4>{{pfilename}}</h4>
+
+                </div>
+                <div class="over-box">
+                  <img src="assets/images/Sample PDF.png" alt="" class="image">
+                  <div class="overlay">
+                    <div class="text" (click)="downloadimgData(pfilename)">Download <i class="fa fa-download"></i></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+<!--  -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadTypeOfDeed"
+  [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+  <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+
+    <div class="modal-xl modal-content">
+      <div class="modal-header">
+        <div class="col-12">
+          <h3 class="bc-2">View File Details</h3>
+
+        </div>
+
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="body">
+        <div class="col-md-12 col-xl-12">
+          <div>
+            <!-- <div *ngIf="filetypeDocs !='pdf' &&  filetypeDocs !='PDF'"> -->
+
+            <!-- <div *ngFor="let data of fileNameDocs"> -->
+
+            <div *ngIf="extension !='PDF'">
+
+
+
+              <hr>
+              <div class="card-box">
+
+                <h4>{{pfilenameTypeOfDeed}}</h4>
+
+
+              </div>
+              <div class="over-box">
+
+                <img [src]="path+fileDownload" alt="img" class="image img-fluid">
+
+                <div class="overlay">
+                  <div class="text" (click)="downloadimgData1(pfilenameTypeOfDeed)">Download <i
+                      class="fa fa-download"></i></div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <div>
+              <div *ngIf="extension =='PDF'">
+                <hr>
+                <div class="card-box">
+                  <!-- <h4>{{data.documentfilename}}</h4> -->
+                  <h4>{{pfilenameTypeOfDeed}}</h4>
+
+                </div>
+                <div class="over-box">
+                  <img src="assets/images/Sample PDF.png" alt="" class="image">
+                  <div class="overlay">
+                    <div class="text" (click)="downloadimgData1(pfilenameTypeOfDeed)">Download <i
+                        class="fa fa-download"></i></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<style>
+  .over-box {
+    position: relative;
+    width: 50%;
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: hsla(197, 93%, 5%, 0.422);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: .3s ease;
+    transition: .3s ease;
+  }
+
+  .over-box:hover .overlay {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    cursor: pointer;
+  }
+</style>

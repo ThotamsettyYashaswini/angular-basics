@@ -1,0 +1,76 @@
+<div class="shadow-bg-view  p-0">
+    <div class="row py-1">
+        <div class="col d-flex flex-wrap align-items-center">
+            <a routerLink='/CadreCommission' class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-2" />New</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card-box">
+                <div class="col-12 mt-2 ">
+                    <h2 class="sec-head">Cadre Details</h2>
+
+                    <div class="col-md-12 col-xl-12 mt-3">
+
+
+                    
+
+                        <kendo-grid [kendoGridBinding]="cadreCommissionDetails" [groupable]="false"
+                        [reorderable]="true" [sortable]="true" [group]="groups" [pageSize]="10" [pageable]="true">
+
+              <kendo-grid-column field="pprojectname" title="Layout Name" [hidden]="true">
+              </kendo-grid-column>
+
+              <kendo-grid-column field="pcadrename" title="Cadre Name" showSelectAll="true">
+               
+              </kendo-grid-column>
+              <kendo-grid-column title="Cadre Commission Depends On UOM" field="piscadreapplicableonuom">
+                    <ng-template kendoGridCellTemplate let-dataItem="dataItem" let-rowIndex="rowIndex">
+                            <span *ngIf="dataItem.piscadreapplicableonuom==true" class="done"></span>
+                            <span *ngIf="dataItem.piscadreapplicableonuom==false" class="notdone"></span>
+                    </ng-template>
+
+              </kendo-grid-column>
+
+
+              <kendo-grid-column field="pcadrevaluefixedpercentage" title="Charge Type"></kendo-grid-column>
+
+              <kendo-grid-column field="pcadrevalue" title="Cadre Commission Value">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                            <span *ngIf="dataItem.pcadrevaluefixedpercentage=='Fixed'">{{dataItem.pcadrevalue | currencypipewithdecimal}}</span>
+                            <span *ngIf="dataItem.pcadrevaluefixedpercentage=='Percentage'">{{dataItem.pcadrevalue}}%</span>    
+                    </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="pcadre_order_id" title="Cadre Order Id"></kendo-grid-column>
+              <kendo-grid-column field="punitofmeasure_name" title="UOM"></kendo-grid-column>
+
+              <!-- <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                <div id="icon-edit" (click)="editLayout($event, row, rowIndex)"></div>
+              
+            </ng-template> -->
+
+            <!-- <kendo-grid-column >
+                <ng-template kendoGridCellTemplate let-dataItem="dataItem" let-rowIndex="rowIndex">
+                       
+                        <div id="icon-edit" (click)="editLayout($event, dataItem, rowIndex)"></div>
+                </ng-template>
+          </kendo-grid-column> -->
+             
+
+            </kendo-grid>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        
+    </div>
+</div>

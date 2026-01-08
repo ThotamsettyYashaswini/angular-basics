@@ -1,0 +1,1269 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Layout Details</span>
+
+                    <span class="pull-right"><a routerLink='/LayoutDetailsView'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+                <form [formGroup]="layoutDetailsForm">
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="lptcpdpNo" title="LP / TCP / DP No.">LP / TCP / DP
+                                        No.</label>
+                                    <input class="form-control" type="text" formControlName="lptcpdpNo"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.lptcpdpNo}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.lptcpdpNo">{{PlotsLayoutsValidationErrors.lptcpdpNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label class="required-field" id="proceedingNo" title="Proceeding No.">Proceeding
+                                        No.</label>
+
+                                    <input class="form-control" type="text" formControlName="proceedingNo"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.proceedingNo}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.proceedingNo">{{PlotsLayoutsValidationErrors.proceedingNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label class="required-field" id="proceedingDate" title="Proceeding Date">Proceeding
+                                        Date</label>
+
+                                    <input class="form-control" readonly type="text"
+                                        [bsConfig]="ProjectLaunchdateConfig" bsDatepicker
+                                        formControlName="proceedingDate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.proceedingDate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.proceedingDate">{{PlotsLayoutsValidationErrors.proceedingDate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="issuedBy" title="Issued By">Issued By</label>
+                                    <input class="form-control" type="text" formControlName="issuedBy"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.issuedBy}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.issuedBy">{{PlotsLayoutsValidationErrors.issuedBy}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="layoutName" title="Layout Name">Layout
+                                        Name</label>
+                                    <input class="form-control" type="text" formControlName="layoutName"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.layoutName}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.layoutName">{{PlotsLayoutsValidationErrors.layoutName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="layoutLocation" title="Layout Location">Layout
+                                        Location</label>
+                                    <input class="form-control" type="text" formControlName="layoutLocation"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.layoutLocation}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors.layoutLocation">{{PlotsLayoutsValidationErrors?.layoutLocation}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="layoutUrl" title="Layout URL">Layout
+                                        URL</label>
+                                    <input class="form-control" type="text" formControlName="layoutUrl"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.layoutUrl}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors.layoutUrl">{{PlotsLayoutsValidationErrors?.layoutUrl}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form [formGroup]="layoutDetailsAddToGridForm">
+
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label class="required-field" id="documentNo" title="Document No.">Document
+                                        No.</label>
+                                    <ng-select title="Document No." [items]="documentData" formControlName="documentNo"
+                                        bindLabel="pregistereddocument" bindValue="pregistereddocument"
+                                        placeholder="Select" [searchable]=true [clearable]=true
+                                        dropdownPosition="bottom" [clearOnBackspace]=true
+                                        (change)="documentNoChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.documentNo}">
+                                    </ng-select>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.documentNo">{{PlotsLayoutsValidationErrors.documentNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label class="required-field" id="surveyNo" title="Survey No.">Survey No.</label>
+                                    <ng-select title="Survey No." [items]="surveyData" formControlName="surveyNo"
+                                        bindLabel="psurveyno" bindValue="psurveyno" placeholder="Select"
+                                        [searchable]=true (change)="surveyNoChange($event)" [clearable]=true
+                                        dropdownPosition="bottom" [clearOnBackspace]=true
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                    </ng-select>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.surveyNo">{{PlotsLayoutsValidationErrors.surveyNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label id="extent" title="Extent">Extent</label>
+                                    <input class="form-control" type="text" formControlName="extent" readonly>
+                                    
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-2 col-xl-2">
+                                <div class="form-group">
+                                    <label id="totalExtent" title="Total Extent">Total
+                                        Extent In Square Yards</label>
+                                    <p style="margin-left: 60px;"><b>{{totalExtentInSquareYards | mycurrencypipe}}</b>
+                                    </p>
+                                    <!-- <input type="text" class="form-control" formControlName="totalExtent" readonly> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-xl-2">
+                                <div class="form-group">
+                                    <label id="totalExtent" title="Total Extent">Total
+                                        Extent In Acres</label>
+                                    <p style="margin-left: 46px;" *ngIf="totalExtentInAcres == 0">
+                                        <b>{{totalExtentInAcres}}</b></p>
+                                    <p *ngIf="totalExtentInAcres != 0"><b>{{totalExtentInAcres}}</b></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+
+                                    <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                        aria-controls="hot" aria-selected="false" (click)="addDetailsToGrid()"><img
+                                            src="assets/images/icon-add-brown.svg" class="mr-3" width="20px"
+                                            height="20px">Add </a>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </form>
+                <form [formGroup]="layoutDetailsForm">
+                    <div class="card-box mt-2 mb-3">
+                        <div class="row mt-4">
+                            <div class="col-md-12 col-xl-12 asset-kendo">
+                                <kendo-grid [data]="layoutDetailslist" [reorderable]="true" [resizable]="true"
+                                    [sortable]="true" width="100%" class="lendoAlign">
+
+
+                                    <kendo-grid-column field="SNo" width="60" title="S.No"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                            {{rowIndex+ 1}}
+                                        </ng-template>
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="pdocumentno" title="Document No." width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="psurveyno" title="Survey No." width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="pextentpsecondarylandarea" title="Extent In Sq.Yds"
+                                        width="100" [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        <ng-template kendoGridFooterTemplate>
+                                            <p class="bc-2 text-center" style="margin-right: 42px;"> Total :
+                                                {{totalExtentArea | mycurrencypipe}} Square Yards</p>
+
+                                            <p class="bc-2 text-center" style="margin-right: 42px;"> Total :
+                                                {{totalExtentAreaInACres | mycurrencypipe}}</p>
+
+
+                                        </ng-template>
+                                    </kendo-grid-column>
+
+
+                                </kendo-grid>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                        <!-- <div class="row mt-3 justify-content-end">
+                            
+                    
+                            <div class="col-md-6 col-xl-4">
+                              <label id="pTotalpaymentamount" class="text-dark pl-4">Total : </label>
+                              <label><strong class="bc-2 pl-2">
+                    {{totalExtentArea}}</strong></label>
+                              
+                          </div>
+                        </div> -->
+
+
+                        <!-- <div class="row mt-3"> -->
+                            <!-- <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="required-field" id="roads" title="Roads">Roads</label>
+                                    </div>
+                                        <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label id="primaryLandareaValueRoads" title="Land Area">Land Area</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text"
+                                                    formControlName="primaryLandareaValueRoads" appNumbersonly
+                                                    maxlength="2" (blur)="totalLandCalc()"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueRoads}">
+                                                <label id="primarylandareauomRoads" title="Land Uom" hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+                                                    <select class="form-control" disabled
+                                                        formControlName="primarylandareauomRoads"
+                                                        (change)="primaryUom_Change($event)"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomRoads}">
+                                                        <option *ngFor="let Primaryauom of primaryUomdata"
+                                                            [value]="Primaryauom.primarylandareauom" selected="true">
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="invalid-feedback">
+                                                <span
+                                                    *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueRoads">{{PlotsLayoutsValidationErrors.primaryLandareaValueRoads}}</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label id="secondarylandareavalueRoads" title="Land Area"></label>
+                                            <div class="input-group mt-1">
+                                                <input class="form-control w-50 pull-right" type="text"
+                                                    formControlName="secondarylandareavalueRoads"
+                                                    (keyup)="SecoundaryvaluechangeRoads()" appRoundecimal="4@3"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueRoads}"
+                                                    (blur)="totalLandCalc()">
+                                                <label id="secondarylandareauomRoads" title="Land Uom"
+                                                    hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+                                                    <select class="form-control"
+                                                        formControlName="secondarylandareauomRoads"
+                                                        (change)="secondaryUom_ChangeRoads($event)"
+                                                        (blur)="totalLandCalc()"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomRoads}">
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                            [value]="secondaryuom.secondarylandareauom">
+                                                            {{secondaryuom.secondarylandareauomname}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span
+                                                    *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueRoads">{{PlotsLayoutsValidationErrors.secondarylandareavalueRoads}}</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="card-box mt-2 mb-3">
+
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <div class="border p-2">
+                                            <div class="form-check">
+                                                <label class="form-check-label" id="Vehicle" title="IsVehicle">
+                                                    <!-- <input type="checkbox" class="form-check-input h-auto" value=""
+                                                    (change)="checkVehicle($event)" [checked]="vehicleShow"> -->
+                                                    Entry in Square Yards
+                                                </label>
+                                            </div>
+                
+                                            <div class="row mt-2">
+                                                <div class="form-group">
+                                                    <div class="form-check radio-btn form-check-inline   " style="margin-left: 60px;">
+                                                        <input class="form-check-input " type="radio" name="inlineRadioOptions1"
+                                                            id="inlineRadio2" value="designation" (click)="entryYes()">
+                                                        <label class="mt-1" for="inlineRadio2">Yes</label>
+                                                    </div>
+                                                    <div class="form-check radio-btn form-check-inline ">
+                                                        <input class="form-check-input radio-btn" type="radio"
+                                                            name="inlineRadioOptions1" id="inlineRadio3" value="others"
+                                                            (click)="entryNo()" checked>
+                                                        <label class="mt-1" for="inlineRadio3">No</label>
+                                                    </div>
+                
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                
+                                    </div>
+                                </div>
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3" *ngIf="entryEnable">
+                                            <label class="required-field" id="roads" title="Roads">Roads</label>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="entryEnable == false">
+                                            <label class="required-field" id="roads" title="Roads">Roads</label>
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable">
+                                            <label  id="others" title="Area In Sq.yds">Area In Sq.yds</label>
+                                            <input class="form-control" type="text" formControlName="roadAreaInSqyds" style="text-align: right;" (blur)="calculationsAreaInsq()">
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValueRoads" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValueRoads"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueRoads}">
+                                                    <label id="primarylandareauomRoads" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomRoads"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomRoads}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueRoads">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValueRoads}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalueRoads" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavalueRoads"
+                                                           (keyup)="SecoundaryvaluechangeRoads()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueRoads}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomRoads" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomRoads"
+                                                                (change)="secondaryUom_ChangeRoads($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomRoads}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueRoads">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavalueRoads}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3" *ngIf="entryEnable">
+                                            <label class="required-field" id="park" title="Park">Park</label>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="entryEnable ==false">
+                                            <label class="required-field" id="park" title="Park">Park</label>
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable == true">
+                                            <label  id="others" title="Area In Sq.yds">Area In Sq.yds</label>
+                                            <input class="form-control" type="text" formControlName="parkAreaInSqyds" style="text-align: right;" (blur)="calculationsAreaInsq()">
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValuePark" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValuePark"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValuePark}">
+                                                    <label id="primarylandareauomPark" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomPark"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomPark}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValuePark">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValuePark}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavaluePark" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavaluePark"
+                                                           (keyup)="SecoundaryvaluechangePark()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavaluePark}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomPark" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomPark"
+                                                                (change)="secondaryUom_ChangePark($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomPark}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavaluePark">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavaluePark}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <!-- <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="required-field" id="park" title="Park">Park</label>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        
+
+                                        <div class="form-group">
+                                            <label id="primaryLandareaValuePark" title="Land Area">Land Area</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text"
+                                                    formControlName="primaryLandareaValuePark" appNumbersonly
+                                                    maxlength="2" (blur)="totalLandCalc()"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValuePark}">
+                                                <label id="primarylandareauomPark" title="Land Uom" hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+                                                    <select class="form-control" disabled
+                                                        formControlName="primarylandareauomPark"
+                                                        (change)="primaryUom_Change($event)"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomPark}">
+                                                        <option *ngFor="let Primaryauom of primaryUomdata"
+                                                            [value]="Primaryauom.primarylandareauom" selected="true">
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="invalid-feedback">
+                                                <span
+                                                    *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValuePark">{{PlotsLayoutsValidationErrors.primaryLandareaValuePark}}</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label id="secondarylandareavaluePark" title="Land Area"></label>
+                                            <div class="input-group mt-1">
+                                                <input class="form-control w-50 pull-right" type="text"
+                                                    formControlName="secondarylandareavaluePark"
+                                                    (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavaluePark}"
+                                                    (blur)="totalLandCalc()">
+                                                <label id="secondarylandareauom" title="Land Uom" hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+                                                    <select class="form-control"
+                                                        formControlName="secondarylandareauomPark"
+                                                        (change)="secondaryUom_Change($event)" (blur)="totalLandCalc()"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomPark}">
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                            [value]="secondaryuom.secondarylandareauom">
+                                                            {{secondaryuom.secondarylandareauomname}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span
+                                                    *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavaluePark">{{PlotsLayoutsValidationErrors.secondarylandareavaluePark}}</span>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3" *ngIf="entryEnable">
+                                            <label class="required-field" id="Road Affected" title="Road Affected">Road Affected</label>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="entryEnable ==false">
+                                            <label class="required-field" id="Road Affected" title="Road Affected">Road Affected</label>
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable == true">
+                                            <label  id="others" title="Area In Sq.yds">Area In Sq.yds</label>
+                                            <input class="form-control" type="text" formControlName="roadAffectedAreaInSqyds" style="text-align: right;" (blur)="calculationsAreaInsq()">
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValueRoadAffected" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValueRoadAffected"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueRoadAffected}">
+                                                    <label id="primarylandareauomRoadAffected" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomRoadAffected"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomRoadAffected}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueRoadAffected">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValueRoadAffected}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalueRoadAffected" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavalueRoadAffected"
+                                                           (keyup)="SecoundaryvaluechangeRoadAffected()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueRoadAffected}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomRoadAffected" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomRoadAffected"
+                                                                (change)="secondaryUom_ChangeRoadAffected($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomRoadAffected}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueRoadAffected">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavalueRoadAffected}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="col-md-12">
+                                <div class="col-md-4 col-xl-4">
+                                    <label class="required-field" id="roadAffected" title="Road Affected">Road Affected
+                                       </label>
+                                </div>
+
+                                <div class="col-md-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label id="primaryLandareaValueRoadAffected" title="Land Area">Land Area</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text"
+                                                formControlName="primaryLandareaValueRoadAffected" appNumbersonly
+                                                maxlength="2" (blur)="totalLandCalc()"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueRoadAffected}">
+                                            <label id="primarylandareauomRoadAffected" title="Land Uom"
+                                                hidden="true">Land
+                                                Uom</label>
+                                            <div class="input-group-append">
+                                                <select class="form-control" disabled
+                                                    formControlName="primarylandareauomRoadAffected"
+                                                    (change)="primaryUom_Change($event)"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomRoadAffected}">
+                                                    <option *ngFor="let Primaryauom of primaryUomdata"
+                                                        [value]="Primaryauom.primarylandareauom" selected="true">
+                                                        {{Primaryauom.primarylandareauomname}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="invalid-feedback">
+                                            <span
+                                                *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueRoadAffected">{{PlotsLayoutsValidationErrors.primaryLandareaValueRoadAffected}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label id="secondarylandareavalueRoadAffected" title="Land Area"></label>
+                                        <div class="input-group mt-1">
+                                            <input class="form-control w-50 pull-right" type="text"
+                                                formControlName="secondarylandareavalueRoadsAffected"
+                                                (keyup)="SecoundaryvaluechangeRoadAffected()" appRoundecimal="4@3"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueRoadAffected}"
+                                                (blur)="totalLandCalc()">
+                                            <label id="secondarylandareauomRoadAffected" title="Land Uom"
+                                                hidden="true">Land
+                                                Uom</label>
+                                            <div class="input-group-append">
+                                                <select class="form-control"
+                                                    formControlName="secondarylandareauomRoadAffected"
+                                                    (change)="secondaryUom_ChangeRoadAffected($event)"
+                                                    (blur)="totalLandCalc()"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomRoadAffected}">
+                                                    <option value="" ng-selected="selected">Select</option>
+                                                    <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                        [value]="secondaryuom.secondarylandareauom">
+                                                        {{secondaryuom.secondarylandareauomname}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <span
+                                                *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueRoadAffected">{{PlotsLayoutsValidationErrors.secondarylandareavalueRoadAffected}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-1" *ngIf="entryEnable">
+                                            <label class="required-field" id="Others" title="Others">Others</label>
+                                        </div>
+
+                                        <div class="col-md-2" *ngIf="entryEnable">
+                                            <label  id="others" title="description">Description</label>
+                                            <input class="form-control" type="text" formControlName="description">
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable ==false">
+                                            <label class="required-field" id="Others" title="Others">Others</label>
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable ==false">
+                                            <label  id="others" title="description">Description</label>
+                                            <input class="form-control" type="text" formControlName="description">
+                                        </div>
+
+                                        <div class="col-md-3" *ngIf="entryEnable == true">
+                                            <label  id="others" title="Area In Sq.yds">Area In Sq.yds</label>
+                                            <input class="form-control" type="text" formControlName="othersAreaInSqyds" style="text-align: right;" (blur)="calculationsAreaInsq()">
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValueOthers" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValueOthers"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueOthers}">
+                                                    <label id="primarylandareauomOthers" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomOthers"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomOthers}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueOthers">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValueOthers}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="entryEnable == false">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalueOthers" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavalueOthers"
+                                                           (keyup)="SecoundaryvaluechangeOthers()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueOthers}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomOthers" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomOthers"
+                                                                (change)="secondaryUom_ChangeOthers($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomOthers}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueOthers">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavalueOthers}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-12 col-xl-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label class="required-field" id="others" title="Others">Others</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="text" formControlName="description">
+                                    </div>
+                                    <div class="col-sm-6">
+                                      
+
+
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="form-group">
+                                                    <label id="primaryLandareaValueOthers" title="Land Area">Land Area</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text"
+                                                            formControlName="primaryLandareaValueOthers" appNumbersonly
+                                                            maxlength="2" (blur)="totalLandCalc()"
+                                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueOthers}">
+                                                        <label id="primarylandareauomOthers" title="Land Uom"
+                                                            hidden="true">Land
+                                                            Uom</label>
+                                                        <div class="input-group-append">
+                                                            <select class="form-control" disabled
+                                                                formControlName="primarylandareauomOthers"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomOthers}">
+                                                                <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                    {{Primaryauom.primarylandareauomname}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="invalid-feedback">
+                                                        <span
+                                                            *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueOthers">{{PlotsLayoutsValidationErrors.primaryLandareaValueOthers}}</span>
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+            
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="form-group">
+                                                    <label id="secondarylandareavalueOthers" title="Land Area"></label>
+                                                    <div class="input-group mt-1">
+                                                        <input class="form-control w-50 pull-right" type="text"
+                                                            formControlName="secondarylandareavalueRoadsAffected"
+                                                            (keyup)="SecoundaryvaluechangeOthers()" appRoundecimal="4@3"
+                                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueOthers}"
+                                                            (blur)="totalLandCalc()">
+                                                        <label id="secondarylandareauomOthers" title="Land Uom"
+                                                            hidden="true">Land
+                                                            Uom</label>
+                                                        <div class="input-group-append">
+                                                            <select class="form-control"
+                                                                formControlName="secondarylandareauomOthers"
+                                                                (change)="secondaryUom_ChangeOthers($event)"
+                                                                (blur)="totalLandCalc()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomOthers}">
+                                                                <option value="" ng-selected="selected">Select</option>
+                                                                <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                    {{secondaryuom.secondarylandareauomname}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span
+                                                            *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueOthers">{{PlotsLayoutsValidationErrors.secondarylandareavalueOthers}}</span>
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="required-field" id="primaryLandareaValueNetPlotArea" title="Net Plot Area">Net Plot Area</label>
+                                        </div>
+                            
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValueNetPlotArea" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValueNetPlotArea"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueNetPlotArea}">
+                                                    <label id="primarylandareauomNetPlotArea" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomNetPlotArea"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomNetPlotArea}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueNetPlotArea">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValueNetPlotArea}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalueNetPlotArea" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavalueNetPlotArea"
+                                                           (keyup)="SecoundaryvaluechangeNetPlotArea()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueNetPlotArea}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomNetPlotArea" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomNetPlotArea"
+                                                                (change)="secondaryUom_ChangeNetPlotArea($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomNetPlotArea}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueNetPlotArea">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavalueNetPlotArea}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            
+
+                            <!-- <div class="col-md-12 col-xl-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="required-field" id="deedNo" title="Site Deed No.">Site Deed
+                                            No.</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control w-50 pull-right" type="text"
+                                            formControlName="deedNo">
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!--  -->
+                            <div class="col-md-12 col-xl-12" hidden>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="required-field" id="park" title="Park">Future Development Owner's Land</label>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label  id="others" title="Area In Sq.yds">Area In Sq.yds</label>
+                                            <input class="form-control" type="text" formControlName="futureDevelopmentAreaInSqyds" style="text-align: right;" (blur)="calculationsAreaInsq()">
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="layoutDetailsForm.controls.futureDevelopmentAreaInSqyds.value == '' ">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValuefutureDevelopment" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValuefutureDevelopment"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValuefutureDevelopment}">
+                                                    <label id="primarylandareauomfutureDevelopment" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomfutureDevelopment"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomfutureDevelopment}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValuefutureDevelopment">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValuefutureDevelopment}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3" *ngIf="layoutDetailsForm.controls.futureDevelopmentAreaInSqyds.value == '' ">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavaluefutureDevelopment" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavaluefutureDevelopment"
+                                                           (keyup)="SecoundaryvaluechangefutureDevelopment()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavaluefutureDevelopment}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomfutureDevelopment" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomfutureDevelopment"
+                                                                (change)="secondaryUom_ChangefutureDevelopment($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomfutureDevelopment}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavaluefutureDevelopment">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavaluefutureDevelopment}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  -->
+
+
+
+
+
+
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label class="required-field" id="typeofDeed" title="Type Of Deed">Type Of Deed</label>
+                                            <ng-select  [items]="typeofDeedList" formControlName="typeofDeed"
+                                            bindLabel="name" bindValue="name" placeholder="Select"
+                                            [searchable]=true  [clearable]=true [multiple]="false"
+                                            dropdownPosition="bottom" [clearOnBackspace]=true
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.typeofDeed}">
+                                        </ng-select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label  id="typeofDeed" title="typeofDeed">Upload Type Of Deed</label>
+
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <input #input1 type="text" class="form-control" placeholder=""
+                                                        [value]="imageResponseTypeOfDeed?.name" disabled formControlName="pDOCSTOREPATHTypeOfDeed">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput1.click()">
+                                                            <img src="assets/images/icon-upload-blue.svg" class="" width="18px"
+                                                                height="18px">
+                                                        </button>
+                                                        <!-- to uplaod the image -->
+                                                        <input id="fileInput1" style="display: none" type="file"
+                                                            (change)="saleOfDeedUpload($event,fileInput1.files)" #fileInput1>
+                                                    </div>
+                                                    <span class="text-success">
+                                                        <ng-container *ngIf="uploadSuccess"></ng-container>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValueTypeofDeed" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" formControlName="primaryLandareaValueTypeofDeed"
+                                                           appNumbersonly maxlength="2" (blur)="calculationsArea()"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueTypeofDeed}">
+                                                    <label id="primarylandareauomTypeofDeed" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled formControlName="primarylandareauomTypeofDeed"
+                                                                (change)="primaryUom_Change($event)"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomTypeofDeed}">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueTypeofDeed">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValueTypeofDeed}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalueTypeofDeed" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text" formControlName="secondarylandareavalueTypeofDeed"
+                                                           (keyup)="secoundaryvaluechangeTypeofDeed()" appRoundecimal="4@3"
+                                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueTypeofDeed}"
+                                                           (blur)="calculationsArea()">
+                                                    <label id="secondarylandareauomTypeofDeed" title="Land Uom" hidden="true">Land Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" formControlName="secondarylandareauomTypeofDeed"
+                                                                (change)="secondaryUom_ChangeTypeOfDeed($event)" (blur)="calculationsArea()"
+                                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomTypeofDeed}">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueTypeofDeed">
+                                                        {{PlotsLayoutsValidationErrors.secondarylandareavalueTypeofDeed}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="required-field" id="netArea" title="Net Plot Area">Net Plot
+                                            Area</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        
+
+                                            <label>{{netPlotAreaFor}}</label>
+                                            <label style="margin-left: 10px;">{{afterCalSqYds}}</label>
+                                            <!-- <label style="margin-left: 10px;">{{totalAreaInSquareYards}}</label> -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+
+
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+
+                                        <label id="pDOCSTOREPATH" title="Upload Layout">Upload Layout</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input #input type="text" class="form-control" placeholder=""
+                                                [value]="imageResponse?.name" disabled formControlName="pDOCSTOREPATH">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput.click()">
+                                                    <img src="assets/images/icon-upload-blue.svg" class="" width="18px"
+                                                        height="18px">
+                                                </button>
+                                                <!-- to uplaod the image -->
+                                                <input id="fileInput1" style="display: none" type="file"
+                                                    (change)="uploadAndProgress($event,fileInput.files)" #fileInput>
+                                            </div>
+                                            <span class="text-success">
+                                                <ng-container *ngIf="uploadSuccess"></ng-container>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback-cst">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors.pDOCSTOREPATH">{{PlotsLayoutsValidationErrors.pDOCSTOREPATH}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                </form>
+
+
+
+
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="clear()"
+                            class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                            <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px" height="20px"
+                                *ngIf="!disableclearbutton">
+                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                            Clear
+                        </button>
+
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveLayoutDetails()"
+                            class="btn btn-s-icon px-3 border-0">
+                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+                            {{savebutton}}
+                        </button>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

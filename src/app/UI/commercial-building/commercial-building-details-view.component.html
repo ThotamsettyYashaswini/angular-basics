@@ -1,0 +1,381 @@
+<div class="row">
+  
+
+    <style>
+        .Plots {
+            padding:2px;
+            margin: 2px;
+             /* border: 1px solid #111;  */
+            width:auto;
+            height:29px;
+            text-align: center;
+            color: #ffffff;
+            background: skyblue;
+        }
+
+        .Booked {
+            padding: 2px;
+            margin: 2px;
+            /* border: 1px solid #111; */
+            width: auto;
+            height: 29px;
+            text-align: center;
+            color: #ffffff;
+            background: green;
+        }
+
+        .Vacant {
+            padding: 2px;
+            margin: 2px;
+            /* border: 1px solid #111; */
+            width: auto;
+            height: 29px;
+            text-align: center;
+            color: #ffffff;
+            background: orange;
+        }
+    </style>
+    <div class="col-md-12 col-xl-12 p-0 mb-3 ">
+        <div class="card-box">
+                  <div class="row  mt-2">
+                        <div class="col-md-12">
+                            <div class="sec-head p-0">Project Details</div>
+                        </div>
+                    </div>
+                    <div class="row ">
+            
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group m-0">
+                                <label class="font-weight-bold">Land Name</label>
+                                <label class="w-100 text-Content">{{LandName}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group m-0">
+                                <label class="font-weight-bold">Project Type</label>
+                                <label class="w-100 text-Content ">{{ProjectType}}</label>
+                            </div>
+                        </div>
+            
+            
+                    </div>
+            
+            
+            
+                    <div class="row mt-3">
+            
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group m-0">
+                                <label class="font-weight-bold">Project Name</label>
+                                <label class="w-100 text-Content">{{ProjectName}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group m-0">
+                                <label class="font-weight-bold">No. Of Block Towers</label>
+                                <label class="w-100 text-Content  ">{{NoOfBlockTowers}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+
+            <div class="row  mt-2">
+                <div class="col-md-12">
+                    <div class="sec-head pb-0 pt-2 p-0">Tower Details</div>
+                </div>
+                </div>
+                  <div class="card-group mt-2">
+                <div class="col-4">
+                    <div class="Booked">
+                        Booked
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="Vacant">
+                        Vacant
+                    </div>
+                </div>
+               <div class="col-4">
+                    <div class="Plots">
+                        Floors(SubDivisions/Units)
+                    </div>
+                </div>
+            </div>
+                <div class="roe mt-2">
+                <div class="col-md-12 p-0">
+
+                    <div class=" p-0" *ngFor="let viewdata of commercialbuildingdatasub">
+                        <div class="card-box mb-3 mt-0">
+                            <div class="row">
+
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">Tower Name - </label>
+                                        <label class="text-Content">{{viewdata.towername}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">No. of Floors - </label>
+                                        <label class="text-Content">{{viewdata.noofFloors}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">Super Structure - </label>
+                                        <label class="text-Content">{{viewdata.superStructure}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">Sub Structure - </label>
+                                        <label class="text-Content">{{viewdata.subStructure}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                            <div class="col-md-6 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">Total Sub Divisions- </label>
+                                        <label class="text-Content">{{viewdata.subdivisioncount}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                             <div class="row mt-3">
+                                <div class="col text-center sec-head text-capitalize">Floors Sub Divisions</div>
+                                </div>
+                                <div class="row mt-2 mb-3" *ngFor="let data of viewdata.cbFloorInventoryDetailsDTO">
+                                    <div class="col Plots border" *ngIf="data.flatDetailsDTOList==''">
+                                        {{data.floornumber}} ({{data.noofsubdivisions}})
+                                    </div>
+
+                                     <div *ngIf="data.flatDetailsDTOList.length!='0'" class="col-1 Plots border">
+                                        {{data.floornumber}} ({{data.noofsubdivisions}})
+                                    </div>
+                                    <div class="col Plots border" *ngFor="let datas of data.flatDetailsDTOList" [ngStyle]="{'background-color':datas.bookingstatus === 'true' ? 'green' : 'orange' }">
+                                        {{datas.subdivisionname}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    <div class=" p-0" *ngFor="let viewdata of commercialbuildingdataunits">
+                            <div class="card-box mb-3 mt-0">
+                                <div class="row">
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Tower Name - </label>
+                                            <label class="text-Content">{{viewdata.towername}}</label>
+                                        </div>
+                                    </div>
+    
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">No. of Floors - </label>
+                                            <label class="text-Content">{{viewdata.noofFloors}}</label>
+                                        </div>
+                                    </div>
+    
+    
+                                </div>
+                                <div class="row">
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Super Structure - </label>
+                                            <label class="text-Content">{{viewdata.superStructure}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Sub Structure - </label>
+                                            <label class="text-Content">{{viewdata.subStructure}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                            <div class="col-md-6 col-xl-6">
+                                    <div class="form-group m-0">
+                                        <label class="font-weight-bold">Total Units - </label>
+                                        <label class="text-Content">{{viewdata.unitscount}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="container">
+                                 <div class="row mt-3">
+                                <div class="col text-center sec-head text-capitalize">Floors Units</div>
+                                </div>
+                                    <div class="row mt-2 mb-3" *ngFor="let data of viewdata.cbFloorInventoryDetailsDTO">
+                                        <div class="col Plots  border" *ngIf="data.flatDetailsDTOList==''">
+                                            {{data.floornumber}} ({{data.totalnoofunits}})
+                                        </div>
+    
+                                        <div *ngIf="data.flatDetailsDTOList.length!='0'" class="col-1 Plots border">
+                                            {{data.floornumber}} ({{data.totalnoofunits}})
+                                        </div>
+                                        <div class="col Plots border" *ngFor="let datas of data.flatDetailsDTOList" [ngStyle]="{'background-color':datas.bookingstatus === 'true' ? 'green' : 'orange' }">
+                                            {{datas.floorunitname}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                </div>
+                </div>
+                
+                 <div class=" p-0" *ngFor="let viewdata of commercialbuildingdataunitsempty">
+                            <div class="card-box mb-3 mt-0">
+                                <div class="row">
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Tower Name - </label>
+                                            <label class="text-Content">{{viewdata.towername}}</label>
+                                        </div>
+                                    </div>
+    
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">No. of Floors - </label>
+                                            <label class="text-Content">{{viewdata.noofFloors}}</label>
+                                        </div>
+                                    </div>
+    
+    
+                                </div>
+                                <div class="row">
+    
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Super Structure - </label>
+                                            <label class="text-Content">{{viewdata.superStructure}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xl-6">
+                                        <div class="form-group m-0">
+                                            <label class="font-weight-bold">Sub Structure - </label>
+                                            <label class="text-Content">{{viewdata.subStructure}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                <div class="row mt-3 mb-3">
+                                <div class="col text-center sec-head text-capitalize">Floors</div>
+                                </div>
+                                    <div class="row" *ngFor="let data of lstCBblocksfloorinventory">                                  
+                                        <div class="col Plots border" *ngIf="data.blockname==viewdata.towername">
+                                            {{data.floornumber}}
+                                        </div>
+                                 </div>
+                                </div>
+                            </div>
+                         
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- <div class="row">
+    <div class="card-box">
+        <div class="col-12">
+            <div class="row  mt-2">
+                <div class="col-md-12">
+                    <div class="sec-head p-0">Project Details</div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Project Name</label>
+                        <label class="w-100 text-Content">{{ProjectName}}</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Project Type</label>
+                        <label class="w-100 text-Content">{{ProjectType}}</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Land Name</label>
+                        <label class="w-100 text-Content">{{LandName}}</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>No. Of Block Towers</label>
+                        <label class="w-100 text-Content">{{NoOfBlockTowers}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-md-12 col-xl-12 p-0 ">
+        <ngx-datatable class="material expandable table" #myTable [rows]="lstCBblocksfloorinventory" [headerHeight]="60" [footerHeight]="0" [rowHeight]="50" [columnMode]="'force'" [limit]="10" [groupRowsBy]="'blockname'" [groupExpansionDefault]="true">
+
+
+            <ngx-datatable-group-header [rowHeight]="50" #myGroupHeader (toggle)="onDetailToggle($event)">
+                <ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
+                    <div style="padding-left:5px;">
+                        <p [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Group" (click)="toggleExpandGroup(group)">
+                            <b>{{group.value[0].blockname}}</b>
+                        </p>
+                    </div>
+                </ng-template>
+            </ngx-datatable-group-header>
+
+
+            <ngx-datatable-column width="150" name="Floor No." prop="floornumber" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column>
+
+
+            <ngx-datatable-column width="150" name="Floor Name" prop="floorname" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column>
+
+
+            <ngx-datatable-column width="150" name="Slab Area" prop="slabarea" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column width="150" name="Land Owner Share" prop="landownerarea" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column width="150" name="Share" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                    {{row.slabarea-row.landownerarea}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column width="150" name="No.of Sub Divisions" prop="noofsubdivisions" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+
+
+
+
+
+
+
+
+
+</div> -->

@@ -1,0 +1,83 @@
+<div class="shadow-bg-view  p-0">
+    <div class="row  py-1">
+        <div class="col d-flex flex-wrap align-items-center">
+            <a routerLink='{{New}}' class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-2" />New</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card-box">
+                <div class="col-12 mt-2 ">
+                    <h2 class="sec-head">{{title}}</h2>
+                </div>
+                <div class="col-md-12 col-xl-4 mt-3">
+                    <input (keyup)="updateFilter($event)" type="text" #search id="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" width="200">
+                </div>
+                <div class="col-md-12 col-xl-12 mt-3">
+                    <ngx-datatable class="material expandable" [rows]="CommercialResidendata" columnMode="force" [limit]="5" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarH]="true">
+                        <ngx-datatable-column width="100" [cellClass]="'cell-left'" [headerClass]="'header-left'" name="" frozenLeft="True">
+                            <!--Land Details View-->
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                <div class="position-absolute" *ngIf="row.inventoryexists==0" id="icon-edit" (click)="CommercialBuildingedit($event, row)"></div>
+
+                                <div class="position-absolute ml-5" id="icon-view" data-toggle="modal" data-target="#modal-Commercial-Building-view" (click)="CommercialBuildingDetailsView(row.buildingid)"></div>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Project Name" prop="projectname" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Launch Date" prop="launchdate" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Project Type" prop="itemtype" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="No.of blocks" prop="noofblocks" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="Project Area">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+
+                                <span *ngIf="row.primaryprojectarea!=0">
+                                        {{row.primaryprojectarea}} {{row.primaryprojectareauomname}}
+                                        </span>
+                                <span *ngIf="row.secondaryprojectarea!=0">
+                                        {{row.secondaryprojectarea}} {{row.secondaryprojectareauomname}}
+                                      </span>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column width="130" [cellClass]="'cell-center'" [headerClass]="'header-center'" name="Inventory status">
+                            <!--Land Details View-->
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                <div class="notdone" *ngIf="row.inventoryexists==0"></div>
+                                <div class="done" *ngIf="row.inventoryexists!=0"></div>
+
+
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- modal  Module-->
+    <div class="modal right animated slideInRight" id="modal-Commercial-Building-view">
+        <div class="modal-dialog modal-xl" style="width:50% !important;">
+            <div class="model-cst modal-content">
+                <!-- Modal Header -->
+                <div class="">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <app-commercial-building-details-view></app-commercial-building-details-view>
+            </div>
+        </div>
+    </div>

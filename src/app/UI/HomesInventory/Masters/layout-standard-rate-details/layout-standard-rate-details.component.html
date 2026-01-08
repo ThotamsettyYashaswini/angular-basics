@@ -1,0 +1,159 @@
+<div class="content-inner-view">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <p class="bc-2">Standard Rate Configuration</p>
+        </div>
+    </div>
+    <form [formGroup]="layoutstandardrateform">
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="itemtypeid" title="Project Type">Project Type</label>
+                    <div class="input-group">
+                        <select id="typeofproject" class="form-control" formControlName="itemtypeid" [ngClass]="{ 'is-invalid': LayoutStandardRateValidations.itemtypeid }" (change)="projecttype_Change($event)">
+                        <option value="" ng-selected="selected" disabled>Select</option>
+                        <option *ngFor="let projecttype of lstprojecttypes;trackBy: trackByFn" [value]="projecttype.itemtypeid">{{projecttype.itemtype}}</option>
+                    </select>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="LayoutStandardRateValidations?.itemtypeid">{{LayoutStandardRateValidations.itemtypeid}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="projectnames" title="Layout Name/Project Name">Layout Name/Project Name</label>
+                    <!-- <div class="input-group">      
+                            <input id="ProjectNamePlots" name="ProjectNamePlots" formControlName="projectname" placeholder="Select" class="form-control" [ngClass]="{ 'is-invalid': LayoutStandardRateValidations.projectname }" />
+                             </div> -->
+                    <ng-select [items]="lstpermintnumber" formControlName="projectnames" bindLabel="projectname" bindValue="projectname" [multiple]=false placeholder="Select" [searchable]="true" [searchFn]="customSearchFn" [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                        [ngClass]="{ 'is-invalid': LayoutStandardRateValidations.projectnames}" (change)="permitno_Change($event)">
+                        <ng-template ng-header-tmp let-item="items" let-index="index">
+                            <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid!=1"><strong>Project Name</strong> </label>
+                            <label class="col-4 p-0" *ngIf="projecttypeid==1"><strong>Permit No.</strong></label>
+                            <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid==1"><strong>Layout Name</strong> </label>
+
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <div class="row">
+                                <span class="col-4 text-dark word-break text-wrap" *ngIf="item.itemtypeid==1">{{item.permitno}}</span>
+                                <span class="col-4 text-dark" *ngIf="item.itemtypeid==1">{{item.projectname}}</span>
+
+                            </div>
+                        </ng-template>
+                    </ng-select>
+                    <div class="invalid-feedback">
+                        <span *ngIf="LayoutStandardRateValidations?.projectnames">{{LayoutStandardRateValidations.projectnames}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4 ">
+                <div class="form-group">
+                    <label id="boardmeetingno" title="Board Meeting No.">Board Meeting No.</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" formControlName="boardmeetingno" appAlphanumeric [ngClass]="{'is-invalid': LayoutStandardRateValidations.boardmeetingno}" maxlength="20">
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="LayoutStandardRateValidations?.boardmeetingno">{{LayoutStandardRateValidations.boardmeetingno}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label class="" id="boardmeetingdate" title="Board Meeting Date">Board Meeting Date</label>
+                    <input type="text" readonly class="form-control" formControlName="boardmeetingdate" placeholder="Date picker here" [bsConfig]="dpConfig" #dp="bsDatepicker" bsDatepicker placement="top" [ngClass]="{ 'is-invalid':LayoutStandardRateValidations.boardmeetingdate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span *ngIf="LayoutStandardRateValidations?.boardmeetingdate">{{LayoutStandardRateValidations.boardmeetingdate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="standardvalue" title="Standard Rate">Standard Rate</label>
+                    <div class="input-group">
+                        <input class="form-control" id="standardrate" formControlName="standardvalue" [ngClass]="{'is-invalid':LayoutStandardRateValidations.standardvalue}" appMycurrencyFormatter appMycurrencyFormatter maxlength="12" style="text-align: right;">
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="LayoutStandardRateValidations?.standardvalue">{{LayoutStandardRateValidations.standardvalue}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="primarylandareauom" title="UOM">UOM</label>
+                    <div class="input-group">
+                        <select class="form-control" (change)="UOMvalue_change($event)" formControlName="primarylandareauom" [ngClass]="{ 'is-invalid': LayoutStandardRateValidations.primarylandareauom }" disabled>
+                    <option value="" ng-selected="selected">Select</option>
+                    <option *ngFor="let UOMvalues of lstUOMvalue;trackBy: trackByFn" [value]="UOMvalues.primarylandareauom">{{UOMvalues.primarylandareauomname}}</option>
+                  </select>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="LayoutStandardRateValidations?.primarylandareauom">{{LayoutStandardRateValidations.primarylandareauom}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4   ">
+                <div class="form-group">
+                    <label class="" id="pEffectfromdate" title="Effected From Date">Effected From Date</label>
+                    <input type="text" id="effectfromdate" readonly class="form-control" formControlName="pEffectfromdate" placeholder="Date picker here" [bsConfig]="dpConfigfrom" #dp="bsDatepicker" bsDatepicker placement="top" [ngClass]="{ 'is-invalid':LayoutStandardRateValidations.pEffectfromdate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span *ngIf="LayoutStandardRateValidations?.pEffectfromdate">{{LayoutStandardRateValidations.pEffectfromdate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-6 ml-3 mb-1">
+            <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0" appButtonDoubleClick [debounceTime]="500" role="tab" aria-controls="hot" aria-selected="false" (debounceClick)="AddStandardRateDetails()"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">{{addbutton}}
+            </a>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <ngx-datatable class="material expandable table" [rows]="StandardRateDetails" [headerHeight]="50" [footerHeight]="50" [rowHeight]="auto" [selected]="selected" [limit]="5" [scrollbarH]="true">
+                    <ngx-datatable-column width="100" name="" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+                            <div class="position-absolute " id="icon-edit" (click)='OnEdit(row,rowIndex)' class="text-left justify-content-left pull-left"></div>
+                            <div *ngIf="row.priority==''" class="position-absolute ml-5" id="icon-delete" (click)='OnDelete(row,rowIndex)' class="text-left justify-content-left pull-left"></div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Layout Name/Project Name" prop="projectname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Board Meeting No." prop="boardmeetingno" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Board Meeting Date" prop="boardmeetingdate" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+
+                    </ngx-datatable-column>
+                    <ngx-datatable-column width="100" name="Standard Rate" prop="standardvalue" [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span>{{row.standardvalue | mycurrencypipe}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Effected From Date" prop="pEffectfromdate" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Effected To Date" prop="pEffecttodate" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span>{{row.pEffecttodate |date:'dd/MM/yyyy'}}</span>
+                        </ng-template>
+
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+
+            </div>
+
+        </div>
+    </form>
+    <div class="d-flex justify-content-end mt-4">
+        <a class="close" (click)="Clear()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveLayoutStandardRate()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" [disabled]="disablesavebutton"> <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton, 'fa-check': !disablesavebutton}"></i> {{savebutton}}</button>
+    </div>
+</div>

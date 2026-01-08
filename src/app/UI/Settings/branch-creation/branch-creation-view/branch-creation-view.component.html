@@ -1,0 +1,43 @@
+<div class="shadow-bg-view  p-0">
+    <div class="row py-1">
+        <div class="col d-flex flex-wrap align-items-center">
+            <a routerLink='/BranchCreation' class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-2" />New</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card-box">
+                <div class="col-12 mt-2 ">
+                    <h2 class="sec-head">Branch Details</h2>
+
+                    <div class="col-md-12 col-xl-12 mt-3">
+
+
+                        <ngx-datatable #table class="material expandable table" [rows]="branchdetails" [headerHeight]="50" [footerHeight]="50" [selected]="selected" [limit]="10">
+                            <ngx-datatable-column name="" prop="selected" [cellClass]="'cell-left'" [headerClass]="'header-left'" frozenLeft="True">
+                                <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <div id="icon-edit" (click)="editbranch($event, row, rowIndex)"></div>
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <!-- <ngx-datatable-column width="150" name="Company Code" prop="pCompanycode" [cellClass]="'cell-left'"
+                                [headerClass]="'header-left'">
+                            </ngx-datatable-column> -->
+                            <ngx-datatable-column width="150" name="Branch Name" prop="pbranchname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Branch Code" prop="pbranchcode" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Company Name" prop="pCompanyname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Contact Number" prop="pcontactnumber" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

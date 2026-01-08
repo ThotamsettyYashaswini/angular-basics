@@ -1,0 +1,105 @@
+<div class="section-container">
+    <div class="card-box">
+        <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Gender</label>
+                    <div class="mt-1">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="Male" formControlName="gender">
+                            <label class="form-check-label">Male</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="Female" formControlName="gender">
+                            <label class="form-check-label">Female</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Date of Birth</label>
+                    <input type="date" class="form-control" formControlName="dob">
+                </div>
+            </div>
+            <div class="row mb-3" *ngIf="userForm.controls['dob'].value">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Course</label>
+                    <select class="form-select" formControlName="course">
+                        <option value="">Select</option>
+                        <option *ngFor="let land of landList" [value]="land.companyname">
+                            {{ land.companyname }}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Function IDs</label>
+                <select class="form-select">
+                    <option value="">Select</option>
+                    <option *ngFor="let id of functionIds" [value]="id">
+                        {{ id }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- <div class="others">
+                <div class="col-md-6 col-xl-4 p-0">
+                    <div class="form-group">
+                        <label>Select User</label>
+                        <select class="form-select" formControlName="Usersview">
+
+                            <option value="">Select</option>
+                            <option *ngFor="let usery of userList" [value]="usery.pUserID">
+                                {{ usery.pUserID }}</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">agree</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="agree">
+                        <label class="form-check-label">I agree to the terms and conditions</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <button type="submit">Submit</button>
+
+
+
+        </form>
+        <div style="display:flex;justify-content:center;margin-top:20px">
+            <table [border]="1" cellpadding="8">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Course</th>
+                    <th>Agree</th>
+                </tr>
+
+                <tr *ngFor="let user of users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.gender}}</td>
+                    <td>{{user.dob}}</td>
+                    <td>{{user.course}}</td>
+                    <td>{{user.agree ? 'Yes' : 'No'}}</td>
+                </tr>
+            </table>
+        </div>

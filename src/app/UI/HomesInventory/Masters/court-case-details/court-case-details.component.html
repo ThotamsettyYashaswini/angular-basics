@@ -1,0 +1,531 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Court Case Details</span>
+                </div>
+
+
+
+
+
+
+                <div class="card-box plot-layout">
+                    <div class="col-md-12 col-xl-12 p-0 mt-3">
+                        <div class="col-md-12 col-xl-12  p-0 mt-3 m-0">
+                            <h2 class="sec-head">Court Case Details</h2>
+                        </div>
+                        <div class="col-md-12 col-xl-12 p-0 mt-3">
+                            <div class="form-group m-0">
+                                <label id="landpurchasetype" title="Select Land">Select Land</label>
+                            </div>
+
+                            <kendo-grid [kendoGridBinding]="Landdata">
+
+                                <kendo-grid-column title="Select" field="" class="pl-3" width="50">
+                                               <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                             <input type="radio" value=""
+                                             name="fixed" id="status{{rowIndex}}" [checked]="dataItem.selectvalue" (change)="checkSeized($event,dataItem,rowIndex)" />
+                                               </ng-template>
+                                             </kendo-grid-column> 
+
+                                    <kendo-grid-column field="nameofland"
+                                        title="Name of Land" width="150"
+                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+                                    <kendo-grid-column field="landpurchasetype" title="Purchase Type"
+                                        [headerClass]="{'kendo-g-center': true}" width="150"></kendo-grid-column>
+
+                                        <kendo-grid-column field="purchasedate" title="Date of Purchase"
+                                        [headerClass]="{'kendo-g-center': true}" width="150"></kendo-grid-column>
+
+                                        <kendo-grid-column field="primaryLandareaValue" title="Total Land Area"
+                                        [headerClass]="{'kendo-g-center': true}" width="150"></kendo-grid-column>
+
+                                        <kendo-grid-column field="totallandareainacrestodisplay" title="Total Land area in Acres" width="240"
+                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+                                        <kendo-grid-column field="availableareaINACRES" title="Available land area in Acres" width="240"
+                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+
+                            </kendo-grid>
+                        </div>
+
+                        
+
+                    </div>
+                </div>
+                
+
+                <form [formGroup]="caseDetailsForm">
+
+                    <div class="row md-3 m-0 p-0 mt-3">
+                        <div class="col-md-4 col-xl-4 p-0 ">
+                            <div class="form-group">
+                                <label id="proceedingNo" title="Proceeding No">Proceeding No
+                                </label>
+                              
+
+                                <ng-select title="Proceeding No" id="proceedingNo" [items]="Landdata"
+                                    formControlName="proceedingNo" bindLabel="proceedingno" bindValue="proceedingno"
+                                    placeholder="Select" [searchable]=true [clearable]=true
+                                    dropdownPosition="bottom" [clearOnBackspace]=true>
+                                </ng-select>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    </form>
+
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <!-----------------Top Nav Start --------------------->
+                        <ul class="nav filtered-tab nav-tabs" id="myTab" role="tablist">
+
+
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Case Details" [ngClass]="{'disableTabs': caseDetailstabDisable}"> <a class="active" data-toggle="tab" href="#case-details" role="tab" aria-controls="fresh" aria-selected="true">Case Details</a></li>
+
+
+                            <!-- <li class="nav-item"><a class="active " data-toggle="tab" id="casedetailsid"
+                                [ngClass]="{'disableTabs': caseDetailstabDisable}"       href="#case-details" role="tab" aria-controls="loanname" aria-selected="true"
+                                    (click)="tab('Case Details')">Case Details</a>
+                            </li> -->
+
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Court Details" [ngClass]="{'disableTabs': courtDetailstabEnabled}"> <a class="" data-toggle="tab" href="#court-details" role="tab" aria-controls="warm" aria-selected="false">Court Details</a> </li>
+
+                            <!-- <li class="nav-item"><a data-toggle="tab" id="courtdetailsid" href="#court-details"
+                                [ngClass]="{'disableTabs': courtDetailstabEnabled}"     role="tab" aria-controls="loanname" aria-selected="true"
+                                    (click)="tab('Court Details')">Court Details</a>
+                            </li> -->
+
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Advocate Details" [ngClass]="{'disableTabs': advocateDetailstabsEnabled}"> <a class="" data-toggle="tab" href="#advocate-details" role="tab" aria-controls="cold" aria-selected="false">Advocate Details</a> </li>
+
+                            <!-- <li class="nav-item"> <a class="" id="advocatedetailsid" data-toggle="tab" href="#advocate-details"
+                                    role="tab" aria-controls="Installmentduedate" aria-selected="false"
+                                    (click)="tab('Advocate Details')">Advocate Details</a>
+
+                            </li> -->
+
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Related Land Purchased By" [ngClass]="{'disableTabs': courtDetailstabEnabled}"> <a class="" data-toggle="tab" href="#Related-Land-Purchased" role="tab" aria-controls="cold" aria-selected="false">Related Land Purchased By</a> </li>
+                            
+                            <!-- <li class="nav-item"> <a class="" id="relatedlandpurchaseid" data-toggle="tab"
+                                    href="#Related-Land-Purchased" role="tab" aria-controls="Installmentduedate"
+                                    aria-selected="false" (click)="tab('Related Land Purchased')">Related Land Purchased By</a>
+
+                            </li> -->
+
+                        </ul>
+                    </div>
+                    <!-----------------Top Nav End --------------------->
+                    <div class="col-12">
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade show active" id="case-details">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">Case Details</p>
+                                    </div>
+                                </div>
+                                <form [formGroup]="caseDetailsForm">
+
+                                    <div class="row mt-1">
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Project Name" id="caseNO">Case No.</label>
+                                                <input id="caseNO" class="form-control" type="text"
+                                                    formControlName="caseNO">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Project Name" id="natureOfCase">Nature of Case</label>
+                                                <input id="natureOfCase" class="form-control" formControlName="natureOfCase"
+                                                    type="text">
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                        <div class="d-flex justify-content-end mt-4 pt-2" style="margin-left: 909px;">
+
+                                            <!-- <a (click)="addToGridLocationDetails()" class="btn btn-g-icon px-3 border-0">
+
+                                            <img src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                                class="mr-1" />{{buttonName}}</a> -->
+
+                                            <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0"
+                                                role="tab" aria-controls="hot" aria-selected="false"
+                                                (click)="addToGridCaseDetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" class="mr-1" width="20px"
+                                                    height="20px">Add </a>
+
+                                        </div>
+                                        <hr>
+
+
+                                        <div class="mt-3">
+                                            <kendo-grid [kendoGridBinding]="caseDetailsdata">
+
+                                                <kendo-grid-column-group title="Case Details"
+                                                    [headerClass]="{'kendo-g-center' : true}">
+
+                                                    <kendo-grid-column field="proceedingNo" title="Proceeding No."></kendo-grid-column>
+
+                                                    <kendo-grid-column field="caseNO" title="Case No"></kendo-grid-column>
+
+                                                    <kendo-grid-column field="natureOfCase" title="Nature of  Case"></kendo-grid-column>
+
+
+
+                                                </kendo-grid-column-group>
+                                            </kendo-grid>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </form>
+
+
+
+                                <div class="d-flex justify-content-end mt-3">
+
+                                    <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0">
+                                        <img src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                            class="mr-3">Clear
+                                    </button>
+                                    <button (click)="SavecaseDetails()" class="btn btn-s-icon px-3 border-0">
+                                        <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                            height="20px">
+                                        <i class="fa"> </i>
+                                        {{savebutton}}
+                                    </button>
+
+                                </div>
+
+
+
+                                <!--buttons-end-->
+
+
+
+                            </div>
+
+                            <div class="tab-pane fade" id="court-details">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">Court Details</p>
+                                    </div>
+                                </div>
+                                <form [formGroup]="courtDetailsForm">
+
+                                    <div class="row mt-1">
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Court Name" id="courtName">Court Name</label>
+                                                <input id="courtName" class="form-control" type="text"
+                                                    formControlName="courtName">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Location" id="location">Location</label>
+                                                <input id="location" class="form-control" type="text"
+                                                    formControlName="location">
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        <div class="d-flex justify-content-end mt-4 pt-2" style="margin-left: 909px;">
+
+                                            <!-- <a (click)="addToGridDocumentDetails()" class="btn btn-g-icon px-3 border-0">
+
+                                            <img src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                                class="mr-1" />{{buttonName}}</a> -->
+
+                                            <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0"
+                                                role="tab" aria-controls="hot" aria-selected="false"
+                                                (click)="addToGridCourtDetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" class="mr-3" width="20px"
+                                                    height="20px">Add </a>
+
+                                        </div>
+                                        <hr>
+
+
+                                        <div class="mt-3">
+                                            <kendo-grid [kendoGridBinding]="courtDetailsdata">
+
+                                                <kendo-grid-column-group title="Court Details"
+                                                    [headerClass]="{'kendo-g-center' : true}">
+
+                                                    <kendo-grid-column field="courtName" title="Court Name"
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+                                                    <kendo-grid-column field="location" title="Location"
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+                                                </kendo-grid-column-group>
+                                            </kendo-grid>
+                                        </div>
+                                        <hr>
+
+
+                                    </div>
+                                </form>
+
+
+
+                                <div class="d-flex justify-content-end mt-3">
+
+                                    <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0">
+                                        <img src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                            class="mr-3">Clear
+                                    </button>
+                                    <button (click)="saveCourtDetails()" class="btn btn-s-icon px-3 border-0">
+                                        <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                            height="20px">
+                                        <i class="fa"> </i>
+                                        {{savebutton}}
+                                    </button>
+
+                                </div>
+
+
+
+                                <!--buttons-end-->
+
+                            </div>
+
+                            <!-- -*----------------------------------------Tab1 end ----------------------------------------->
+
+
+
+
+
+                            <div class="tab-pane fade" id="advocate-details">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">Advocate Details</p>
+                                    </div>
+                                </div>
+
+                                <form [formGroup]="advocateDetailsForm">
+
+                                    <div class="row mt-1">
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Name of the Advocate" id="nameOfAdvocate">Name of the Advocate
+                                                </label>
+                                                <input id="nameOfAdvocate" class="form-control" type="text"
+                                                    formControlName="nameOfAdvocate">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Contact No" id="contactNo">Contact No</label>
+                                                <input id="contactNo" class="form-control" type="text"
+                                                    formControlName="contactNo">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="d-flex justify-content-end mt-4 pt-2" style="margin-left: 909px;">
+
+                                            <!-- <a (click)="addToGridBoundariesDetails()" class="btn btn-g-icon px-3 border-0">
+
+                                        <img src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                            class="mr-1" />{{buttonName}}</a> -->
+
+
+                                            <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0"
+                                                role="tab" aria-controls="hot" aria-selected="false"
+                                                (click)="addToGridAdvocateDetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" class="mr-3" width="20px"
+                                                    height="20px">Add </a>
+                                        </div>
+                                        <hr>
+
+
+                                        <div class="mt-3">
+                                            <kendo-grid [kendoGridBinding]="advocateDetailsdata">
+
+                                                <kendo-grid-column-group title="Advocate Details"
+                                                    [headerClass]="{'kendo-g-center' : true}">
+                                                    <kendo-grid-column field="nameOfAdvocate" title="Name of the Advocate"
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+                                                    <kendo-grid-column field="contactNo" title="Contact No"
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+
+                                                </kendo-grid-column-group>
+                                            </kendo-grid>
+                                        </div>
+                                        <hr>
+
+                                    </div>
+                                </form>
+
+
+                                <div class="d-flex justify-content-end mt-4">
+
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+
+                                        <div class="d-flex justify-content-end mt-3">
+
+                                            <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0">
+                                                <img src="assets/images/icon-cancel-white.svg" width="20px"
+                                                    height="20px" class="mr-3">Clear
+                                            </button>
+                                            <button (click)="saveAdvocateDetails()" class="btn btn-s-icon px-3 border-0">
+                                                <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                    height="20px">
+                                                <i class="fa"> </i>
+                                                {{savebutton}}
+                                            </button>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--buttons-end-->
+
+                            </div>
+
+
+
+                            <div class="tab-pane fade" id="Related-Land-Purchased" role="tabpanel"
+                                aria-labelledby="fresh-tab">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">Related Land Purchased By</p>
+                                    </div>
+                                </div>
+
+                                <form [formGroup]="relateLandDetailsForm">
+
+                                    <div class="row mt-1">
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Name of the Person Purchased" id="nameOfPerson">Name of the Person
+                                                    Purchased </label>
+                                                <input id="nameOfPerson" class="form-control" type="text"
+                                                    formControlName="nameOfPerson">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label title="Contact No." id="pcontactNo">Contact No.</label>
+                                                <input id="pcontactNo" class="form-control" type="text"
+                                                    formControlName="pcontactNo">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="d-flex justify-content-end mt-4 pt-2" style="margin-left: 909px;">
+
+                                            <!-- <a (click)="addToGridcompoundWallDetails()" class="btn btn-g-icon px-3 border-0">
+
+                                        <img src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                            class="mr-1" />{{buttonName}}</a> -->
+
+                                            <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0"
+                                                role="tab" aria-controls="hot" aria-selected="false"
+                                                (click)="addToGridrelateLandDetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" class="mr-3" width="20px"
+                                                    height="20px">Add </a>
+
+                                        </div>
+                                        <hr>
+
+
+                                        <div class="mt-3">
+                                            <kendo-grid [kendoGridBinding]="relateLandDetailsdata">
+
+                                                <kendo-grid-column-group title="Related Land Purchased By"
+                                                    [headerClass]="{'kendo-g-center' : true}">
+
+                                                    <kendo-grid-column field="nameOfPerson"
+                                                        title="Name of the Person Purchased "
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+                                                    <kendo-grid-column field="pcontactNo" title="Contact No."
+                                                        [headerClass]="{'kendo-g-center': true}"></kendo-grid-column>
+
+                                                </kendo-grid-column-group>
+                                            </kendo-grid>
+                                        </div>
+                                        <hr>
+
+                                    </div>
+                                </form>
+
+
+                                <div class="d-flex justify-content-end mt-4">
+
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+
+                                        <div class="d-flex justify-content-end mt-3">
+
+                                            <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0">
+                                                <img src="assets/images/icon-cancel-white.svg" width="20px"
+                                                    height="20px" class="mr-3">Clear
+                                            </button>
+                                            <button (click)="saveRelatedDetails()" class="btn btn-s-icon px-3 border-0">
+                                                <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                    height="20px">
+                                                <i class="fa"> </i>
+                                                {{savebuttonL}}
+                                            </button>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    ul.nav-tabs.filtered-tab .nav-item a:hover {
+        color: #000 !important;
+    }
+</style>

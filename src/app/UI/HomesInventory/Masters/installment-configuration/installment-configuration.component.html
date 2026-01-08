@@ -1,0 +1,261 @@
+<!-- <p>installment-configuration works!</p> -->
+<div class="content-inner-view">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <p class="bc-2">Instalment Configuration</p>
+        </div>
+    </div>
+
+    <form [formGroup]="InstallmentConfigurationForm">
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="itemtypeid" title="Project Type">Project Type</label>
+                    <div class="input-group">
+                        <select class="form-control" formControlName="itemtypeid"
+                            [ngClass]="{ 'is-invalid': InstallmentValidations.itemtypeid }"
+                            (change)="projecttype_Change($event)">
+                            <option value="" ng-selected="selected" disabled>Select</option>
+                            <option *ngFor="let projecttype of lstprojecttypes;trackBy: trackByFn"
+                                [value]="projecttype.itemtypeid">{{projecttype.itemtype}}</option>
+                        </select>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="InstallmentValidations?.itemtypeid">{{InstallmentValidations.itemtypeid}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label class="" id="installmentsdate" title="Date">Date</label>
+                    <input type="text" readonly class="form-control" formControlName="installmentsdate"
+                        (ngModelChange)="DateChange($event)" placeholder="Date picker here" [bsConfig]="dpConfig"
+                        #dp="bsDatepicker" bsDatepicker
+                        [ngClass]="{ 'is-invalid':InstallmentValidations.installmentsdate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span
+                        *ngIf="InstallmentValidations?.installmentsdate">{{InstallmentValidations.installmentsdate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="projectname" title="Layout Name/Project Name">Layout Name/Project Name</label>
+                     <!-- <input id="ProjectNamePlots" class="form-control" name="ProjectNamePlots" formControlName="projectname" style="width: 100%;" [ngClass]="{ 'is-invalid': InstallmentValidations.projectname }" /> -->
+                        <!-- <select class="form-control" formControlName="Projectid"
+                            [ngClass]="{ 'is-invalid': InstallmentValidations.Projectid }"
+                            (change)="Projectname_Change($event)">
+                            <option value="" ng-selected="selected" disabled>Select</option>
+                            <option *ngFor="let projecttype of ProjectDetails;trackBy: trackByFn"
+                                [value]="projecttype.projectid">{{projecttype.projectname}}</option>
+                        </select> -->
+                            <ng-select [items]="ProjectDetails" formControlName="projectname" bindLabel="projectname"
+                    bindValue="projectname" [multiple]=false placeholder="Select" [searchable]="true"
+                    [searchFn]="customSearchFn" [clearable]=true dropdownPosition="bottom"
+                    [clearOnBackspace]=true [ngClass]="{ 'is-invalid': InstallmentValidations.projectname}" (change)="Projectname_Change($event)">
+           <ng-template ng-header-tmp let-item="items" let-index="index">
+             <label class="col-4 p-0" style="text-align:center" *ngIf="itemtypeiids!=1"><strong>Project Name</strong> </label>
+             <label class="col-4 p-0" *ngIf="itemtypeiids==1"><strong>Permit No.</strong></label>
+             <label class="col-4 p-0" style="text-align:center" *ngIf="itemtypeiids==1"><strong>Layout Name</strong> </label>
+            
+           </ng-template>
+           <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+             <div class="row">
+               <span class="col-4 text-dark word-break text-wrap" *ngIf="item.itemtypeid==1">{{item.permitno}}</span>
+               <span class="col-4 text-dark" *ngIf="item.itemtypeid==1">{{item.projectname}}</span>
+              
+             </div>
+           </ng-template>
+           </ng-select>
+                    <div class="invalid-feedback">
+                        <span
+                            *ngIf="InstallmentValidations?.projectname">{{InstallmentValidations.projectname}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="standardrate" title="Standard Rate">Standard Rate</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="standardrate" (blur)="CalculationInstallment()"
+                            [ngClass]="{'is-invalid':InstallmentValidations.standardrate}" appMycurrencyFormatter
+                            appNumbersonly style="text-align: right;" disabled>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span
+                            *ngIf="InstallmentValidations?.standardrate">{{InstallmentValidations.standardrate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="noofmonths" title="No. of Months">No. of Months</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="noofmonths"
+                            [ngClass]="{'is-invalid':InstallmentValidations.noofmonths}" appNumbersonly maxlength="2">
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="InstallmentValidations?.noofmonths">{{InstallmentValidations.noofmonths}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label id="installmentrate" title="Instalment Rate">Instalment Rate</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="installmentrate" (blur)="CalculationInstallment()"
+                            [ngClass]="{'is-invalid':InstallmentValidations.installmentrate}" appNumbersWithZeroOnly
+                            appNumbersonly maxlength="6" style="text-align: right;">
+                    </div>
+                    <div class="invalid-feedback">
+                        <span
+                            *ngIf="InstallmentValidations?.installmentrate">{{InstallmentValidations.installmentrate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label>Total Instalment Amount</label>
+                    <label
+                        class="w-100 font-weight-bold">{{InstallmentConfigurationForm.controls.totalinstallmentamount.value | mycurrencypipe}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label class="" id="effectfromdate" title="Effected From Date">Effected From Date</label>
+                    <input type="text" readonly class="form-control" formControlName="effectfromdate"
+                        (ngModelChange)="EffectFromDateChange()" placeholder="Date picker here"
+                        [bsConfig]="dpConfigeffectfrom" #dp="bsDatepicker" bsDatepicker placement="top"
+                        [ngClass]="{ 'is-invalid':InstallmentValidations.effectfromdate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span
+                        *ngIf="InstallmentValidations?.effectfromdate">{{InstallmentValidations.effectfromdate}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                    <label class="" id="effecttodate" title="Effect To Date">Effect To Date</label>
+                    <input type="text" readonly class="form-control" formControlName="effecttodate"
+                        placeholder="Date picker here" [bsConfig]="dpConfigeffectto" #dp="bsDatepicker" bsDatepicker
+                        placement="top" [ngClass]="{ 'is-invalid':InstallmentValidations.effecttodate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span *ngIf="InstallmentValidations?.effecttodate">{{InstallmentValidations.effecttodate}}</span>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="d-flex justify-content-end mt-6 ml-3 mb-1"> <a href="" data-toggle="tab"
+                class="btn  btn-b-icon px-3 border-0" appButtonDoubleClick [debounceTime]="500" role="tab"
+                aria-controls="hot" aria-selected="false" (debounceClick)="AddInstallments()"><img
+                    src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add
+            </a> </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <ngx-datatable #table class="material expandable table" [rows]="GridData" [headerHeight]="60"
+                    [footerHeight]="0" [limit]="5" [rowHeight]="auto"
+                    [selected]="selected">
+                    <ngx-datatable-column width="100" name="" [cellClass]="'cell-center'"
+                        [headerClass]="'header-center'">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row"
+                            let-group="group">
+
+                            <button class="btn btn-transparent"><i class="rb-ic rb-ic-add-frame"></i></button>
+                            <div id="icon-delete" (click)='OnDelete(row,rowIndex)'
+                                class="text-left justify-content-left pull-left"></div>
+
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Layout Name/Project Name" prop="projectname" [cellClass]="'cell-left'"
+                        [headerClass]="'header-left'">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Instalment Date" prop="installmentsdate" [cellClass]="'cell-left'"
+                        [headerClass]="'header-left'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.installmentsdate | date:'dd/MM/yyyy'}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="No. of Months" prop="noofmonths" [cellClass]="'cell-left'"
+                        [headerClass]="'header-left'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.noofmonths }}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column width="100" name="Standard Rate" prop="standardrate"
+                        [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.standardrate | mycurrencypipe}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column width="100" name="Instalment Rate" prop="installmentrate"
+                        [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.installmentrate | mycurrencypipe}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column width="100" name="Total Instalment Amount" prop="totalinstallmentamount"
+                        [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.totalinstallmentamount | mycurrencypipe}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Effected From Date" prop="effectfromdate" [cellClass]="'cell-left'"
+                        [headerClass]="'header-left'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.effectfromdate |  date:'dd/MM/yyyy'}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Effected To Date" prop="effecttodate" [cellClass]="'cell-left'"
+                        [headerClass]="'header-left'">
+                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span>{{row.effecttodate |  date:'dd/MM/yyyy'}}</span>
+                        </ng-template>
+
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <a class="btn btn-g-icon mr-4 px-3 border-0" (click)="ClearForm()"><img
+                    src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a>
+            <!-- <button (click)="SaveInstallment()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab"
+                aria-controls="hot" aria-selected="false"><img src="assets/images/icon-check-white.svg" width="20px"
+                    height="20px" class="mr-3" /> {{savebutton}}</button> -->
+                    <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveInstallment()"
+                                    class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                    <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                        height="20px" *ngIf="!disablesavebutton">
+                                    <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                    {{savebutton}}
+                                </button>
+        </div>
+    </form>
+</div>

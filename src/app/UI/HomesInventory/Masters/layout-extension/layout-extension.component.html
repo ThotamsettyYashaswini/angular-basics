@@ -1,0 +1,467 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Layout-AddOns</span>
+
+                    <span class="pull-right"><a routerLink='/ViewLayoutAdd-Ons'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+                <form [formGroup]="layoutExtensionForm">
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label  id="playoutname" title="Layout Name">Layout
+                                        Name</label>
+                                    <ng-select title="layout Name" [items]="layoutDetailsList"
+                                        formControlName="playoutname" bindLabel="playoutname" bindValue="playoutname"
+                                        placeholder="Select" [searchable]=true [clearable]=true
+                                        dropdownPosition="bottom" [clearOnBackspace]=true
+                                        (change)="ChangeLayoutName($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.playoutname}">
+                                    </ng-select>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.playoutname">{{PlotsLayoutsValidationErrors.playoutname}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="pocdate" title="OC Date">OC
+                                        Date</label>
+
+                                    <input class="form-control" readonly type="text" [bsConfig]="ocDateConfig"
+                                        bsDatepicker formControlName="pocdate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pocdate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pocdate">{{PlotsLayoutsValidationErrors.pocdate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="pnocdate" title="NOC Date">NOC
+                                        Date</label>
+
+                                    <input class="form-control" readonly type="text" [bsConfig]="nocDateConfig"
+                                        bsDatepicker formControlName="pnocdate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pnocdate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pnocdate">{{PlotsLayoutsValidationErrors.pnocdate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+
+                                <div class="form-group">
+                                    <label  id="prerano" title="Rera No.">Rera No.</label>
+                                    <input class="form-control" type="text" formControlName="prerano"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.prerano}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.prerano">{{PlotsLayoutsValidationErrors.prerano}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="preradate" title="Rera Date">Rera Date</label>
+
+                                    <input class="form-control" readonly type="text" [bsConfig]="reraDateConfig"
+                                        bsDatepicker formControlName="preradate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.preradate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.preradate">{{PlotsLayoutsValidationErrors.preradate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3" *ngIf="mortgageEnableFlag">
+                                <div class="form-group">
+                                    <label  id="pmortigatedate" title="Mortgage  Date">Mortgage
+                                        Date</label>
+
+                                    <input class="form-control" readonly type="text" [bsConfig]="mortgageDateConfig"
+                                        bsDatepicker formControlName="pmortigatedate"
+                                        (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigatedate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigatedate">{{PlotsLayoutsValidationErrors.pmortigatedate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3" *ngIf="mortgageEnableFlag">
+
+                                <div class="form-group">
+                                    <label  id="pmortigageproceedingno"
+                                        title="Mortgage Proceeding No.">Mortgage Proceeding No.</label>
+                                    <input class="form-control" type="text" formControlName="pmortigageproceedingno"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigageproceedingno}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigageproceedingno">{{PlotsLayoutsValidationErrors.pmortigageproceedingno}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3" *ngIf="mortgageEnableFlag">
+                                <div class="form-group">
+                                    <label  id="pmortigageproceedingdate"
+                                        title="Mortgage  Proceeding Date">Mortgage Proceeding Date</label>
+
+                                    <input class="form-control" readonly type="text"
+                                        [bsConfig]="mortgageProceedingDateConfig" bsDatepicker
+                                        formControlName="pmortigageproceedingdate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigageproceedingdate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigageproceedingdate">{{PlotsLayoutsValidationErrors.pmortigageproceedingdate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3" *ngIf="mortgageEnableFlag">
+
+                                <div class="form-group">
+                                    <label  id="pmortigagereleasedno"
+                                        title="Mortgage Released No.">Mortgage Released No.</label>
+                                    <input class="form-control" type="text" formControlName="pmortigagereleasedno"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigagereleasedno}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigagereleasedno">{{PlotsLayoutsValidationErrors.pmortigagereleasedno}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3" *ngIf="mortgageEnableFlag">
+                                <div class="form-group">
+                                    <label  id="pmortigagereleaseddate"
+                                        title="Mortgage Released Date">Mortgage Released Date</label>
+
+                                    <input class="form-control" readonly type="text"
+                                        [bsConfig]="mortgageReleasedDateConfig" bsDatepicker
+                                        formControlName="pmortigagereleaseddate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigagereleaseddate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigagereleaseddate">{{PlotsLayoutsValidationErrors.pmortigagereleaseddate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-3 col-xl-3" hidden>
+                                <div class="form-group">
+                                    <label  id="pmortigagecloseddate"
+                                        title="Mortgage Closed Date">Mortgage Closed Date</label>
+
+                                    <input class="form-control" readonly type="text"
+                                        [bsConfig]="mortgageClosedDateConfig" bsDatepicker
+                                        formControlName="pmortigagecloseddate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pmortigagecloseddate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.pmortigagecloseddate">{{PlotsLayoutsValidationErrors.pmortigagecloseddate}}</span>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            
+
+
+                        </div>
+                    </div>
+
+                    <div class="card-box mt-2 mb-3" *ngIf="layoutDetailList.length!=0">
+                        <div class="row mt-4">
+                            <div class="col-md-12 col-xl-12 asset-kendo">
+                                <kendo-grid [data]="layoutDetailList" [reorderable]="true" [resizable]="true"
+                                    [sortable]="true" width="100%" class="lendoAlign">
+
+
+                                    <kendo-grid-column field="SNo" width="60" title="S.No"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                            {{rowIndex+ 1}}
+                                        </ng-template>
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="land_area_in_acres_total" title="Total Area" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="land_area_in_sqys_total" title="Total Area In Sq.Yds"
+                                        width="100" [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+
+                                        <ng-template kendoGridCellTemplate let-dataItem>
+                                            {{dataItem.land_area_in_sqys_total | mycurrencypipe}} {{squareYards}}
+                                        </ng-template>
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="primaryLandareaValueNetPlotArea" title="Net Area" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="secondarylandareavalueNetPlotArea" title="Net Area In Sq.Yds"
+                                        width="100" [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+
+                                        <ng-template kendoGridCellTemplate let-dataItem>
+                                            {{dataItem.secondarylandareavalueNetPlotArea | mycurrencypipe}}
+                                        </ng-template>
+                                    </kendo-grid-column>
+
+
+                                </kendo-grid>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <form [formGroup]="layoutExtensionGridForm">
+
+
+                        <div class="card-box mt-2 mb-3">
+                            <div class="row mt-3">
+                                <div class="col-md-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label  id="pcompanyname" title="Company Name">Company
+                                            Name</label>
+                                        <ng-select title="Company Name" [items]="companyData"
+                                            formControlName="pcompanyname" bindLabel="pCompanyname"
+                                            bindValue="pCompanyname" placeholder="Select" [searchable]=true
+                                            [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                            (change)="companyChange($event)"
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pcompanyname}">
+                                        </ng-select>
+
+                                        <div class="invalid-feedback">
+                                            <span
+                                                *ngIf="PlotsLayoutsValidationErrors?.pcompanyname">{{PlotsLayoutsValidationErrors.pcompanyname}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-4 col-xl-4" hidden>
+                                    <div class="form-group">
+                                        <label  id="pdocumentno" title="Document No.">Document
+                                            No.</label>
+                                        <ng-select title="Document No." [items]="documentList"
+                                            formControlName="pdocumentno" bindLabel="pdocumentnono"
+                                            bindValue="pdocumentnono" placeholder="Select" [searchable]=true
+                                            [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                            (change)="companyChange($event)"
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pdocumentno}">
+                                        </ng-select>
+
+                                        <div class="invalid-feedback">
+                                            <span
+                                                *ngIf="PlotsLayoutsValidationErrors?.pdocumentno">{{PlotsLayoutsValidationErrors.pdocumentno}}</span>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="col-md-4 col-xl-4" hidden>
+
+                                    <div class="form-group">
+                                        <label  id="pcompanypercentage" title="Company %">Company
+                                            %</label>
+                                        <input class="form-control text-right" type="text"
+                                            formControlName="pcompanypercentage" appNumbersonly maxlength="2"
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pcompanypercentage}">
+                                        <div class="invalid-feedback">
+                                            <span
+                                                *ngIf="PlotsLayoutsValidationErrors?.pcompanypercentage">{{PlotsLayoutsValidationErrors.pcompanypercentage}}</span>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label id="primaryLandareaValueRoads" title="Land Area">Land Area</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text"
+                                                formControlName="primaryLandareaValueRoads" appNumbersonly maxlength="2"
+                                                (blur)="calculationsArea()"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValueRoads}">
+                                            <label id="primarylandareauomRoads" title="Land Uom" hidden="true">Land
+                                                Uom</label>
+                                            <div class="input-group-append">
+                                                <select class="form-control" disabled
+                                                    formControlName="primarylandareauomRoads"
+                                                    (change)="primaryUom_Change($event)"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauomRoads}">
+                                                    <option *ngFor="let Primaryauom of primaryUomdata"
+                                                        [value]="Primaryauom.primarylandareauom" selected="true">
+                                                        {{Primaryauom.primarylandareauomname}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValueRoads">
+                                                {{PlotsLayoutsValidationErrors.primaryLandareaValueRoads}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label id="secondarylandareavalueRoads" title="Land Area"></label>
+                                        <div class="input-group mt-1">
+                                            <input class="form-control" type="text"
+                                                formControlName="secondarylandareavalueRoads"
+                                                (keyup)="SecoundaryvaluechangeRoads()" appRoundecimal="4@3"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalueRoads}"
+                                                (blur)="calculationsArea()">
+                                            <label id="secondarylandareauomRoads" title="Land Uom" hidden="true">Land
+                                                Uom</label>
+                                            <div class="input-group-append">
+                                                <select class="form-control" formControlName="secondarylandareauomRoads"
+                                                    (change)="secondaryUom_ChangeRoads($event)"
+                                                    (blur)="calculationsArea()"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauomRoads}">
+                                                    <option value="" ng-selected="selected">Select</option>
+                                                    <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                        [value]="secondaryuom.secondarylandareauom">
+                                                        {{secondaryuom.secondarylandareauomname}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalueRoads">
+                                                {{PlotsLayoutsValidationErrors.secondarylandareavalueRoads}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+
+                                        <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                            aria-controls="hot" aria-selected="false" (click)="addDetailsToGrid()"><img
+                                                src="assets/images/icon-add-brown.svg" class="mr-3" width="20px"
+                                                height="20px">Add </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-box mt-2 mb-3" *ngIf="addedGriddata.length!=0">
+                            <div class="row mt-4">
+                                <div class="col-md-12 col-xl-12 asset-kendo">
+                                    <kendo-grid [data]="addedGriddata" [reorderable]="true" [resizable]="true"
+                                        [sortable]="true" width="100%" class="lendoAlign">
+
+
+                                        <kendo-grid-column field="SNo" width="60" title="S.No"
+                                            [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                                {{rowIndex+ 1}}
+                                            </ng-template>
+                                        </kendo-grid-column>
+
+                                        <kendo-grid-column field="pcompanyname" title="Company Name" width="100"
+                                            [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        </kendo-grid-column>
+
+                                        <!-- <kendo-grid-column field="pdocumentno" title="Document No." width="100"
+                                            [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        </kendo-grid-column> -->
+
+                                        <!-- <kendo-grid-column field="pcompanypercentage" title="Company %" width="100"
+                                            [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        </kendo-grid-column> -->
+
+                                        <kendo-grid-column field="pcompanylayoutareainacers" title="Area" width="100"
+                                            [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                            <ng-template kendoGridFooterTemplate>
+                                               <b> {{conCatingAreaSubArea}}</b><span class="mr-5"></span>
+
+                                            </ng-template>
+                                        </kendo-grid-column>
+
+
+
+                                        <kendo-grid-column field="pcompanylayoutareainsqyards" title="Area In Sq.Yds"
+                                            width="100" [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+
+                                            <ng-template kendoGridCellTemplate let-dataItem>
+                                                {{dataItem.pcompanylayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+                                            </ng-template>
+                                            <ng-template kendoGridFooterTemplate>
+                                                <b> {{totalGridSqyads | mycurrencypipe}} {{squareYards}} </b><span
+                                                    class="mr-5"></span>
+
+                                            </ng-template>
+
+                                        </kendo-grid-column>
+
+
+                                    </kendo-grid>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-end mt-4 mb-4">
+
+                                <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="clear()"
+                                    class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                    <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px"
+                                        height="20px" *ngIf="!disableclearbutton">
+                                    <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                                    Clear
+                                </button>
+
+                                <button appButtonDoubleClick [debounceTime]="500"
+                                    (debounceClick)="saveLayoutExtension()" class="btn btn-s-icon px-3 border-0">
+                                    <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                        height="20px">
+                                    {{savebutton}}
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

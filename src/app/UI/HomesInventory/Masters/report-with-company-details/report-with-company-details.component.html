@@ -1,0 +1,22 @@
+<form [formGroup]="reportwithLayoutForm">
+    <div class="row mt-5">
+        <div class="col-md-12 col-xl-12">
+            <!-- <div class="form-group">
+                <label class="bc-2">Documents</label>
+            </div> -->
+            <div class="row">
+                <div class="col-md-5 col-xl-5">
+                    <div class="form-group">
+                        <label id="layoutName" title="Name Of The Layout">Name Of The Layout</label>
+
+                        <ng-select title="Name Of The Layou" id="layoutName" [items]="layoutList"
+                            formControlName="layoutName" bindLabel="plandbanname" bindValue="plandbanname"
+                            (change)="layoutnameChange($event)" placeholder="Select" [searchable]=true [clearable]=true
+                            dropdownPosition="bottom" [clearOnBackspace]=true>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

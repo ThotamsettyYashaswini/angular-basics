@@ -1,0 +1,574 @@
+<form>
+  <div class="row mt-4">
+    <div class="col d-flex flex-wrap align-items-center">
+      <a (click)="view()" class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px"
+          height="20px" class="mr-2" />New</a>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 col-xl-12">
+
+      <kendo-grid [kendoGridBinding]="layoutDetailsView" [pageSize]="pageSize" [skip]="gridState.skip"
+        [pageable]="{buttonCount: 2}" [reorderable]="true" [sortable]="true" [resizable]="true" [sort]="gridState.sort">
+        <ng-template kendoGridToolbarTemplate>
+          <div class="row mb-5">
+            <div class="col-4 pl-0 mt-n1">
+              <input placeholder="Search in all columns..." kendoTextBox class="form-control search-k-cst sb"
+                (input)="onFilter($event.target.value)" />
+            </div>
+            <div class="col-7 pr-0 pl-4 ml-4">
+              <ul class="temp-ul mt-n1 mr-n2  pull-right">
+                <li class="temp-ico ml-2">
+                  <a kendoGridPDFCommand><img class="pt-2" src="assets/images/pdf-icon-blue.svg " title="pdf"
+                      width="20px"></a>
+                </li>
+                <li class="temp-ico ml-2">
+                  <a (click)="downloadExcel()">
+                    <img class="pt-2" src="assets/images/icon-excel.svg" title="excel" width="20px">
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+        </ng-template>
+        <kendo-grid-column-group title="Layout-AddOn Details" [headerClass]="{'kendo-g-center' : true}">
+
+          <kendo-grid-column field="pocdate" title="OC Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pocdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pnocdate" title="NOC Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pnocdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pmortigatedate" title="Mortigate Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigatedate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+          <kendo-grid-column field="pmortigageproceedingno" title="Mortigate Proceeding No." [headerClass]="{'kendo-g-center': true}" width="120" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pmortigageproceedingdate" title="Mortigage Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigageproceedingdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="pmortigagereleasedno" title="Mortigage Released No." [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pmortigagereleaseddate" title="Mortigage Released Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigagereleaseddate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <!-- <kendo-grid-column field="pmortigagecloseddate" title="Mortigage Closed Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigagecloseddate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column> -->
+
+          <kendo-grid-column field="prerano" title="Rera No." [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="preradate" title="Rera Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.preradate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+
+          <!-- <kendo-grid-column field="totalarea" title="View Layout Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData(dataItem)" class="text-primary">View Doc</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column> -->
+
+
+          <!-- <kendo-grid-column field="totalarea" title="View Deed Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData1(dataItem)" class="text-primary">View Doc Deed</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column> -->
+
+
+
+        </kendo-grid-column-group>
+
+        <!-- 23-10-24 -->
+
+        <ng-template kendoGridDetailTemplate let-dataItem>
+
+          <kendo-grid [data]="dataItem.layoutExtentionDetailslist">
+
+
+
+            <kendo-grid-column field="pcompanyname" title="Company Name" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+
+
+
+            <!-- <kendo-grid-column field="pdocumentno" title="Document No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+<!-- 
+                 <kendo-grid-column field="pcompanypercentage" title="Company %" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+
+              
+
+            <kendo-grid-column field="ptotallayoutareainacers" title="Total Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="ptotallayoutareainsqyards" title="Total Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.ptotallayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pnetlayoutareainacers" title="Net Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pnetlayoutareainsqyards" title="Net Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pnetlayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pcompanylayoutareainacers" title="Company Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pcompanylayoutareainsqyards" title="Company Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pcompanylayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+
+
+
+
+
+
+
+
+          </kendo-grid>
+
+        </ng-template>
+
+       <kendo-grid-pdf fileName="Layout-AddOn_DetailsDetails.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+          [landscape]="false" [scale]="0.45" [landscape]="true">
+          <ng-template kendoGridPDFTemplate>
+            <div class="page-template">
+              <div class="header bc-2 text-center">
+                <h5> Layout-AddOn Details </h5>
+              </div>
+            </div>
+          </ng-template>
+          <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+
+           <kendo-grid-column field="pocdate" title="OC Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pocdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pnocdate" title="NOC Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pnocdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="pmortigatedate" title="Mortigate Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigatedate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+
+          <kendo-grid-column field="pmortigageproceedingno" title="Mortigate Proceeding No." [headerClass]="{'kendo-g-center': true}" width="120" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pmortigageproceedingdate" title="Mortigage Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigageproceedingdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="pmortigagereleasedno" title="Mortigage Released No." [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pmortigagereleaseddate" title="Mortigage Released Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigagereleaseddate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+          <!-- <kendo-grid-column field="pmortigagecloseddate" title="Mortigage Closed Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pmortigagecloseddate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column> -->
+
+          <kendo-grid-column field="prerano" title="Rera No." [headerClass]="{'kendo-g-center': true}" width="100" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="preradate" title="Rera Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.preradate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+          </kendo-grid-column>
+
+
+          <!-- <kendo-grid-column field="totalarea" title="View Layout Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData(dataItem)" class="text-primary">View Doc</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column> -->
+
+
+          <!-- <kendo-grid-column field="totalarea" title="View Deed Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData1(dataItem)" class="text-primary">View Doc Deed</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column> -->
+
+
+
+
+        <!-- 23-10-24 -->
+
+        <ng-template kendoGridDetailTemplate let-dataItem>
+
+          <kendo-grid [data]="dataItem.layoutExtentionDetailslist">
+
+
+
+            <kendo-grid-column field="pcompanyname" title="Company Name" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+
+
+
+            <!-- <kendo-grid-column field="pdocumentno" title="Document No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+
+                 <kendo-grid-column field="pcompanypercentage" title="Company %" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+
+              
+
+            <kendo-grid-column field="ptotallayoutareainacers" title="Total Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="ptotallayoutareainsqyards" title="Total Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.ptotallayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pnetlayoutareainacers" title="Net Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pnetlayoutareainsqyards" title="Net Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pnetlayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pcompanylayoutareainacers" title="Company Land Area (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pcompanylayoutareainsqyards" title="Company Land Area (Sq.yds)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pcompanylayoutareainsqyards | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+
+
+
+
+
+
+
+
+          </kendo-grid>
+
+        </ng-template>
+          
+        </kendo-grid-pdf>
+      </kendo-grid>
+    </div>
+  </div>
+</form>
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+
+    </div>
+  </ng-template>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"></ngx-loading>
+
+</div>
+
+
+
+
+<!-- MODAL OPEN -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadVehicleDocs"
+  [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+  <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+
+    <div class="modal-xl modal-content">
+      <div class="modal-header">
+        <div class="col-12">
+          <h3 class="bc-2">View File Details</h3>
+
+        </div>
+
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="body">
+        <div class="col-md-12 col-xl-12">
+          <div>
+            <!-- <div *ngIf="filetypeDocs !='pdf' &&  filetypeDocs !='PDF'"> -->
+
+            <!-- <div *ngFor="let data of fileNameDocs"> -->
+
+            <div *ngIf="extension !='PDF'">
+
+
+
+              <hr>
+              <div class="card-box">
+
+                <h4>{{pfilename}}</h4>
+
+
+              </div>
+              <div class="over-box">
+
+                <img [src]="path+fileDownload" alt="img" class="image img-fluid">
+
+                <div class="overlay">
+                  <div class="text" (click)="downloadimgData(pfilename)">Download <i class="fa fa-download"></i></div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <div>
+              <div *ngIf="extension =='PDF'">
+                <hr>
+                <div class="card-box">
+                  <!-- <h4>{{data.documentfilename}}</h4> -->
+                  <h4>{{pfilename}}</h4>
+
+                </div>
+                <div class="over-box">
+                  <img src="assets/images/Sample PDF.png" alt="" class="image">
+                  <div class="overlay">
+                    <div class="text" (click)="downloadimgData(pfilename)">Download <i class="fa fa-download"></i></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+<!--  -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadTypeOfDeed"
+  [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+  <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+
+    <div class="modal-xl modal-content">
+      <div class="modal-header">
+        <div class="col-12">
+          <h3 class="bc-2">View File Details</h3>
+
+        </div>
+
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="body">
+        <div class="col-md-12 col-xl-12">
+          <div>
+            <!-- <div *ngIf="filetypeDocs !='pdf' &&  filetypeDocs !='PDF'"> -->
+
+            <!-- <div *ngFor="let data of fileNameDocs"> -->
+
+            <div *ngIf="extension !='PDF'">
+
+
+
+              <hr>
+              <div class="card-box">
+
+                <h4>{{pfilenameTypeOfDeed}}</h4>
+
+
+              </div>
+              <div class="over-box">
+
+                <img [src]="path+fileDownload" alt="img" class="image img-fluid">
+
+                <div class="overlay">
+                  <div class="text" (click)="downloadimgData1(pfilenameTypeOfDeed)">Download <i
+                      class="fa fa-download"></i></div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <div>
+              <div *ngIf="extension =='PDF'">
+                <hr>
+                <div class="card-box">
+                  <!-- <h4>{{data.documentfilename}}</h4> -->
+                  <h4>{{pfilenameTypeOfDeed}}</h4>
+
+                </div>
+                <div class="over-box">
+                  <img src="assets/images/Sample PDF.png" alt="" class="image">
+                  <div class="overlay">
+                    <div class="text" (click)="downloadimgData1(pfilenameTypeOfDeed)">Download <i
+                        class="fa fa-download"></i></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<style>
+  .over-box {
+    position: relative;
+    width: 50%;
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: hsla(197, 93%, 5%, 0.422);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: .3s ease;
+    transition: .3s ease;
+  }
+
+  .over-box:hover .overlay {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    cursor: pointer;
+  }
+</style>

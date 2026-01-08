@@ -1,0 +1,147 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+/* @import "./assets/css/bootstrap.min.css";
+@import "./assets/css/custom.css";
+@import "./assets/css/animate.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~ngx-bootstrap/datepicker/bs-datepicker.css";
+@import "~ngx-toastr/toastr.css";
+@import '~@angular/material/theming'; */
+
+
+/* @include mat-core();
+$default-theme-primary: mat-palette($mat-indigo);
+$default-theme-accent : mat-palette($mat-grey);
+$default-theme: mat-light-theme($default-theme-primary, $default-theme-accent);
+@include angular-material-theme($default-theme); */
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+/* @mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+    -moz-box-sizing: $box-model; // Firefox <= 19
+    box-sizing: $box-model;
+} */
+
+html {
+    font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+
+/* 
+// html, body {
+//   width: 100%;
+//   height: 100%;
+//   padding: 0;
+//   margin: 0;
+// }
+*,
+*:after,
+*:before {
+    @include box-sizing(border-box);
+} */
+
+@font-face {
+  font-family: 'Noto Sans Telugu';
+  src: url('/assets/fonts/NotoSansTelugu-Regular.ttf') format('truetype');
+}
+
+.telugu-font {
+  font-family: 'Noto Sans Telugu', sans-serif !important;
+
+}
+
+/* ✅ Hide PDF header in screen view */
+/* Hide in view */
+.pdf-header {
+  display: none;
+}
+
+ 
+/* @media print {
+  .pdf-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+ 
+  .k-pager-wrap,
+  .k-grid-pager {
+    display: none !important;
+  }
+} */
+
+/* @media print {
+ 
+  .k-grid-content {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  .k-grid {
+    height: auto !important;
+  }
+
+  .k-grid td {
+    white-space: normal !important;
+  }
+} */
+/* @media print {
+  .k-grid,
+  .k-grid-content,
+  .k-detail-row,
+  .k-master-row,
+  .k-grid table {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .k-pager-wrap,
+  .k-grid-pager,
+  .k-pager-info,
+  .k-pager-numbers,
+  .k-pager-sizes,
+  .k-pager-nav,
+  .k-icon,
+  .k-link,
+  .k-i-seek-w,
+  .k-i-seek-e,
+  .k-i-arrow-w,
+  .k-i-arrow-e {
+    display: none !important;
+  }
+
+  [class^="k-icon"]::before,
+  [class*=" k-icon"]::before {
+    content: none !important;
+    font-family: none !important;
+  }
+
+  .k-grid td,
+  .k-grid th {
+    padding: 6px 10px !important;
+    white-space: normal !important;
+    font-size: 12px !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+} */
+
+
+
+
+
+
+
+
+

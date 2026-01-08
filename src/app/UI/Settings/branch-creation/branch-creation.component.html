@@ -1,0 +1,309 @@
+
+
+<div class="col-md-12 col-xl-12 p-0 mt-3 ">
+    <div class=" card-box">
+        <span class="bc-2">Branch Creation</span>
+        <span class="pull-right"><a routerLink='/BranchCreationView'><img src="assets/images/VIEW.svg" width="20px"
+                    height="20px">
+                View</a></span>
+    </div>
+
+</div>
+<div class="shadow-bg-view p-0">
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card-box">
+                <div class="col-12 mt-2 ">
+                    <!-- <div class="col-12">
+            <p class="bc-2">Basic Information</p>
+        </div> -->
+                    <h2 class="sec-head">Basic Information</h2>
+
+                    <form [formGroup]="branchConfigform">
+                        <div class="row mt-1">
+                            <div class="col-md-6 col-xl-4 ">
+                                <fieldset [disabled]="cmpdisabled">
+                                    <div class="form-group">
+                                        <label id="pCompanyId" title="Company Name">Company Name</label>
+                                        <select class="form-control" formControlName="pCompanyId" (change)="CompanyNameChanged($event)" [ngClass]="{ 'is-invalid': BranchConfigvalidators.pCompanyId }">
+                                            <option value="" ng-selected="selected">Select</option>
+                                            <option *ngFor="let cmpname of lstcompanynames" [value]="cmpname.pCompanyId">{{cmpname.pCompanyname}}</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            <span *ngIf="BranchConfigvalidators.pCompanyId">{{BranchConfigvalidators.pCompanyId}}</span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-6 col-xl-4 ">
+                                <fieldset [disabled]="branchdisable">
+                                    <div class="form-group">
+                                        <label id="pbranchname" title="Branch Name" class="required-field">Branch Name</label>
+                                        <input appInitCap appAlphanumericwithSpecialCharacters class="form-control" type="text" value="" formControlName="pbranchname" maxlength="75" (change)="enterBranch($event)" [ngClass]="{ 'is-invalid': BranchConfigvalidators.pbranchname }">
+
+                                    </div>
+                                </fieldset>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.pbranchname">{{BranchConfigvalidators.pbranchname}}</span>
+                                </div>
+                            </div>
+                            <!--col-end-->
+                            <div class="col-md-6 col-xl-4">
+                                <fieldset [disabled]="branchcodedisable">
+                                    <div class="form-group">
+
+                                        <label id="pbranchcode" title="Branch Code" class="required-field">Branch Code</label>
+                                        <input class="form-control" type="text" value="" formControlName="pbranchcode" maxlength="5" (change)="Branch_Code($event)" appUppercase [ngClass]="{ 'is-invalid': BranchConfigvalidators.pbranchcode }">
+                                    </div>
+                                </fieldset>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.pbranchcode">{{BranchConfigvalidators.pbranchcode}}</span>
+                                </div>
+                            </div>
+                            <!--col-end-->
+                            <div class="col-md-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Date of Establishment</label>
+                                    <input class="form-control" type="text" placeholder="date picker" formControlName="pestablishmentdate" [bsConfig]="dpConfig" readonly bsDatepicker [bsValue]="bsValue" placement="bottom" [minDate]="minDate" [maxDate]="maxDate">
+                                    <!--<small class="form-text">Error message or hint will go here</small>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="light">
+                        <div class="row">
+                            <div class="col-md-6 col-xl-4 ">
+                                <div class="form-group">
+                                    <label id="pgstinnumber" title="GSTIN Number">GSTIN</label>
+                                    <input class="form-control" type="text" formControlName="pgstinnumber" maxlength="15" appUppercase appAlphanumericcharsonly placeholder="" [ngClass]="{ 'is-invalid': BranchConfigvalidators.pgstinnumber }">
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.pgstinnumber">{{BranchConfigvalidators.pgstinnumber}}</span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="form-group ">
+                                    <label id="pcontactnumber" title="Contact Number" class="required-field">Contact
+                                        Number</label>
+                                    <input class="form-control" type="text" placeholder="" formControlName="pcontactnumber" maxlength="12" [ngClass]="{ 'is-invalid': BranchConfigvalidators.pcontactnumber }" appNumbersonly>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.pcontactnumber">{{BranchConfigvalidators.pcontactnumber}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="form-group">
+                                    <label id="pemailid" title="Branch Mail ID">Branch Mail ID</label>
+                                    <input class="form-control" type="text" placeholder="Enter Branch Mail ID" formControlName="pemailid" maxlength="75" [ngClass]="{ 'is-invalid': BranchConfigvalidators.pemailid }" appEmailFormat appEmailpattern pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.pemailid">{{BranchConfigvalidators.pemailid}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 col-xl-12">
+                                <h2 class="sec-head"> Address Details</h2>
+                            </div>
+                            <div class="col-md-6  col-xl-4">
+                                <div class="form-group">
+                                    <label id="Addresstype" title="Address Type">Select
+                                        Address
+                                        Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" formControlName="Addresstype" [ngClass]="{ 'is-invalid':BranchConfigvalidators.Addresstype }">
+                                            <option value="" ng-selected="selected" disabled>Select</option>
+                                            <option *ngFor="let addtype of addressTypes" [value]="addtype.pAddressType">
+                                                {{addtype.pAddressType}}</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-lg-icon px-2 p-0"> <img src="assets/images/icon-add-blue.svg"
+                                                    class="" width="18px" height="18px" data-toggle="modal" data-target="#addresstype"
+                                                    (click)="AddAddressType()"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="BranchConfigvalidators.Addresstype">{{BranchConfigvalidators.Addresstype}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12  col-xl-12">
+                                <hr class="light">
+                                <app-address></app-address>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-6 ml-3 mb-1">
+                            <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" (click)="addAddressDetails()"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">{{buttontype}}
+                            </a>
+                        </div>
+                        <hr>
+                        <!-- <div class="row">
+                       <div class="col-md-12 col-xl-12">
+                            <kendo-grid [data]="griddata" [height]="" [pageable]="false" [sortable]="true" [resizable]="true"
+                                width="100%" (remove)="removeHandler($event)">
+
+                                <kendo-grid-column field="pPriority" title="Select Primary Address" width="180"
+                                    [headerClass]="{'kendo-center': true}" class="kendo-center">
+                                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                        <input type="radio" name="priority" [checked]="dataItem.pPriority" [value]="dataItem.pAddressType"
+                                            (change)="selectPrimaryAddress($event)" />
+                                    </ng-template>
+                                </kendo-grid-column>
+                                <kendo-grid-column field="pAddressType" title="Address Type" [headerClass]="{'kendo-center': true}"
+                                    class="kendo-center"></kendo-grid-column>
+                                <kendo-grid-column field="pAddress1" title="Address Details">
+                                    <ng-template kendoGridCellTemplate let-dataItem="dataItem" let-rowIndex="rowIndex">
+
+                                        <div *ngIf="dataItem.paddress1!=''"> {{dataItem.paddress1}},</div>
+                                        <div *ngIf="dataItem.paddress2!=''"> {{dataItem.paddress2}},</div>
+                                        <div *ngIf="dataItem.pcity!=''"> {{dataItem.pcity}},</div>
+                                        <div *ngIf="dataItem.pState!=''"> {{dataItem.pState}},</div>
+                                        <div *ngIf="dataItem.pDistrict!=''"> {{dataItem.pDistrict}},</div>
+                                        <div *ngIf="dataItem.pCountry!=''"> {{dataItem.pCountry}},</div>
+                                        <div *ngIf="dataItem.pPinCode!=''"> {{dataItem.Pincode}}</div>
+
+
+                                    </ng-template>
+                                </kendo-grid-column>
+                                <kendo-grid-command-column title="Action" width="150" [headerClass]="{'kendo-center': true}"
+                                    class="kendo-center">
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <div id="icon-edit" kendoGridEditCommand [primary]="true" hidden></div>
+                                        <div id="icon-delete" kendoGridRemoveCommand></div>
+                                    </ng-template>
+                                </kendo-grid-command-column>
+                            </kendo-grid>
+                        </div> 
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-12 col-xl-12">
+                                <ngx-datatable #table class="material expandable table" [rows]="griddata" [headerHeight]="50" [footerHeight]="50" [rowHeight]="auto" [selected]="selected" [limit]="2">
+                                    <ngx-datatable-column width="200" name="Select Primary Address" [cellClass]="'cell-center'" [headerClass]="'header-center'" frozenLeft="True">
+                                        <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                            <input type="radio" id="{{rowIndex}}" value="" name="fixed" (change)="changeAddressPriority(row,rowIndex)" [checked]="row.priority=='true'">
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="250" name="Address Type" prop="Addresstype" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="300" name="Address Details" prop="pAddress1" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                        <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+
+                                            <span style="display:inline" *ngIf="row.paddress1!='' && row.paddress1!=null "> {{row.paddress1}},</span>
+                                            <span style="display:inline" *ngIf="row.paddress2!='' && row.paddress2!=null "> {{row.paddress2}},</span>
+                                            <span style="display:inline" *ngIf="row.pcity!=''"> {{row.pcity}},</span><br/>
+                                            <span style="display:inline" *ngIf="row.pState!=''"> {{row.pState}},</span>
+                                            <span style="display:inline" *ngIf="row.pDistrict!=''"> {{row.pDistrict}},</span>
+                                            <span style="display:inline" *ngIf="row.pCountry!=''"> {{row.pCountry}},</span>
+                                            <span style="display:inline" *ngIf="row.Pincode!=''"> {{row.Pincode}}</span>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+                                    <ngx-datatable-column width="200" name="" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                        <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+        
+                      <button class="btn btn-transparent"><i class="rb-ic rb-ic-add-frame"></i></button>
+                      <div id="icon-delete" (click)='removeHandler($event,row)' class="text-left justify-content-left pull-left"></div>
+        
+                    </ng-template> -->
+                     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+                           <div class="position-absolute ml-5" id="icon-edit" (click)="editHandler($event, row, rowIndex)" class="text-left justify-content-left pull-left"></div> 
+                      <div id="icon-delete" (click)='removeHandler($event,row)' class="text-left justify-content-left pull-left"></div>
+                          </ng-template>
+                  </ngx-datatable-column>
+                      
+                    </ngx-datatable>
+                    </div>
+                    </div>
+                      <!--  <hr>
+                         <div class="row">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Latitude</label>
+                                    <label class="form-Label">
+                                        <div class="ml-3">{{latitude}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Longitude</label>
+                                    <label class="form-Label">
+                                        <div class="ml-3">{{longitude}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+                        <hr>
+                        <!-- <div class="row"> -->
+                        <app-companyconfig-documents></app-companyconfig-documents>
+                        <!-- </div> -->
+
+                    </form>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="clear()" class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                            <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disableclearbutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                                            Clear
+                                        </button>
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveBranchConfigform()" class="btn btn-b-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{buttonname}}
+                                         </button>
+                        <!--<button (click)="saveBranchConfigform()" appButtonDoubleClick   
+                            data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot"
+                            aria-selected="false"><img src="assets/images/icon-check-white.svg" width="20px" height="20px"
+                                class="mr-3" /> {{buttonname}}</button> -->
+                    </div>
+
+                    <div class="modal right slideInRight" id="addresstype">
+                        <div class="modal-dialog" style="margin-right:0px !important; ">
+                            <div class="model-cst modal-content">
+
+                                <div class="modal-body">
+
+                                    <button type="button" class="close" appButtonDoubleClick [debounceTime]="1000" (click)="Modalclose()">&times;</button>
+                                    <form [formGroup]="addresstypeForm" autocomplete="off">
+                                        <div class="form-group">
+                                            <label id="pAddressTypeMst" title="Address Type" class="required-field">Address
+                                                Type</label>
+                                            <input type="text" class="form-control" maxlength="25" appCharactersonly appTitlecaseword formControlName="pAddressType" placeholder="Enter Address Type" />
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="addressTypeErrorMessage.pAddressTypeMst">{{addressTypeErrorMessage.pAddressTypeMst}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <a class="close" class="btn btn-g-icon mr-4 px-3 border-0" appButtonDoubleClick [debounceTime]="1000" (debounceClick)="clearAddress()">
+                                                <img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear
+                                            </a>
+                                            <a href="" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" (debounceClick)="saveaddresstype()" aria-selected="false" appButtonDoubleClick [debounceTime]="1000">
+                                                <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableaddresstypesavebutton, 'fa-check': !disableaddresstypesavebutton}"></i> Save
+                                            </a>
+
+                                            <!-- <button  class="btn btn-b-icon px-3 border-0"
+                          [disabled]="disableaddresstypesavebutton">
+    
+                  </button> -->
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--buttons-end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

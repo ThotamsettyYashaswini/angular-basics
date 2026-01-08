@@ -1,0 +1,154 @@
+<style>
+    .Plots {
+        padding: 12px;
+        margin-bottom: 5px;
+        border: 1px solid #111;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        color: #ffffff;
+    }
+    
+    .Booked {
+        padding: 5px;
+        margin-bottom: 5px;
+        /* border: 1px solid #111; */
+        width: auto;
+        height: 29px;
+        text-align: center;
+        color: #ffffff;
+        background: green;
+    }
+    
+    .Vacant {
+        padding: 5px;
+        margin-bottom: 5px;
+        /* border: 1px solid #111; */
+        width: auto;
+        height: 29px;
+        text-align: center;
+        color: #ffffff;
+        background: orange;
+    }
+</style>
+<div class="row">
+    <div class="card-box">
+        <div class="col-12">
+            <div class="row  mt-2">
+                <div class="col-md-12">
+                    <div class="sec-head p-0">Layout Details</div>
+                </div>
+            </div>
+
+            <div class="row ">
+
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Layout Name</label>
+                        <label class="w-100 text-Content">{{Plotsdetailsdata[0]?.layoutname}}</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Project Type</label>
+                        <label class="w-100 text-Content">{{Plotsdetailsdata[0]?.landpurchasetype}}</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>Land Name</label>
+                        <label class="w-100 text-Content">{{Plotsdetailsdata[0]?.landname}}</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group m-0">
+                        <label>No. Of Plots</label>
+                        <label class="w-100 text-Content">{{Plotsdetailsdata[0]?.totalnoofplotunits}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-12 col-xl-12">
+            <div class="row">
+
+                <div *ngFor="let item of Plotsdetailsdata ; let index = index">
+                    <div *ngIf="(index + 1) % 4==0 ">{{item.plotno}}</div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class=" ">
+        <div class="card-box">
+            <div class="mt-2">
+                <div class="col-md-12">
+                    <div class="sec-head p-0">INVENTORY CHART - {{Plotsdetailsdata[0]?.layoutname}}</div>
+                </div>
+            </div>
+            <div class="card-group mt-4 mb-4">
+                <div class="col-6">
+                    <div class="Booked">
+                        Booked
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="Vacant">
+                        Vacant
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-group p-0">
+                <div class="col-2" *ngFor="let presentation of Plotsdetailsdata ">
+
+                    <div class="Plots" [ngStyle]="{'background-color':presentation.plotbookingstatus ==true ? 'green' : 'orange' }">
+                        <a (click)="GetPlotnodetails($event)">{{presentation.plotno}}</a>
+<!-- =======
+                    <div class="Plots" [ngStyle]="{'background-color':presentation.plotbookingstatus ==true ? 'green' : 'orange' }">
+                        {{presentation.plotno}}
+>>>>>>> b1839e791d6c410e2b3b30e87fb1e6e756c31eba 
+                    </div>-->
+                </div>
+            </div>
+
+            <div class="card-box" *ngIf="individualPlotData.length>0">
+                <div class="col-12 mt-2">
+                    <div class="card" *ngFor="let individualPlot of individualPlotData">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Standard Area</label>
+                                    <label class="w-100 text-primary">{{individualPlot.pStandarduomarea}}  {{individualPlot.pStandarduomareaname}} ({{individualPlot.pBookingstatus}})</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Area In Square Yards</label>
+                                    <label class="w-100 text-primary">{{individualPlot.pAreainsquareyards}}  {{individualPlot.psalableareauomname}}</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Actual Plot Cost</label>
+                                    <label class="w-100 text-success">{{individualPlot.pActualPlotcost | mycurrencypipe}}</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Salable Area</label>
+                                    <label class="w-100 text-success">{{individualPlot.pSalablearea | number}}</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Common Area Value</label>
+                                    <label class="w-100 text-success">{{individualPlot.pCommonarea | number}}</label>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- main content end -->
+                    <!-- main content end -->
+                </div>
+
+            </div>
+        </div>
+    </div>

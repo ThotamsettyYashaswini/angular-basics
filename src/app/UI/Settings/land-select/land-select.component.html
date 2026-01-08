@@ -1,0 +1,50 @@
+<div class=" mt-1">
+    <div class="form-group sec-head p-0 m-0">
+        <label id="landpurchasetype" title="Select Land" class="sec-head">Select Land</label>
+    </div>
+
+    <ngx-datatable [rows]="Landdata" class="material expandable" columnMode="force" [limit]="5" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarH]="true">
+        <ngx-datatable-column name="" prop="selected" width="50" [cellClass]="'cell-center'" [headerClass]="'header-left'">
+            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+
+                <input type="radio" *ngIf="landbankid==row.landbankid" id="{{rowIndex}}" name="fixed" (change)="checkFixedDepositGridRow(rowIndex,row)" checked [disabled]="landradiodisabled">
+
+                <input type="radio" *ngIf="landbankid!=row.landbankid" id="{{rowIndex}}" name="fixed" (change)="checkFixedDepositGridRow(rowIndex,row)" [disabled]="landradiodisabled">
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Name of Land" prop="nameofland" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Purchase type" prop="landpurchasetype" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+        </ngx-datatable-column>
+        <!-- <ngx-datatable-column width="150" name="Date of Purchase" prop="purchasedate" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+        </ngx-datatable-column> -->
+
+
+        <ngx-datatable-column name="Date of Purchase" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.purchasedate}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <!-- <ngx-datatable-column width="150" name="Land Owner/Developer" prop="companyname" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+        </ngx-datatable-column> -->
+        <ngx-datatable-column name="Total Land Area" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <samp *ngIf="row.primaryLandareaValue!=0">{{row.primaryLandareaValue}} {{row.primarylandareauomname}}</samp>
+                <samp *ngIf="row.secondarylandareavalue!=0">{{row.secondarylandareavalue}} {{row.secondarylandareauomname}} </samp>
+            </ng-template>
+        </ngx-datatable-column>
+        <!-- <ngx-datatable-column width="200" name="Total Land Area" prop="totallandareatodisplay" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+        </ngx-datatable-column> -->
+        <!-- <ngx-datatable-column width="200" name="Total Available Area" prop="availableareatodisplay"
+        [cellClass]="'cell-left'" [headerClass]="'header-center'">
+    </ngx-datatable-column> -->
+        <ngx-datatable-column width="200" name="Total Land area in Acres" prop="totallandareainacrestodisplay" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+        </ngx-datatable-column>
+        <ngx-datatable-column width="200" name="Available land area in Acres" prop="availableareaINACRES" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+        </ngx-datatable-column>
+        <!-- 
+            <ngx-datatable-column width="150" name="Available land area" prop="pFunctionname" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+            </ngx-datatable-column> -->
+    </ngx-datatable>
+</div>

@@ -1,0 +1,541 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Conversion Details</span>
+
+                    <span class="pull-right"><a routerLink='/ConversionView'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+                <form [formGroup]="conversionDetailsForm">
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="proceedingNo" title="Proceeding No.">Proceeding
+                                        No.</label>
+                                    <input class="form-control" type="text" formControlName="proceedingNo" [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.proceedingNo}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.proceedingNo">{{PlotsLayoutsValidationErrors.proceedingNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label class="required-field" id="proceedingDate" title="Proceeding Date">Proceeding
+                                        Date</label>
+
+                                    <input class="form-control" readonly type="text"
+                                        [bsConfig]="ProjectLaunchdateConfig" bsDatepicker
+                                        formControlName="proceedingDate" (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.proceedingDate}">
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.proceedingDate">{{PlotsLayoutsValidationErrors.proceedingDate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+
+                                <div class="form-group">
+                                    <label class="required-field" id="issuedBy" title="Issued By">Issued By</label>
+                                    <input class="form-control" type="text" formControlName="issuedBy"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.issuedBy}">
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.issuedBy">{{PlotsLayoutsValidationErrors.issuedBy}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </form>
+
+                <form [formGroup]="mutationAddToGridForm">
+
+                    <div class="card-box mt-2 mb-3">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="required-field" id="village"
+                                        title="Village / Mandal / District">Village / Mandal / District</label>
+                                    <ng-select title="Village / Mandal / District" [items]="mutationVillageData" formControlName="village" bindLabel="plandvillage" bindValue="plandvillage" placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true (change)="villageChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.village}">
+                                    </ng-select>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.village">{{PlotsLayoutsValidationErrors.village}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="required-field" id="surveyNo" title="Survey No.">Survey No.</label>
+                                    <ng-select title="Survey No." [items]="surveyData" formControlName="surveyNo"
+                                        bindLabel="psurveyno" bindValue="psurveyno" placeholder="Select" [searchable]=true (change)="surveyNoChange($event)"
+                                        [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                    </ng-select>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.surveyNo">{{PlotsLayoutsValidationErrors.surveyNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label id="subSurveyNo" title="Sub Survey No."></label>
+                                    
+                                    <!-- Slash Symbol and Input Field -->
+                                    <div class="input-container">
+                                        <span class="slash-symbol">/</span>
+                                        <input type="text" class="underline-input" formControlName="subSurveyNo" placeholder="Enter Sub Survey No." appTitlecaseword />
+                                    </div>
+                            
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="PlotsLayoutsValidationErrors?.subSurveyNo">{{ PlotsLayoutsValidationErrors.subSurveyNo }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label id="regdocNo" class="required-field" title="Mutation Doc. No">Mutation Doc. No.</label>
+                                    
+
+                                    <ng-select title="Reg. Doc. No" [items]="documentDetailss" formControlName="regdocNo"
+                                        bindLabel="pregistereddocumentno" bindValue="pregistereddocumentno" placeholder="Select" [searchable]=true (change)="docNoChange($event)"
+                                        [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.regdocNo}">
+                                    </ng-select>
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="PlotsLayoutsValidationErrors?.regdocNo">{{ PlotsLayoutsValidationErrors.regdocNo }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-4">
+                            <div class="col-md-12 col-xl-12 asset-kendo" *ngIf="bindMutationDetails.length!=0">
+                                <kendo-grid [data]="bindMutationDetails" [reorderable]="true" [resizable]="true"
+                                    [sortable]="true" width="100%" class="lendoAlign">
+        
+                                    <kendo-grid-column-group title="Land Details As per Mutation">
+
+                                    
+        
+                                    <kendo-grid-column field="plandvillage" title="Village Name" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="pproceedingno" title="Proceeding No." width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="psurveyno" title="Survey No." width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="psubsurveyno" width="140" title="Sub Survey No."
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="ptotallandareainsqyds" title="Land (Sq.Yds.)" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">                                        
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="ptotallandareainacres" width="100" title="Land Area (Acres)"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>                                       
+        
+                                    </kendo-grid-column-group>
+        
+                                </kendo-grid>
+                            </div>
+        
+                        </div>
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label id="primaryLandareaValue" title="Land Area">Land Area</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" formControlName="primaryLandareaValue"
+                                            appNumbersonly maxlength="2" (blur)="totalLandCalc()"
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValue}">
+                                        <label id="primarylandareauom" title="Land Uom" hidden="true">Land
+                                            Uom</label>
+                                        <div class="input-group-append">
+                                            <select class="form-control" disabled formControlName="primarylandareauom"
+                                                (change)="primaryUom_Change($event)"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauom}">
+                                                <option *ngFor="let Primaryauom of primaryUomdata"
+                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                    {{Primaryauom.primarylandareauomname}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValue">{{PlotsLayoutsValidationErrors.primaryLandareaValue}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label id="secondarylandareavalue" title="Land Area"></label>
+                                    <div class="input-group mt-1">
+                                        <input class="form-control" type="text" formControlName="secondarylandareavalue"
+                                            (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                            [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalue}" (blur)="totalLandCalc()">
+                                        <label id="secondarylandareauom" title="Land Uom" hidden="true">Land
+                                            Uom</label>
+                                        <div class="input-group-append">
+                                            <select class="form-control" formControlName="secondarylandareauom"
+                                                (change)="secondaryUom_Change($event)" (blur)="totalLandCalc()"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauom}">
+                                                <option value="" ng-selected="selected">Select</option>
+                                                <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                    [value]="secondaryuom.secondarylandareauom">
+                                                    {{secondaryuom.secondarylandareauomname}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalue">{{PlotsLayoutsValidationErrors.secondarylandareavalue}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label id="secondarylandareavalue" title="Total Land Area"></label>
+                                    <p  class="mt-2"><b>Total Land Area : {{extentInAcres}}</b> </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="totalExtent" title="Total Extent">Total
+                                        Extent As per Mutation (Sq.yds)</label>
+                                        <p style="margin-left: 60px;"><b>{{extentInSquareYards}}</b></p>
+                                    <!-- <input type="text" class="form-control" formControlName="totalExtent" readonly> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="totalExtent" title="Total Extent">Total
+                                        Extent As per Mutation (Acres)</label>
+                                        <p style="margin-left: 46px;" *ngIf="totalExtentInAcres == 0"><b>{{extentInAcres}}</b></p>
+                                        <p *ngIf="totalExtentInAcres != 0"><b>{{extentInAcres}}</b></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="extent" title="Extent">Extent in Square Yards</label>
+                                    <!-- <input type="text" class="form-control" formControlName="extent" readonly> -->
+                                    <p style="margin-left: 60px;"><b>{{totalExtentInSquareYards}}</b></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group">
+                                    <label  id="extent" title="Extent">Extent in Acres</label>
+                                    <p style="margin-left: 46px;" *ngIf="extentInAcres == 0"><b> {{totalExtentInAcres}}</b></p>
+                                    <p *ngIf="extentInAcres != 0"><b> {{totalExtentInAcres}}</b></p>
+                                </div>
+                            </div>
+
+                            <form [formGroup]="documentsForm">
+                        <div class="row mt-4">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="border p-2">
+                                <label class="mt-n4 ml-2 p-1 position-absolute bg-white ">Upload Documents</label>
+                <div class="row">
+                    <div class="col-4">
+                            <div class="">
+                        <div clas="form-group">
+                            <label id="docID" title="Document">Document</label>
+                            <ng-select [items]="documentsList" formControlName="docID" bindLabel="pDocumentName" bindValue="pDocumentId" [clearable]="false" [multiple]=false placeholder="Select" [searchable]="true" [clearable]=true dropdownPosition="bottom"
+                                [clearOnBackspace]=true (change)=documents_Change($event)>
+                            </ng-select>
+                          
+                        </div>
+                    </div>
+                    </div>            
+                
+                    <div class="col-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label id="pAgentname" title="Introducer / Agent">Reference Number</label>
+                                <input type="text" class="form-control" formControlName="referenceNo" >
+                            </div>
+                        </div>
+                    </div> 
+
+                     <div class="col-md-4 col-xl-4">
+                                <label  id="typeofDeed" title="Upload Documents">Upload Documents</label>
+
+                                <div class="input-group">
+                                    <input #input1 type="text" class="form-control" placeholder=""
+                                        [value]="imageResponse?.name" disabled formControlName="pDOCSTOREPATH">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput1.click()">
+                                            <img src="assets/images/icon-upload-blue.svg" class="" width="18px"
+                                                height="18px">
+                                        </button>
+                                        <!-- to uplaod the image -->
+                                        <input id="fileInput1" style="display: none" type="file"
+                                            (change)="uploadAndProgress($event,fileInput1.files)" #fileInput1>
+                                    </div>
+                                    <span class="text-success">
+                                        <ng-container *ngIf="uploadSuccess"></ng-container>
+                                    </span>
+                                </div>
+                            </div>
+
+                </div> 
+                <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="d-flex justify-content-end mt-1">
+                                <a class="close" (click)="ClearDocDetails()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+                                <button (click)="addDocDetails()" href="" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add</button>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="mt-2 border rounded shadow-sm bg-white">
+                            <div class="row" id="printid">
+                                <div class="col-md-12">
+                                    <kendo-grid [kendoGridBinding]="documentDetailsList" [pageable]="false" [sortable]="false" [groupable]="false" [resizable]="true" [group]="groups">
+                                        <kendo-grid-column field="pDOCUMENTID" width="60" title="Doc ID" class="kendo-left">
+                                            </kendo-grid-column>
+                                        <kendo-grid-column field="pDOCUMENTNAME" width="60" title="Document Name" class="kendo-left">
+                                        </kendo-grid-column>
+                                        <kendo-grid-column field="pDOCREFERENCENO" class="kendo-left" width="80" title="Reference No." [headerClass]="{'kendo-left': true}">
+                                        </kendo-grid-column>
+                                        <kendo-grid-column field="pDOCFILENAME" class="kendo-left" width="80" title="File Name" [headerClass]="{'kendo-left': true}">
+                                        </kendo-grid-column>
+                                        
+                                        
+                                       
+                                    </kendo-grid>
+                                </div>
+                            </div>
+                        </div>           
+            </div>
+        </div>
+    </div>
+    </form>
+
+                            <div class="col-md-4 col-xl-4" hidden>
+                                <label  id="typeofDeed" title="Upload Documents">Upload Documents</label>
+
+                                <div class="input-group">
+                                    <input #input1 type="text" class="form-control" placeholder=""
+                                        [value]="imageResponse?.name" disabled formControlName="pDOCSTOREPATH">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput1.click()">
+                                            <img src="assets/images/icon-upload-blue.svg" class="" width="18px"
+                                                height="18px">
+                                        </button>
+                                        <!-- to uplaod the image -->
+                                        <input id="fileInput1" style="display: none" type="file"
+                                            (change)="uploadAndProgress($event,fileInput1.files)" #fileInput1>
+                                    </div>
+                                    <span class="text-success">
+                                        <ng-container *ngIf="uploadSuccess"></ng-container>
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <div class="col-md-12 col-xl-12">
+                            <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+                                
+                                <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                    aria-controls="hot" aria-selected="false"
+                                    (click)="addDetailsToGrid()"><img src="assets/images/icon-add-brown.svg"
+                                        class="mr-3" width="20px" height="20px">Add </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+                    <div class="card-box" *ngIf="landDetailedList.length !=0">
+                        
+
+
+                        <div class="row mt-4">
+                            <div class="col-md-12 col-xl-12 asset-kendo">
+                                <kendo-grid [data]="landDetailedList" [reorderable]="true" [resizable]="true"
+                                    [sortable]="true" width="100%" class="lendoAlign">
+        
+        
+                                    <kendo-grid-column field="SNo" width="60" title="S.No"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                            {{rowIndex+ 1}}
+                                        </ng-template>
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="pvillagemandal" title="Village" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="psurveyno" title="Survey No." width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="psubsurveyno" width="140" title="Sub Survey No."
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                   
+        
+                                    <kendo-grid-column field="pprimarylandarea" width="100" title="Area (Acres)"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+        
+                                    <kendo-grid-column field="psecondarylandarea" title="Sub Area" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>
+
+                                    <kendo-grid-column field="ptotallandareainacres" title="Total" width="100"
+                                        [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                    </kendo-grid-column>                                     
+                                    
+                                    <kendo-grid-column field="ptotallandareainsqyds" width="100" title="Land Area (Sq.yds)" [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                        <ng-template kendoGridCellTemplate let-dataItem>
+                                        {{dataItem.ptotallandareainsqyds | mycurrencypipe}} {{squareYards}}
+                                    </ng-template>
+                                    </kendo-grid-column>  
+        
+                                    
+        
+                                </kendo-grid>
+                            </div>
+        
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-end mt-4 mb-4">
+
+                            <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveConversionDetails()"
+                                class="btn btn-s-icon px-3 border-0">
+                                <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+                                {{savebutton}}
+                            </button>
+
+                        </div>
+                    </div>
+
+
+
+                   
+
+                
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    ul.nav-tabs.filtered-tab .nav-item a:hover {
+        color: #000 !important;
+    }
+
+    .underline-input {
+    border: none;
+    border-bottom: 2px solid black; /* Adds the underline */
+    padding: 5px;
+    outline: none; /* Removes the default focus outline */
+}
+
+.underline-input:focus {
+    border-bottom: 2px solid blue; /* Changes the underline color on focus */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.slash-symbol {
+    margin-right: 20px; /* Space between the slash and input field */
+    font-size: 24px; /* Adjust size of the slash */
+    color: black; /* Color of the slash */
+}
+
+.asset-kendo kendo-grid .k-grid-header th.k-header {
+    text-align: center !important;
+   
+}
+
+</style>
+

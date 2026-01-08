@@ -1,0 +1,66 @@
+<form [formGroup]="AccounttreeForm" autocomplete="off">
+  <div class="row mt-4">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <input class="form-control sb" formControlName="pAccountsearch" [(ngModel)]="searchTerm" #category (input)='SearchAccountLedger(category.value)' placeholder="Search AccountLedger...">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <div class="form-check radio-btn form-check-inline mr-1">
+          <input class="form-check-input" type="radio" name="ExpandAndCollapse" formControlName="ExpandAndCollapse" id="inlineRadio2" value="Expand" (change)="ExpandAndCollapseAll('Expand')" checked="">
+          <label class="mt-1 p-2" for="inlineRadio2"> Expand </label>
+        </div>
+        <div class="form-check radio-btn form-check-inline mr-2">
+          <input class="form-check-input radio-btn" type="radio" name="ExpandAndCollapse" formControlName="ExpandAndCollapse" id="inlineRadio3" value="Collapse" (change)="ExpandAndCollapseAll('Collapse')">
+          <label class="mt-1 p-2" for="inlineRadio3"> Collapse </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!--<input [(ngModel)]="searchTerm" #category (input)='SearchAccountLedger(category.value)' placeholder="Search AccountLedger" />-->
+
+<div class="row">
+  <div class="col-md-12 col-xl-12">
+    <kendo-treeview [nodes]="Accounts"
+                    textField="pAccountname"
+                    idField="pAccountid"
+                    parentIdField="pParentId"
+                    kendoTreeViewExpandable
+                    [expandBy]="'pAccountname'"
+                    [(expandedKeys)]="expandedKeys"
+                    kendoTreeViewFlatDataBinding
+                    (nodeClick)="onNodeClick($event)">
+
+      <ng-template kendoTreeViewNodeTemplate let-dataItem>
+        <div>
+          <span class="caret {{dataItem.pFontcolor}} small">  {{dataItem.pAccountname}}</span>
+
+          <span class="badge ac-level-{{dataItem.pLevel}} {{dataItem.pFontcolor}} small rounded  float-right" style="position:absolute;">{{dataItem.pAccountBalance |mycurrencypipe}} {{dataItem.pAmounttype}}</span>
+
+
+        </div>
+      </ng-template>
+    </kendo-treeview>
+  </div>
+</div>
+<kendo-contextmenu #treemenu (select)="onSelect($event)">
+</kendo-contextmenu>
+<div class="modal right animated slideInRight" id="add-detail">
+  <app-accounts-master [ParrentId]="parrentId" [formtype]="formtype" (emitevent)="Refresh()"></app-accounts-master>
+</div>
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+
+    </div>
+  </ng-template>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+</div>

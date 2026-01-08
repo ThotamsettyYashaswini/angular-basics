@@ -1,0 +1,394 @@
+<div class="row mt-2">
+    <div class="col-12">
+        <p class="bc-2">Land</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-xl-4">
+        <div class="form-group">
+            <label>Land Place</label>
+            <input type="text" value="" class="form-control">
+        </div>
+    </div>
+    <!--col-end-->
+    <div class="col-md-4 col-xl-4">
+        <div class="form-group">
+            <label id="pContactName" title="Registration Office">Registration Office</label>
+            <input type="text" value="" class="form-control">
+
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-12">
+        <div class="form-group mt-2  pl-0">
+            <label>Type &nbsp;</label>
+            <div class="form-check form-check-inline radio-btn-secondary">
+                <input class="form-check-input " type="radio" name="type" id="net" value="net">
+                <label class="mt-1" for="net"> Own </label>
+            </div>
+            <div class="form-check form-check-inline radio-btn-secondary">
+                <input class="form-check-input " type="radio" name="type" id="debit" value="debit" checked>
+                <label class="mt-1" for="debit"> Development </label>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-4">
+        <div class="form-group">
+            <label>Land owner Share%</label>
+            <input type="text" value="" class="form-control">
+        </div>
+    </div>
+    <!--col-end-->
+    <div class="col-md-4 col-xl-4">
+        <div class="form-group">
+            <label id="pContactName" title="Registration Office">Development Share%</label>
+            <input type="text" value="" class="form-control">
+
+        </div>
+    </div>
+    <hr>
+    <div class="col-md-12 col-xl-12">
+        <h2 class="sec-head"> Address Details</h2>
+    </div>
+    <div class="col-md-6  col-xl-4">
+        <div class="form-group">
+            <label id="pAddressType" title="Select Address Type">Select Address Type</label>
+            <div class="input-group">
+                <select class="form-control" formControlName="pAddressType" [ngClass]="{ 'is-invalid':BranchConfigvalidators.pAddressType }">
+              <option value="" ng-selected="selected">Select</option>
+              <option *ngFor="let addtype of addressTypes" [value]="addtype.pAddressType">{{addtype.pAddressType}}</option>
+            </select>
+                <div class="input-group-append">
+                    <button class="btn btn-lg-icon px-2 p-0"> <img src="assets/images/icon-add-blue.svg" class="" width="18px" height="18px" data-toggle="modal" data-target="#addresstype"></button>
+                </div>
+            </div>
+        </div>
+        <div class="invalid-feedback">
+            <span *ngIf="BranchConfigvalidators.pAddressType">{{BranchConfigvalidators?.pAddressType}}</span>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-12">
+        <hr class="light">
+        <app-address></app-address>
+        <div class=" d-flex justify-content-end mt-4">
+            <a (click)="clearPaymentDetails()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+            <a data-toggle="tab" (click)="addPaymentDetails()" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-3">Add</a>
+        </div>
+
+        <table id="example" class="table text-center" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>City / Village</th>
+                    <th>State</th>
+                    <th>District</th>
+                    <th>Pincode</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>H.No. 11-3-382-1/ Srinivas Nagar Colony, Padmaraonagar, Secunderabad</td>
+                    <td>Hyderabad</td>
+                    <td>Telangana </td>
+                    <td>500016</td>
+                    <td>
+                        <div id="icon-delete"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>H.No. 11-3-382-1/ Srinivas Nagar Colony, Padmaraonagar, Secunderabad</td>
+                    <td>Hyderabad</td>
+                    <td>Telangana </td>
+                    <td>500016</td>
+                    <td>
+                        <div id="icon-delete"></div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--col-end-->
+
+<hr>
+<div class="row">
+    <div class="col-md-12 col-xl-12">
+        <h2 class="sec-head"> Purchase Details</h2>
+    </div>
+
+
+    <div class="col-md-6  col-xl-6">
+        <div class="col-md-12  col-xl-12">
+            <div class="form-group">
+                <label>Purchase from</label>
+                <select class="form-control">
+                    <option>Vignesh Kumar K</option>
+                    <option>gopi</option>   					 
+  </select>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label id="pContactName" title="Company Name">Company Name</label>
+                    <select class="form-control">
+                        <option>Nalgonda Realtors Pvt. Ltd.</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label id="pContactName" title="Company Name">Share%</label>
+                    <input type="text" value="" class="form-control">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-12">
+            <div class="form-group">
+                <label>Survey No.</label>
+                <input type="text" value="" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-12  col-xl-12">
+            <div class="form-group">
+                <label>Land Value</label>
+                <input type="text" value="" class="form-control">
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-6  col-xl-6">
+        <div class="box-wrap border rounded p-4">
+            <div class="d-flex">
+                <i class="done p-1 mr-2"></i>
+                <div class="col-md-2">
+                    <div class="profile-tumb"><img src="assets/images/prof-1.jpg"> </div>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-blue"> Vignesh Kumar K </h2>
+                    <div class="lc-txt mt-1 "> UID : 12345</div>
+                    <div class="lc-txt mt-1 "> Address : H.No. 11-3-382-1/ Srinivas Nagar Colony, Padmaraonagar, Secunderabad, Hyderabad-61 </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="lc-txt mt-4"> +91 - 99488 22005 </div>
+                    <div class="lc-txt mt-1"> vigneshk@gmail.com</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3 col-xl-3">
+        <label id="pContactName" title="Total Area">Area</label>
+        <div class="input-group">
+            <fieldset>
+                <input class="form-control" maxlength="75" type="text" placeholder="Enter First Name">
+            </fieldset>
+            <div class="input-group-append">
+                <select class=" btn-lg-icon rounded-left pl-1">
+                        <option value="" >Select</option>
+                        <option value="" selected="selected">Acre(s)</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-xl-3  p-2">
+        <label id="pContactName" title="Total Area"></label>
+        <div class="input-group">
+            <fieldset>
+                <input class="form-control" maxlength="75" type="text" placeholder="Enter First Name">
+            </fieldset>
+            <div class="input-group-append">
+                <select class=" btn-lg-icon rounded-left pl-1">
+                        <option value="" >Select</option>
+                        <option value="" selected="selected">Guntas</option>
+                        <option value="">Cents</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    <div class="col-md-12 col-xl-12">
+        <div class=" d-flex justify-content-end mt-4">
+            <a (click)="clearPaymentDetails()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+            <a data-toggle="tab" (click)="addPaymentDetails()" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-3">Add</a>
+        </div>
+    </div> -->
+    <!-- <hr class="light">
+    <div class="col-md-12 col-xl-12">
+        <table id="example" class="table text-center" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Purchase</th>
+                    <th>Company Name</th>
+                    <th>Land Area</th>
+                    <th>Land Value</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Vignesh Kumar K</td>
+                    <td>Nalgonda Realtors Pvt. Ltd.</td>
+                    <td>60Sft%</td>
+                    <td>10,00,000</td>
+                    <td>
+                        <div id="icon-delete"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vignesh Kumar K</td>
+                    <td>Nalgonda Realtors Pvt. Ltd.</td>
+                    <td>60Sft%</td>
+                    <td>10,00,000</td>
+                    <td>
+                        <div id="icon-delete"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-md-12 col-xl-12">
+        <h2 class="sec-head"> Documents</h2>
+    </div>
+    <div class="col-md-6 col-xl-4 ">
+        <div class="form-group">
+            <label id="pDOCUMENTGROUPID" title="ID Proof Type">Documents Type</label>
+            <div class="input-group">
+                <select class="form-control" formControlName="pDOCUMENTGROUPID" (change)="idProofType_Change($event)" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pDOCUMENTGROUPID }">
+                <option value="" ng-selected="selected">Select</option>
+                <option *ngFor="let idType of groupDetails ; trackBy: trackByFn" [value]="idType.pDocumentGroupId">
+                  {{idType.pDocumentGroup}}
+                </option>
+
+              </select>
+
+            </div>
+            <div class="invalid-feedback-cst">
+                <span *ngIf="companyconfigdocumentvalidations.pDOCUMENTGROUPID">{{companyconfigdocumentvalidations.pDOCUMENTGROUPID}}</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="form-group">
+            <label id="pDOCUMENTID" title="ID Proof Type">Documents</label>
+            <div class="input-group">
+                <select class="form-control" formControlName="pDOCUMENTID" (change)="pIdProof_Change($event)" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pDOCUMENTID }">
+                <option value="" ng-selected="selected">Select</option>
+                <option *ngFor="let documentType of kycDocumentType;trackBy: trackByFn"
+                        [value]="documentType.pDocumentId">
+                  {{documentType.pDocumentName}}
+                </option>
+
+
+              </select>
+
+            </div>
+            <div class="invalid-feedback-cst">
+                <span *ngIf="companyconfigdocumentvalidations.pDOCUMENTID">{{companyconfigdocumentvalidations.pDOCUMENTID}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="form-group">
+            <label id="pDOCREFERENCENO" title="Reference Number">Reference Number</label>
+            <input class="form-control" formControlName="pDOCREFERENCENO" appUppercase type="text" placeholder="" maxlength="75">
+            <!-- <div class="invalid-feedback-cst">
+              <span *ngIf="kYcDocumnetsErrorMessage.pDOCREFERENCENO">{{kYcDocumnetsErrorMessage.pDOCREFERENCENO}}</span>
+            </div> -->
+        </div>
+    </div>
+    <hr class="light">
+
+    <div class="col-md-6 col-xl-4 ">
+        <div class="form-group">
+            <label id="pDOCSTOREPATH" title="Upload Documents">Upload Documents</label>
+            <div class="input-group">
+                <input #input type="text" class="form-control" placeholder="" [value]="imageResponse?.name" disabled formControlName="pDOCSTOREPATH">
+                <div class="input-group-append">
+                    <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput.click()">
+                  <img src="assets/images/icon-upload-blue.svg" class="" width="18px" height="18px">
+                </button>
+                    <!-- to uplaod the image -->
+                    <input id="fileInput1" style="display: none" type="file" (change)="uploadAndProgress($event,fileInput.files)" #fileInput>
+                </div>
+                <span class="text-success">
+                <ng-container *ngIf="uploadSuccess"></ng-container>
+              </span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-end mt-4 mb-4 pt-2">
+        <a class="btn btn-b-icon border-0" (click)="addKycDocument()">
+            <img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add
+        </a>
+    </div>
+    <table id="example" class="table text-center" style="width:100%">
+        <thead>
+            <tr>
+                <th>Purchase</th>
+                <th>Company Name</th>
+                <th>Land Area</th>
+                <th>Land Value</th>
+                <th>Documents Type</th>
+                <th>Documents</th>
+                <th>Reference Number</th>
+                <th>Upload File Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Vignesh Kumar K</td>
+                <td>Nalgonda Realtors Pvt. Ltd.</td>
+                <td>60Sft%</td>
+                <td>10,00,000</td>
+                <td>Vignesh Kumar K</td>
+                <td>Nalgonda Realtors Pvt. Ltd.</td>
+                <td>60Sft%</td>
+                <td>10,00,000</td>
+                <td>
+                    <div id="icon-delete"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Vignesh Kumar K</td>
+                <td>Nalgonda Realtors Pvt. Ltd.</td>
+                <td>60Sft%</td>
+                <td>10,00,000</td>
+                <td>Vignesh Kumar K</td>
+                <td>Nalgonda Realtors Pvt. Ltd.</td>
+                <td>60Sft%</td>
+                <td>10,00,000</td>
+                <td>
+                    <div id="icon-delete"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12 col-xl-12">
+    <h2 class="sec-head"> Total Area : 2020 Acre(s)</h2>
+</div>
+<div class="col-md-12 col-xl-12">
+    <div class="d-flex justify-content-end mt-2">
+        <a appbuttondoubleclick="" aria-controls="hot" aria-selected="false" class="btn btn-g-icon mr-4 px-3 border-0" data-toggle="tab" href="#loanconfig" role="tab"><img class="mr-3" height="20px" src="assets/images/icon-cancel-white.svg" width="20px">Clear</a>
+        <button appbuttondoubleclick="" aria-controls="hot" aria-selected="false" class="btn btn-b-icon px-3 border-0 " data-toggle="tab" role="tab" autocomplete="off"><img class="mr-3" height="20px" src="assets/images/icon-check-white.svg" width="20px">Save</button>
+    </div>
+</div>

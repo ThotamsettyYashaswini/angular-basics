@@ -1,0 +1,218 @@
+<form>
+  <div class="row mt-4">
+    <div class="col d-flex flex-wrap align-items-center">
+      <a (click)="view()" class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px"
+          height="20px" class="mr-2" />New</a>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 col-xl-12">
+
+      <kendo-grid [kendoGridBinding]="courtCaseData" [pageSize]="pageSize" [skip]="gridState.skip"
+        [pageable]="{buttonCount: 2}" [reorderable]="true" [sortable]="true" [resizable]="true" [sort]="gridState.sort">
+        <ng-template kendoGridToolbarTemplate>
+          <div class="row mb-5">
+            <div class="col-4 pl-0 mt-n1">
+              <input placeholder="Search in all columns..." kendoTextBox class="form-control search-k-cst sb"
+                (input)="onFilter($event.target.value)" />
+            </div>
+            <div class="col-7 pr-0 pl-4 ml-4">
+              <ul class="temp-ul mt-n1 mr-n2  pull-right">
+                <li class="temp-ico ml-2">
+                  <a kendoGridPDFCommand><img class="pt-2" src="assets/images/pdf-icon-blue.svg " title="pdf"
+                      width="20px"></a>
+                </li>
+                <li class="temp-ico ml-2">
+                          <a (click)="downloadExcel()">
+                                                        <img class="pt-2" src="assets/images/icon-excel.svg" title="excel" width="20px">
+                                                    </a></li>
+
+              </ul>
+            </div>
+          </div>
+
+        </ng-template>
+        <kendo-grid-column-group title="Mutation Details" [headerClass]="{'kendo-g-center' : true}">
+
+
+
+          <kendo-grid-column field="pproceedingno" title="Proceeding No." [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="pproceedingdate" title="Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+            width="120" class="kendo-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{dataItem.pproceedingdate | date: 'dd-MM-yyyy'}}
+          </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="pissuedby" title="Issued By" [headerClass]="{'kendo-g-center': true}" width="100"
+            class="kendo-center"></kendo-grid-column>
+
+          <kendo-grid-column field="ppattakhathano" title="Patta / Khatha No." [headerClass]="{'kendo-g-center': true}"
+            width="100" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="totalarea" title="View Mutation Docs" [headerClass]="{'kendo-g-center': true}"
+            class="kendo-center" width="120">
+            <ng-template kendoGridCellTemplate let-dataItem>
+
+              <a data-toggle="modal" data-target="#v-time-line">
+                <div class="done"></div>
+                <a for="" (click)="ViewimgData(dataItem)" class="text-primary">View Doc</a>
+
+              </a>
+
+            </ng-template>
+          </kendo-grid-column>
+
+        </kendo-grid-column-group>
+
+        <!-- 23-10-24 -->
+
+        <ng-template kendoGridDetailTemplate let-dataItem>
+
+          <kendo-grid [data]="dataItem.mutationDetailslist">
+
+
+
+            <kendo-grid-column field="pVillagemandal" title="Village / Mandal / District"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+
+            <!-- <kendo-grid-column field="psubsurveyno" title="Sub Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+
+            <kendo-grid-column field="ptotallandareainacres" title="Land Area"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="ptotallandareainsqyds" title="Land Area"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.ptotallandareainsqyds | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="pisdharaniapplicable" title="Dharani Applicable"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="ptotallandareaasperdharani" title="Land Area(Dharani)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+            <kendo-grid-column field="pptotallandareainsqydsasperdharani" title="Land Area(Dharani)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pptotallandareainsqydsasperdharani | mycurrencypipe}} {{squareYards}}
+              </ng-template>
+            </kendo-grid-column>
+
+
+
+
+          </kendo-grid>
+
+        </ng-template>
+
+        <kendo-grid-pdf fileName="Mutation_Details.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+          [landscape]="false" [scale]="0.4" [landscape]="true">
+          <ng-template kendoGridPDFTemplate>
+            <div class="page-template">
+              <div class="header bc-2 text-center">
+                <h5> Mutation Details </h5>
+              </div>
+            </div>
+          </ng-template>
+          <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+        </kendo-grid-pdf>
+      </kendo-grid>
+    </div>
+  </div>
+</form>
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+
+    </div>
+  </ng-template>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"></ngx-loading>
+
+</div>
+
+<!--  -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadDocs" [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+        <!-- <div class="modal fade animated center ZoomIn p-0" id="Viewupload" [ngClass]="stylevarable ? 'withpop' : 'withoutpop'" tabindex="-1" role="dialog" >
+            <div class="modal-dialog modal-xl" height="0px" width="100%"> -->
+        <div class="modal-xl modal-content">
+            <div class="modal-header">
+                <div class="col-12">
+                    <h3 class="bc-2">View File Details</h3>
+
+                </div>
+
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="body">
+                <div class="col-md-12 col-xl-12">
+                    <div>
+                        <div *ngFor="let data of imageViewData">
+                            <div *ngIf="data.pDocFileType !='pdf' && data.pDocFileType !='PDF' ">
+                                <!-- <a  download>
+                                <img [src]="path+data.pFilename" alt="img" width="350px" style="width: 376px;height: 145px; margin-top: 10px; border-color: black;border-style: solid;">
+                            </a><br>
+                            <a class="btn btn-sec mr-2 mt-4" (click)="downloadimgData(data)">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </a> -->
+                                <hr>
+                                <div class="card-box">
+                                    <h4>{{data.pDOCFILENAME}}</h4>
+                                </div>
+                                <div class="over-box">
+                                    <!-- <img [src]="path+data.pFilename" alt="img" class="image img-fluid"> -->
+                                    <img src="assets/images/downloadimage.png" alt="" class="image">
+                                    <div class="overlay">
+                                        <div class="text" (click)="downloadimgData(data)">Download <i
+                                                class="fa fa-download"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngFor="let data of imageViewData">
+                            <div *ngIf="data.pDocFileType =='pdf' || data.pDocFileType =='PDF' ">
+                                <hr>
+                                <div class="card-box">
+                                    <h4>{{data.pDOCFILENAME}}</h4>
+                                </div>
+                                <div class="over-box">
+                                    <img src="assets/images/Sample PDF.png" alt="" class="image">
+                                    <div class="overlay">
+                                        <div class="text" (click)="downloadimgData(data)">Download <i
+                                                class="fa fa-download"></i></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+</div>
+<!--  -->

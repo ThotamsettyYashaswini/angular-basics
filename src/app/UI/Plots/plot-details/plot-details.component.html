@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-6 col-xl-6  mt-3">
+        <span class="bc-2">Plot Details</span>
+    </div>
+    <div class="col-md-6 col-xl-6  mt-3">
+        <a routerLink='/PlotDetailsView' style="background-color: #4b70ff;
+      color: #fff !important; padding: 5px 10px 3px 0px;cursor: pointer;float: right;"><img src="assets/images/icon-back-blue.svg" width="25px" height="25px"> View</a>
+    </div>
+</div>
+<hr>
+<div class="row  mt-1">
+    <div class="col-md-8 col-xl-8 ">
+        <div class="content-inner-view">
+
+            <!-- <p class="bc-2">Plot Details</p> -->
+
+            <div class="row">
+                <div class="col-md-6 col-xl-6 ">
+                    <div class="form-group">
+                        <label>Permit Number</label>
+                        <div class="input-group">
+                            <select class="form-control">
+                        <option ng-selected="selected" value="">L.P.NO. 57/2011</option>
+                        <option>L.P.NO. 87/2015</option>
+                        <option>L.P.NO. 63/2019</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+                <!--col-end-->
+                <div class="col-md-6 col-xl-6">
+                    <div class="form-group">
+                        <label>Plot Number</label>
+                        <div class="input-group">
+                            <select class="form-control">
+                        <option>Please Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <h2 class="sec-head">Plot Area</h2>
+                </div>
+                <div class="col-md-3  col-xl-3">
+                    <div class="form-group">
+                        <label>Length in Feet</label>
+                        <input type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                        <label>Width in Feet</label>
+                        <input type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3  col-xl-3">
+                    <div class="form-group">
+                        <label>Length in Meters</label>
+                        <input type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                        <label>Width in Meters</label>
+                        <input type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3  col-xl-3">
+                    <div class="form-group">
+                        <label>Area in Square Yards</label>
+                        <input type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3 col-xl-3 ">
+                    <div class="form-group">
+                        <label>Extra type</label>
+                        <div class="input-group">
+                            <select class="form-control">
+                        <option ng-selected="selected" value="">North Facing - 10%</option>
+                        <option>East Facing - 20%</option>
+                        <option>Park Facing - 15%</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3 col-xl-3">
+                    <h2 class="sec-head">Un-even Extra type</h2>
+                </div>
+                <div class="col-md-2 col-xl-2">
+                    <div class="material-switch">
+                        <input id="Employment" name="Employment" (change)="bankdebitcardchecked($event)" type="checkbox" data-toggle="collapse" data-target="#tds">
+                        <label for="Employment" class="badge-success" data-toggle="collapse" data-target="#tds"></label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="debitcarddetails">
+                <div class="row">
+
+                    <div class="col-md-6  col-xl-3">
+                        <div class="form-group">
+                            <label>Un-even base</label>
+                            <input type="text" value="" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6  col-xl-3">
+                        <div class="form-group">
+                            <label>Un-even length</label>
+                            <input type="text" value="" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6  col-xl-3">
+                        <div class="form-group">
+                            <label>Un-even Area</label>
+                            <input type="text" value="" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6  col-xl-3">
+                        <div class="form-group">
+                            <label>Un-even Land for discount</label>
+                            <input type="text" value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4 col-xl-4">
+        <div class=" content-inner-right">
+            <div class="col-12 user-sec pt-2">
+                <p class="lc-title text-center mb-auto">Layout Details</p>
+            </div>
+            <div class="card-inner">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Layout Place:</label>
+                                <label class="lc-txt col-md-4">Hyd</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Survey Number(S) :</label>
+                                <label class="lc-txt col-md-4">2500</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Number Of Plots :</label>
+                                <label class="lc-txt col-md-4">20</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Layout Cost :</label>
+                                <label class="lc-txt col-md-4">50,00,000.00</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Layout ID :</label>
+                                <label class="lc-txt col-md-4">KK2020</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Standard Rate Per Yard :</label>
+                                <label class="lc-txt col-md-4">15,000</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-8">Total Area :</label>
+                                <label class="lc-txt col-md-4">20000</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!--dropdown-end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-12">
+        <div class="d-flex justify-content-end mt-2">
+            <a appbuttondoubleclick="" aria-controls="hot" aria-selected="false" class="btn btn-g-icon mr-4 px-3 border-0" data-toggle="tab" href="#loanconfig" role="tab"><img class="mr-3" height="20px" src="assets/images/icon-cancel-white.svg" width="20px">Clear</a><button appbuttondoubleclick="" aria-controls="hot" aria-selected="false" autocomplete="off" class="btn btn-b-icon px-3 border-0 " data-toggle="tab"
+                role="tab"><img class="mr-3" height="20px" src="assets/images/icon-check-white.svg" width="20px">Save</button></div>
+    </div>
+</div>
+
+<!--buttons-end-->

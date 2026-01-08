@@ -1,0 +1,306 @@
+<div class="row">
+
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <form autocomplete="off" [formGroup]="LayoutCreationForm">
+            <div class="content-inner-left">
+                <div class="border-color">
+                    <div class="row mt-1">
+                        <div class="col-md-12 col-xl-12">
+                            <h2 class="sec-head-bold">Layout Creation</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group">
+                                <label id="ppermitno" title="Permit No">Permit No</label>
+                                <div class="input-group">
+                                    <select class="form-control" formControlName="ppermitno" [ngClass]="{ 'is-invalid': LayoutCreationValidationErrors?.ppermitno }">
+                                        <option value="" ng-selected="selected">Select</option>
+                                        <option *ngFor="let permitnos of permitnosArray"
+                                            [value]="permitnos.ppermitno">{{permitnos.ppermitno}}</option>
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback-cst">
+                                    <span *ngIf="LayoutCreationValidationErrors.ppermitno">{{LayoutCreationValidationErrors?.ppermitno}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group">
+                                <label id="pTotalplots" title="No. of Plots">No. of Plots</label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="pTotalplots" [ngClass]="{ 'is-invalid': LayoutCreationValidationErrors?.pTotalplots }" type="text" appNumbersonly>
+                                </div>
+                                <div class="invalid-feedback-cst">
+                                    <span *ngIf="LayoutCreationValidationErrors.pTotalplots">{{LayoutCreationValidationErrors?.pTotalplots}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="content-inner-view mt-3">
+                <div class="border-color">
+                    <div class="row mt-1">
+                        <div class="col-md-12 col-xl-12">
+                            <h2 class="sec-head-bold">Layout Details</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="pRateperSqyard" title="Standard Rate">Standard Rate</label>
+                                <div class="input-group">
+                                    <input class="form-control" style="text-align:right;" type="text" appRoundecimal="9@0" appMycurrencyFormatter appNumbersonly formControlName="pRateperSqyard" [ngClass]="{ 'is-invalid': LayoutCreationValidationErrors?.pRateperSqyard }">
+                                </div>
+                                <div class="invalid-feedback-cst">
+                                    <span *ngIf="LayoutCreationValidationErrors.pRateperSqyard">{{LayoutCreationValidationErrors?.pRateperSqyard}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="pRegsitrationfee" title="Registration Fee">Registration Fee [%]</label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="pRegsitrationfee" [ngClass]="{ 'is-invalid': LayoutCreationValidationErrors?.pRegsitrationfee }" type="text" ThreeDigitDecimalNumber>
+                                </div>
+                                <div class="invalid-feedback-cst">
+                                    <span *ngIf="LayoutCreationValidationErrors.pRegsitrationfee">{{LayoutCreationValidationErrors?.pRegsitrationfee}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="pBookingAmount" title="Booking Amount">Booking Amount</label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="pBookingAmount" [ngClass]="{ 'is-invalid': LayoutCreationValidationErrors?.pBookingAmount }" type="text">
+                                </div>
+                                <div class="invalid-feedback-cst">
+                                    <span *ngIf="LayoutCreationValidationErrors.pBookingAmount">{{LayoutCreationValidationErrors?.pBookingAmount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="content-inner-view mt-3">
+
+                <div class="row mt-1">
+                    <div class="col-md-12 col-xl-12">
+                        <h2 class="sec-head-bold">Add Extra type</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="form-group">
+                            <label>Extra type</label>
+                            <div class="input-group">
+                                <select id="u4290_input" class="form-control">
+                                    <option class="" value="Road">Facing</option>
+                                    <option class="" value="Facing">Facing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="form-group">
+                            <label>Extra type details</label>
+                            <div class="input-group">
+                                <select id="" class="form-control">
+                                    <option>East</option>
+                                    <option>South</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="form-group">
+                            <label>Extra (%)</label>
+                            <input type="text" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-start  mt-4 ml-3 mb-4">
+                                <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-xl-12">
+                    <table id="example" class="table text-center" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Extra type</th>
+                                <th>Extra Details</th>
+                                <th>Extra(%)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Road</td>
+                                <td>60Sft</td>
+                                <td>15%</td>
+                                <td>
+                                    <div id="icon-delete"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Facing</td>
+                                <td>East</td>
+                                <td>12%</td>
+                                <td>
+                                    <div id="icon-delete"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <div class="content-inner-view mt-3">
+                <div class="border-color">
+                    <div class="row">
+                        <div class="col-md-2 col-xl-2">
+                            <h2 class="sec-head">Agent</h2>
+                        </div>
+                        <div class="col-md-2 col-xl-2">
+                            <div class="material-switch">
+                                <input id="Employment" name="Employment" (change)="bankdebitcardchecked($event)" type="checkbox" data-toggle="collapse" data-target="#tds">
+                                <label for="Employment" class="badge-success" data-toggle="collapse" data-target="#tds"></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="AgentCommision" title="Agent Commision">Agent Commision (%)</label>
+                                <input class="form-control" type="text" placeholder="Enter Agent Commision">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+
+            <!------------- save Buttons ------------>
+
+            <div class="row mt-4 ml-1 mb-4">
+                <div class="col-md-12 col-xl-12">
+                    <div class="d-flex justify-content-end mt-4">
+                        <!-- 
+                        <a data-toggle="tab" class="btn btn-g-icon mr-4 px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" appButtonDoubleClick [debounceTime]="1000" (debounceClick)="clearPaymentVoucher()"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a> -->
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveLayoutEntry()" class="btn btn-b-icon px-3 border-0" [disabled]="disablesavebutton">
+                            <i class="fa"
+                                [ngClass]="{'fa-spin fa-spinner': disablesavebutton, 'fa-check': !disablesavebutton}"></i>
+                            {{savebutton}}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <!------------- save Buttons ------------>
+        </form>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="content-inner-right">
+            <div class="col-12 user-sec pt-2">
+                <p class="lc-title text-center mb-auto">Land Details</p>
+            </div>
+            <div class="card-inner">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Service Number</label>
+                                <label class="lc-txt col-md-7"> : 1-2-SERVICE NUmber</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Registration Office </label>
+                                <label class="lc-txt col-md-7"> : Kapil it Solutions</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Land Cost </label>
+                                <label class="lc-txt col-md-7"> : 0.00</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Land Area </label>
+                                <label class="lc-txt col-md-7"> : 0.00</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+
+        <div class="content-inner-right">
+            <div class="col-12 user-sec pt-2 mb-4">
+                <p class="lc-title text-center mb-auto">Company Details</p>
+            </div>
+
+            <div class="card-inner">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Company Name</label>
+                                <label class="lc-txt col-md-7"> : Kapil It Solutions</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Purchase</label>
+                                <label class="lc-txt col-md-7"> : Mastan Baba</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Land Area</label>
+                                <label class="lc-txt col-md-7"> : 10 Acres</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <label class="lc-txtt col-md-5">Land Cost:</label>
+                                <label class="lc-txt col-md-7"> : 10,00,000.00</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

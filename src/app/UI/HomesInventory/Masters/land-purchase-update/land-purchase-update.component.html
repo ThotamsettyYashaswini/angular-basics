@@ -1,0 +1,545 @@
+<div class="my-container">
+    <ng-template #customLoadingTemplate>
+        <div class="custom-class">
+
+        </div>
+    </ng-template>
+    <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+    </ngx-loading>
+
+</div>
+<div class="shadow-bg-view  p-0">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card-box mt-2 mb-3">
+                <span class="bc-2">Update Land Bank Details</span>
+
+                <span class="pull-right"><a routerLink='/LandPurchaseView'><img src="assets/images/VIEW.svg"
+                            width="20px" height="20px">
+                        View</a></span>
+            </div>
+
+            <div class="col-12 mt-2 ">
+                <div class="col-md-12 col-xl-12 mt-3">
+                    <div class="section-content">
+                        <form [formGroup]="updateLandBankForm">
+                            <div class="card-box">
+
+                                <div class="row mt-3">
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label id="layoutName" title="Name Of Layout">Name Of
+                                                Layout</label>
+                                            <ng-select [items]="layoutList" formControlName="layoutName"
+                                                bindLabel="plandbanname" bindValue="plandbanname" [multiple]=false
+                                                placeholder="Select" [searchable]=true [clearable]=true
+                                                dropdownPosition="bottom" [clearOnBackspace]=true
+                                                (change)="layoutName_Change($event)">
+                                            </ng-select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+
+                                <div class="row mt-3">
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="typeOfProperty" title="Type Of Property">Type Of Property</label>
+                                            <ng-select [items]="typeOfPropertyList" formControlName="typeOfProperty"
+                                                bindLabel="type" bindValue="type" [multiple]=false placeholder="Select"
+                                                [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                                [clearOnBackspace]=true (change)="typeOfProperty_Change($event)">
+                                            </ng-select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="cityvillage" title="City / Village">City Village</label>
+                                            <input class="form-control" type="text" formControlName="cityvillage"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.cityvillage }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.cityvillage">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="representedBy" title="Represented By">Represented By</label>
+                                            <ng-select [items]="lstrepresentedby" formControlName="representedBy"
+                                                bindLabel="pEmployeeFullName" bindValue="pEmployeeFullName"
+                                                [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                                                dropdownPosition="bottom" [clearOnBackspace]=true
+                                                (change)="representedBy_Change($event)">
+                                            </ng-select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="vendorName" title="Purchased From">Purchased From /
+                                                Vendor</label>
+                                            <input class="form-control" type="text" formControlName="vendorName"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.vendorName }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.vendorName">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="cityvillage" title="City / Village">Revenue
+                                                Village</label>
+                                            <input class="form-control" type="text" formControlName="revenueVillage"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.revenueVillage }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.revenueVillage">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="houseNo" title="House No">House No</label>
+                                            <input class="form-control" type="text" formControlName="houseNo"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.houseNo }">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.houseNo">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="purchasedDate" title="Purchased Date">Purchased Date</label>
+                                            <input class="form-control" readonly type="text"
+                                                [bsConfig]="landbankdateConfig" bsDatepicker
+                                                formControlName="purchasedDate"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.purchasedDate }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.purchasedDate">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="sro" title="SRO">SRO</label>
+                                            <input class="form-control" type="text" formControlName="sro"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sro }">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.sro">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="sroLocation" title="SRO Location">SRO
+                                                Location</label>
+                                            <input class="form-control" type="text" formControlName="sroLocation"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sroLocation }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.sroLocation">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="custodyAt" title="Custody At">Custody
+                                                At</label>
+                                            <input class="form-control" type="text" formControlName="custodyAt"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.custodyAt }">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.custodyAt">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div> -->
+
+
+
+
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="propertyTaxNo" title="Property Tax No.">Property Tax No.</label>
+                                            <input class="form-control" type="text" formControlName="propertyTaxNo"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.propertyTaxNo }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.propertyTaxNo">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="electricityNo" title="Electricity No.">Electricity No.</label>
+                                            <input class="form-control" type="text" formControlName="electricityNo"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.electricityNo }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.electricityNo">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="googleLocation" title="Google Location">Google Location</label>
+                                            <input class="form-control" type="text" formControlName="googleLocation"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.googleLocation }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.googleLocation">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="totalLandValue" title="Total Land Value">Land Value</label>
+                                            <input class="form-control" type="text" formControlName="totalLandValue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.totalLandValue }"
+                                                (blur)="calOfDocTotValue()" maxlength="10" appNumbersonly
+                                                appMycurrencyFormatter style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.totalLandValue">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="registrationDocumentFee" title="Registration Fee">Registration
+                                                Fee</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="registrationDocumentFee"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.registrationDocumentFee }"
+                                                maxlength="10" appNumbersonly appMycurrencyFormatter style="text-align:right;"
+                                                (blur)="calOfDocTotValue()">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.registrationDocumentFee">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="brokerage" title="Brokerage">Brokerage</label>
+                                            <input class="form-control" type="text" formControlName="brokerage"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.brokerage }"
+                                                maxlength="10" appNumbersonly appMycurrencyFormatter
+                                                style="text-align:right;" (blur)="calOfDocTotValue()">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.brokerage">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="others" title="Brokerage">Others</label>
+                                            <input class="form-control" type="text" formControlName="others"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.others }"
+                                                maxlength="10" appNumbersonly appMycurrencyFormatter
+                                                style="text-align:right;" (blur)="calOfDocTotValue()">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.others">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="totalDocumentValue" title="Total Document Value">Total Document
+                                                Value</label>
+                                            <input class="form-control" type="text" formControlName="totalDocumentValue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.totalDocumentValue }"
+                                                maxlength="10" appNumbersonly appMycurrencyFormatter
+                                                style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.totalDocumentValue">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="custodyAt" title="Custody At">Custody At</label>
+                                            <textarea class="form-control" rows="4" id="custodyAt" title="Custody At"
+                                                formControlName="custodyAt" maxlength="300"></textarea>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="othersNarration" title="Others">Others Narration</label>
+                                            <textarea class="form-control" rows="4" id="others"
+                                                title=">Others Narration" formControlName="othersNarration"
+                                                maxlength="300"></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-4">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="border p-2">
+                                            <label class="mt-n4 ml-2 p-1 position-absolute bg-white ">Boundaries</label>
+                                            <div class="row mt-4">
+
+                                                <div class="col-md-3 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label id="north" title="North">North</label>
+                                                        <input class="form-control" type="text" formControlName="north"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.north }">
+                                                        <app-validation-message
+                                                            [messgae]="LandpurchaseValidationErrors?.north">
+                                                        </app-validation-message>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label id="east" title="East">East</label>
+                                                        <input class="form-control" type="text" formControlName="east"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.east }">
+                                                        <app-validation-message
+                                                            [messgae]="LandpurchaseValidationErrors?.east">
+                                                        </app-validation-message>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label id="south" title="South">South</label>
+                                                        <input class="form-control" type="text" formControlName="south"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.south }">
+                                                        <app-validation-message
+                                                            [messgae]="LandpurchaseValidationErrors?.south">
+                                                        </app-validation-message>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label id="west" title="West">West</label>
+                                                        <input class="form-control" type="text" formControlName="west"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.west }">
+                                                        <app-validation-message
+                                                            [messgae]="LandpurchaseValidationErrors?.west">
+                                                        </app-validation-message>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-box" *ngIf="landDetailsList.length!=0">
+                                    <!-- GRID Start-->
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 col-xl-12 asset-kendo">
+                                            <kendo-grid [data]="landDetailsList" [reorderable]="true" [resizable]="true"
+                                                [sortable]="true" width="100%" class="lendoAlign">
+
+                                                <!-- <kendo-grid-column field="surveyno" title="Survey No." width="190">
+                                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                            <div class="form-group" style="flex: 1; margin-right: 10px;">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text"
+                                                        formControlName="surveyNo" 
+                                                        
+                                                       
+                                                        (change)="ChangeInput($event,dataItem,rowIndex)">
+
+                                                    
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValue">
+                                                        {{PlotsLayoutsValidationErrors.primaryLandareaValue}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </kendo-grid-column> -->
+
+                                                <!-- <kendo-grid-column field="surveyno" title="Survey No." width="100">
+                                                    <ng-template kendoGridCellTemplate let-dataItem
+                                                        let-rowIndex="rowIndex">
+                                                        <input type="text"  class="form-control" style="flex: 1; margin-right: 10px; text-align: center;" [value]="dataItem.surveyno"
+                                                            (change)="onSurveyNoChange($event, rowIndex)" />
+                                                    </ng-template>
+                                                </kendo-grid-column> -->
+
+                                                <kendo-grid-column field="surveyno" title="Survey No." width="100">
+                                                    <ng-template kendoGridCellTemplate let-dataItem
+                                                        let-rowIndex="rowIndex">
+                                                        <input type="text" class="form-control"
+                                                            style="flex: 1; margin-right: 10px; text-align: center;"
+                                                            [value]="dataItem.surveyno"
+                                                            [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                            (change)="onSurveyNoChange($event, rowIndex)" />
+
+                                                        <div *ngIf="validationErrorIndex === rowIndex"
+                                                            style="color: red; font-size: 12px;">
+                                                            Only one row can be edited at a time.
+                                                        </div>
+                                                    </ng-template>
+                                                </kendo-grid-column>
+
+                                                <kendo-grid-column field="plandpurchasedetailsid"
+                                                    title="Land Purchase Details ID" width="100"
+                                                    [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                                </kendo-grid-column>
+                                                <!-- <kendo-grid-column field="purchasedate" width="140"
+                                                    title="Purchased Date" [headerClass]="{'kendo-g-center': true}"
+                                                    class="kendo-center">
+                                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                                        {{dataItem.purchasedate | date: 'dd-MM-yyyy'}}
+                                                    </ng-template>
+                                                </kendo-grid-column> -->
+
+                                                <!-- <kendo-grid-column field="landvalue" title="Land Value" width="100"
+                                                    [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                                </kendo-grid-column> -->
+
+
+
+                                                <kendo-grid-column field="cityvillage" width="140" title="Village"
+                                                    [headerClass]="{'kendo-g-center': true}" class="kendo-center">
+                                                    <ng-template kendoGridCellTemplate let-dataItem
+                                                        let-rowIndex="rowIndex">
+                                                        <input type="text" class="form-control"
+                                                            style="flex: 1; margin-right: 10px; text-align: center;"
+                                                            [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                            [value]="dataItem.cityvillage"
+                                                            (change)="onVillageChange($event, rowIndex)" />
+                                                        <div *ngIf="validationErrorIndex === rowIndex"
+                                                            style="color: red; font-size: 12px;">
+                                                            Only one row can be edited at a time.
+                                                        </div>
+                                                    </ng-template>
+                                                </kendo-grid-column>
+
+                                                <kendo-grid-column-group title="BOUNDARIES"
+                                                    [headerClass]="{'kendo-g-center' : true}">
+
+                                                    <kendo-grid-column field="northboundary" title="North" width="100">
+                                                        <ng-template kendoGridCellTemplate let-dataItem
+                                                            let-rowIndex="rowIndex">
+                                                            <input type="text" class="form-control"
+                                                                style="flex: 1; margin-right: 10px; text-align: center;"
+                                                                [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                                [value]="dataItem.northboundary"
+                                                                (change)="onNorthBoundChange($event, rowIndex)" />
+                                                            <div *ngIf="validationErrorIndex === rowIndex"
+                                                                style="color: red; font-size: 12px;">
+                                                                Only one row can be edited at a time.
+                                                            </div>
+                                                        </ng-template>
+                                                    </kendo-grid-column>
+
+                                                    <kendo-grid-column field="eastboundary" title="East" width="100">
+                                                        <ng-template kendoGridCellTemplate let-dataItem
+                                                            let-rowIndex="rowIndex">
+                                                            <input type="text" class="form-control"
+                                                                style="flex: 1; margin-right: 10px; text-align: center;"
+                                                                [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                                [value]="dataItem.eastboundary"
+                                                                (change)="onEastBoundChange($event, rowIndex)" />
+                                                            <div *ngIf="validationErrorIndex === rowIndex"
+                                                                style="color: red; font-size: 12px;">
+                                                                Only one row can be edited at a time.
+                                                            </div>
+                                                        </ng-template>
+                                                    </kendo-grid-column>
+
+                                                    <kendo-grid-column field="southboundary" title="South" width="100">
+                                                        <ng-template kendoGridCellTemplate let-dataItem
+                                                            let-rowIndex="rowIndex">
+                                                            <input type="text" class="form-control"
+                                                                style="flex: 1; margin-right: 10px; text-align: center;"
+                                                                [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                                [value]="dataItem.southboundary"
+                                                                (change)="onSouthBoundChange($event, rowIndex)" />
+                                                            <div *ngIf="validationErrorIndex === rowIndex"
+                                                                style="color: red; font-size: 12px;">
+                                                                Only one row can be edited at a time.
+                                                            </div>
+                                                        </ng-template>
+                                                    </kendo-grid-column>
+
+                                                    <kendo-grid-column field="westboundary" title="West" width="100">
+                                                        <ng-template kendoGridCellTemplate let-dataItem
+                                                            let-rowIndex="rowIndex">
+                                                            <input type="text" class="form-control"
+                                                                style="flex: 1; margin-right: 10px; text-align: center;"
+                                                                [disabled]="editingRowIndex !== null && editingRowIndex !== rowIndex"
+                                                                [value]="dataItem.westboundary"
+                                                                (change)="onWestBoundChange($event, rowIndex)" />
+                                                            <div *ngIf="validationErrorIndex === rowIndex"
+                                                                style="color: red; font-size: 12px;">
+                                                                Only one row can be edited at a time.
+                                                            </div>
+                                                        </ng-template>
+                                                    </kendo-grid-column>
+                                                </kendo-grid-column-group>
+
+                                            </kendo-grid>
+                                        </div>
+
+                                    </div>
+                                    <!-- GRID  Ebd-->
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+                                        <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                                src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                                class="mr-3" />Clear</button>
+
+
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="updateLandDetails()" class="btn btn-s-icon px-3 border-0">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px">
+                                            Update
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

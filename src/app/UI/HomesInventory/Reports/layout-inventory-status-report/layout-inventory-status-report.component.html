@@ -1,0 +1,219 @@
+<div class="report-Contentt">
+    <div class="card-box pb-3">
+        <div class="row">
+            <div class="col-12">
+                <p class="bc-2">Plots/Units Detail Report</p>
+            </div>
+        </div>
+        <form [formGroup]="LayoutInventortreportForm" autocomplete="off">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                    <input class="form-check-input" type="radio" name="selectiontype" id="Project" formControlName="selectiontype" value="ALL" (click)="typeofselect('ALL')">
+                    <label class="mt-2" for="Project"> ALL</label>
+                </div>
+                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                    <input class="form-check-input" type="radio" name="selectiontype" id="Branch" formControlName="selectiontype" value="BOOKED" (click)="typeofselect('BOOKED')">
+                    <label class="mt-2" for="Branch"> BOOKED</label>
+                </div>
+                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                    <input class="form-check-input" type="radio" name="selectiontype" id="Referral" formControlName="selectiontype" value="VACANT" (click)="typeofselect('VACANT')">
+                    <label class="mt-2" for="Referral"> VACANT</label>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-md-4 col-xl-4">
+                    <div class="form-group">
+                        <label id="branchconnectionstring" title="Branch Name">Branch Name</label>
+                        <div class="demo-section k-content">
+                            <select class="form-control" formControlName="branchconnectionstring" [ngClass]="{ 'is-invalid': formValidationMessages.branchconnectionstring }" (change)="BranchName_Change($event);">
+                        <option value="" ng-selected="selected" disabled>Select</option>
+                        <option *ngFor="let LstLayoutBranchslist of LstLayoutBranchs"
+                            [value]="LstLayoutBranchslist.dbconnection">
+                            {{LstLayoutBranchslist.branch_name}}
+                        </option>
+                    </select>
+                        </div>
+                        <app-validation-message [messgae]="formValidationMessages.branchconnectionstring"></app-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="form-group">
+                        <label id="pProjecttypeId" title="Project type">Project type</label>
+                        <div class="demo-section k-content">
+                            <select class="form-control" formControlName="pProjecttypeId" [ngClass]="{ 'is-invalid': formValidationMessages.pProjecttypeId }" (change)="changeProjecttype($event);">
+                        <option value="" ng-selected="selected" disabled>Select</option>
+                        <option *ngFor="let GetProjecttypesDatas of GetProjecttypesData"
+                            [value]="GetProjecttypesDatas.itemtypeid">
+                            {{GetProjecttypesDatas.itemtype}}
+                        </option>
+                    </select>
+                        </div>
+                        <app-validation-message [messgae]="formValidationMessages.pProjecttypeId"></app-validation-message>
+                    </div>
+                </div>
+                </div>
+            <div class="row">
+                <div class="col-md-4 colxl-4">
+                    <div class="form-group" *ngIf="plotsShow">
+                        <label id="pPermitid" title="Permit Number/Layout Name">Permit Number/Layout Name</label>
+                        <ng-select [items]="Permitnos" formControlName="pPermitid" bindLabel="pProjectname" bindValue="pProjectNameId" [multiple]=false placeholder="Select" [searchable]="true" [searchFn]="customSearchFn" [clearable]=true dropdownPosition="bottom" [clearOnBackspace]=true
+                            [ngClass]="{ 'is-invalid': formValidationMessages.pPermitid}" (change)="getBookedplotNo($event)">
+                            <ng-template ng-header-tmp let-item="items" let-index="index">
+                                <label class="col-4 p-0"><strong>Permit No.</strong></label>
+                                <label class="col-4 p-0" style="text-align:center"><strong>Layout Name</strong> </label>
+
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <div class="row">
+                                    <span class="col-4 text-dark word-break text-wrap">{{item.pPermitno}}</span>
+                                    <span class="col-4 text-dark">{{item.pProjectname}}</span>
+
+                                </div>
+                            </ng-template>
+                        </ng-select>
+                        <app-validation-message [messgae]="formValidationMessages.pPermitid"></app-validation-message>
+                    </div>
+                    <div class="form-group" *ngIf="buildingShow">
+                        <label id="pProjectid" title="Project Name">Project Name</label>
+                        <div class="demo-section k-content">
+                            <div class="demo-section k-content">
+                                <select class="form-control" formControlName="pProjectid" [ngClass]="{ 'is-invalid': formValidationMessages.pProjectid }" (change)="ChangeProjectName($event)">
+                                <option value="" ng-selected="selected" disabled>Select</option>
+                                <option *ngFor="let GetProjectNamesDatas of GetProjectNamesData"
+                                    [value]="GetProjectNamesDatas.pProjectNameId">
+                                    {{GetProjectNamesDatas.pProjectname}}
+                                </option>
+                            </select>
+                            </div>
+                        </div>
+                        <app-validation-message [messgae]="formValidationMessages.pProjectid"></app-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xl-8">
+                    <div class="d-flex justify-content-end mt-4 pt-2">
+
+                        <a (click)="Generatereport()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/reports-white.svg" width="20px" height="20px" class="mr-3" /> Generate Report</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+    <div class="d-flex justify-content-end mr-3 mt-2 mb-3">
+        <ul class="temp-ul" style="margin-top: 0px !important;">
+            <li class="temp-ico ml-2 pl-3">
+                <img src="assets/images/pdf-icon-blue.svg " width="18px" class="pt-2" title="pdf" style="cursor: pointer;" kendo-button (click)="pdf.saveAs('Plots/Layouts Inventory Status Report('+fromda+'to'+toda+').pdf')" />
+            </li>
+            <li class="temp-ico ml-2">
+                <img src="assets/images/print-icon-blue.svg " width="18px" class="pt-2" title="print" (click)="print()" style="cursor: pointer;" />
+            </li>
+        </ul>
+    </div>
+    <div class="card-box">
+        <kendo-pdf-export #pdf paperSize="A4" [allPages]="true" [repeatHeaders]="true" [landscape]="true">
+            <div id="temp-box">
+                <div class="mt-2 border rounded shadow-sm bg-white">
+                    <div class="row" id="printid">
+                        <div class="col-md-12">
+                            <app-company-details></app-company-details>
+                            <div class="report-head">
+                         <p class="font-18 text-dark text-center m-0">
+                                Plots/Units Detail Report of {{projectName}}
+                            </p>
+                            </div>
+                          
+                          
+                            <kendo-grid [kendoGridBinding]="griddata" [pageable]="false" [sortable]="false" [groupable]="false" [reorderable]="true" [resizable]="true" [group]="groups">
+
+                            <kendo-grid-column field="towername" title="Tower Name" *ngIf="itemtypeid!=1" [width]="140">
+                                <ng-template kendoGridCellTemplate let-group let-field="field" let-value="value">
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="floorname" title="Floor Name" *ngIf="itemtypeid!=1" [width]="140">
+                                <ng-template kendoGridCellTemplate let-group let-field="field" let-value="value">
+                                </ng-template>
+                            </kendo-grid-column>
+
+
+
+                            <!-- <kendo-grid-column field="" title="S.No">
+                                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                    {{rowIndex+1}}
+                                </ng-template>
+                            </kendo-grid-column> -->
+                            <kendo-grid-column title="Inventory No." [headerClass]="{'kendo-right': true}" class="kendo-right" [width]="160">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.inventoryno}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="membername" title="Purchased by" [headerClass]="{'kendo-right': true}" class="kendo-right" [width]="140"></kendo-grid-column>
+                            <kendo-grid-column title="Salable Area (Sq.Yards)" [headerClass]="{'kendo-right': true}" class="kendo-right" [width]="180">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.salablearea.toFixed(3) | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column title="Standard Rate" [headerClass]="{'kendo-right': true}" class="kendo-right" [width]="140">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.standardrate | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="bookingdate" title="Booking Date" [width]="140"></kendo-grid-column>
+                            <kendo-grid-column field="saletype" title="Sale Type" [width]="140"></kendo-grid-column>
+                            <kendo-grid-column title="Booking Amount" [width]="140">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.bookingamount+dataItem.advanceamount | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column title="Installment Amount" [width]="140">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.installmentamount.toFixed(2) | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="lastpaiddate" title="Last Paid Date" [width]="140"></kendo-grid-column>
+                            <kendo-grid-column title="Plot Cost" [width]="140">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.plotunitcost | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column title="Total Received Amount" [width]="180">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.clearedmount | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column title="Discount Amount" [width]="140">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.discountamount | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column title="Charges" [width]="80">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.charges | mycurrencypipe}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="chequestatus" title="Cheque Status" [headerClass]="{'kendo-right': true}" class="kendo-right" [width]="140"></kendo-grid-column>
+                            <kendo-grid-column field="projectname" title="Layout Name" *ngIf="itemtypeid==1" [width]="140">
+                                <ng-template kendoGridCellTemplate let-group let-field="field" let-value="value">
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="projectname" title="Project Name" *ngIf="itemtypeid!=1" [width]="140">
+                                <ng-template kendoGridCellTemplate let-group let-field="field" let-value="value">
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="bookingstatus" title="Booking Status" [width]="140" hidden="true">
+                                <ng-template kendoGridCellTemplate let-group let-field="field" let-value="value">
+                                </ng-template>
+                            </kendo-grid-column>
+                        </kendo-grid>
+                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </kendo-pdf-export>
+    </div>
+</div>

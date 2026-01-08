@@ -1,0 +1,379 @@
+<form [formGroup]="companyconfigdocumentsform">
+    <div class="row mt-5">
+        <div class="col-md-12 col-xl-12">
+            <div class="form-group">
+                <label class="bc-2">Court Case Documents No.</label>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xl-4" >
+                    <div class="form-group">
+                        <label id="LayoutName" title="Name Of The Layout">Court Case No.</label>
+                  
+                            <ng-select title="Name Of The Layou" id="LayoutName" [items]="caseDetailsList"
+                            formControlName="LayoutName" bindLabel="plbcasename" bindValue="plbcasename" (change)="layoutnameChange($event)"
+                            placeholder="Select" [searchable]=true [clearable]=true
+                            dropdownPosition="bottom" [clearOnBackspace]=true [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.LayoutName }">
+                        </ng-select>
+                        <div class="invalid-feedback">
+                            <span *ngIf="companyconfigdocumentvalidations.LayoutName">{{companyconfigdocumentvalidations.LayoutName}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="row mt-4" *ngIf="existingDocList.length !=0">
+                <div class="col-md-12 col-xl-12">
+                    <!-- *ngIf="(kycData.length>0)" -->
+                    <p class="bc-2">Available Documents</p>
+                    <kendo-grid [data]="existingDocList" [reorderable]="true" [resizable]="true"  [sortable]="true" width="100%">
+            
+                        <!-- <kendo-grid-column field="pFunctionId" title="Select" width="40">
+                            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                <div id="icon-delete" (click)="documentDelete(dataItem)"></div>
+                            </ng-template>
+                        </kendo-grid-column> -->
+
+                        <kendo-grid-column field="pcourtdocumenttype" width="140" title="Court Documents" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+                        </kendo-grid-column>
+
+                        <kendo-grid-column field="pdocumentname" width="140" title="Property Documents" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+                        </kendo-grid-column>
+                        <kendo-grid-column field="pdocumentreferenceno" title="Reference Number" width="140" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+                        </kendo-grid-column>
+                        <kendo-grid-column field="pdocumentfilename" title="Document File Name" width="140" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+                        </kendo-grid-column>
+
+                        <kendo-grid-column field="totalarea" title="View"
+                                        [headerClass]="{'kendo-g-center': true}"
+                                        class="kendo-center" width="100">
+                                        <ng-template kendoGridCellTemplate let-dataItem>
+
+                                            <a data-toggle="modal" data-target="#v-time-line">
+                                                <div class="done"></div>
+                                                <a for="" (click)="ViewimgData(dataItem)" class="text-primary">View Doc</a>
+        
+                                            </a>
+                                           
+                                        </ng-template>
+                                    </kendo-grid-column>
+                                    
+                        
+                        
+            
+                    </kendo-grid>
+                </div>
+                
+            </div>
+            <!--  -->
+
+            <div class="row mt-5">
+                <div class="col-md-4 col-xl-4 " hidden>
+                    <div class="form-group">
+                        <label id="pDOCUMENTGROUPID" title="Document Proof Type">Document Proof Type</label>
+                        <div class="input-group">
+                            <select class="form-control" formControlName="pDOCUMENTGROUPID" (change)="idProofType_Change($event)" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pDOCUMENTGROUPID }">
+                    <option value="" ng-selected="selected">Select</option>
+                    <option *ngFor="let idType of groupDetails ; trackBy: trackByFn" [value]="idType.pDocumentGroupId">
+                      {{idType.pDocumentGroup}}
+                    </option>
+    
+                  </select>
+                            <div class="invalid-feedback">
+                                <span *ngIf="companyconfigdocumentvalidations.pDOCUMENTGROUPID">{{companyconfigdocumentvalidations.pDOCUMENTGROUPID}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                        <label id="pcourtdocumenttype" title="Document Proof">Court Documents</label>
+                        <div class="input-group">
+                            <select class="form-control" formControlName="pcourtdocumenttype" (change)="courtDocs_Change($event)" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pcourtdocumenttype }">
+                    <option value="" ng-selected="selected">Select</option>
+                    <option *ngFor="let courtDocumentType of courtDocList;trackBy: trackByFn"
+                            [value]="courtDocumentType.pCourtDocumentName">
+                      {{courtDocumentType.pCourtDocumentName}}
+                    </option>
+    
+    
+                  </select>
+                            <div class="invalid-feedback">
+                                <span *ngIf="companyconfigdocumentvalidations.pcourtdocumenttype">{{companyconfigdocumentvalidations.pcourtdocumenttype}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                        <label id="pDOCUMENTID" title="Document Proof">Property Documents</label>
+                        <div class="input-group">
+                            <select class="form-control" formControlName="pDOCUMENTID" (change)="pIdProof_Change($event)" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pDOCUMENTID }">
+                    <option value="" ng-selected="selected">Select</option>
+                    <option *ngFor="let documentType of kycDocumentType;trackBy: trackByFn"
+                            [value]="documentType.pDocumentId">
+                      {{documentType.pDocumentName}}
+                    </option>
+    
+    
+                  </select>
+                            <div class="invalid-feedback">
+                                <span *ngIf="companyconfigdocumentvalidations.pDOCUMENTID">{{companyconfigdocumentvalidations.pDOCUMENTID}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-xl-3">
+                    <div class="form-group">
+                        <label id="pDOCREFERENCENO" title="Reference Number">Reference Number</label>
+                        <input class="form-control" formControlName="pDOCREFERENCENO" appUppercase type="text" placeholder="" maxlength="75" [ngClass]="{ 'is-invalid': companyconfigdocumentvalidations.pDOCREFERENCENO }">
+                        <div class="invalid-feedback">
+                            <span *ngIf="companyconfigdocumentvalidations.pDOCREFERENCENO">{{companyconfigdocumentvalidations.pDOCREFERENCENO}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <hr class="light"> -->
+
+                <div class="col-md-2 col-xl-2 ">
+                    <div class="form-group">
+                        <label id="pDOCSTOREPATH" title="Upload File Name">Upload File Name</label>
+                        <div class="input-group">
+                            <input #input type="text" class="form-control" placeholder="" [value]="imageResponse?.name" disabled formControlName="pDOCSTOREPATH">
+                            <div class="input-group-append">
+                                <button class="btn btn-lg-icon px-2 p-0" (click)="fileInput.click()">
+                      <img src="assets/images/icon-upload-blue.svg" class="" width="18px" height="18px">
+                    </button>
+                                <!-- to uplaod the image -->
+                                <input id="fileInput1" style="display: none" type="file" (change)="uploadAndProgress($event,fileInput.files)" #fileInput>
+                            </div>
+                            <span class="text-success">
+                    <ng-container *ngIf="uploadSuccess"></ng-container>
+                  </span>
+                        </div>
+                        <div class="invalid-feedback-cst">
+                            <span *ngIf="companyconfigdocumentvalidations.pDOCSTOREPATH">{{companyconfigdocumentvalidations.pDOCSTOREPATH}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-end mt-4 mb-4 pt-2">
+                    <a class="btn btn-b-icon border-0" (click)="addKycDocument()">
+                        <img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div class="row mt-4">
+    <div class="col-md-12 col-xl-12">
+        <!-- *ngIf="(kycData.length>0)" -->
+        <p class="bc-2">Documents</p>
+        <kendo-grid [data]="gridData" [reorderable]="true" [resizable]="true" (remove)="removeHandler($event)" [sortable]="true" width="100%">
+
+<!-- 
+            <kendo-grid-column field="pDOCUMENTGROUPNAME" title="Document Proof Type" width="100">
+            </kendo-grid-column> -->
+            
+            <kendo-grid-column field="pcourtdocumenttype" width="200" title="Court Documents" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+            </kendo-grid-column>
+            <kendo-grid-column field="pDOCUMENTNAME" width="200" title="Property Documents" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+            </kendo-grid-column>
+            <kendo-grid-column field="pDOCREFERENCENO" title="Reference Number" width="150" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+            </kendo-grid-column>
+            <kendo-grid-column field="pDOCFILENAME" title="Upload File Name" width="150" [headerClass]="{'kendo-g-center': true}"  class="kendo-center">
+            </kendo-grid-column>
+            <!-- <kendo-grid-column field="pDocStorePath" title="Upload File path" width="100">
+          </kendo-grid-column> -->
+            <kendo-grid-command-column title="" width="220">
+                <ng-template kendoGridCellTemplate> 
+
+                    <div id="icon-delete" kendoGridRemoveCommand></div>
+                </ng-template>
+            </kendo-grid-command-column>
+
+        </kendo-grid>
+    </div>
+    <!--The Modal For Id Proof Type Model-->
+    <!-- <div class="modal right slideInRight" id="idProofTypeModel" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="margin-right:0px !important; ">
+          <div class="model-cst modal-content">
+    
+            <div class="modal-body">
+    
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <form [formGroup]="idProofTypeModelForm" autocomplete="off">
+                <div class="form-group">
+                  <label id="pDocumentGroupKyc" title="Id Proof Type">Id Proof Type</label>
+                  <input type="text" class="form-control" formControlName="pDocumentGroup" placeholder="Enter Id Proof Type"
+                       />
+    
+                   <div class="invalid-feedback">
+                    <span *ngIf="idProofTypeErrorMessage.pDocumentGroupKyc">{{idProofTypeErrorMessage.pDocumentGroupKyc}}</span>
+                  </div> -->
+</div>
+<!--buttons-end-->
+
+<div class="col-md-12">
+    <div class="d-flex justify-content-end mt-4 mb-4">
+        
+        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveDocumentDetails()"
+            class="btn btn-s-icon px-3 border-0">
+            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+            
+           Save
+        </button>
+
+    </div>
+</div>
+
+
+<!-- MODAL OPEN -->
+
+<div class="modal right modal-xl  slideInRight" id="ViewuploadVehicleDocs"
+    [ngClass]="stylevarable ? 'withpop' : 'withoutpop'">
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:100%;  margin-top: 50px; margin-bottom:50px;">
+        
+        <div class="modal-xl modal-content">
+            <div class="modal-header">
+                <div class="col-12">
+                    <h3 class="bc-2">View File Details</h3>
+
+                </div>
+
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="body">
+                <div class="col-md-12 col-xl-12">
+                    <div>
+                        <!-- <div *ngIf="filetypeDocs !='pdf' &&  filetypeDocs !='PDF'"> -->
+
+                            <div *ngFor="let data of fileNameDocs">
+
+                                <div *ngIf="data.pfiletype !='PDF'">
+
+                                
+
+                            <hr>
+                            <div class="card-box">
+                                <!-- <h4>{{data.documentfilename}}</h4> -->
+                                <!-- <h4>{{data.pdocumentfilename}}</h4> -->
+                                <h4>{{data.pdocumentfilename.split('.').slice(0, -1).join('.')}}</h4>
+
+
+                            </div>
+                            <div class="over-box">
+                                <!-- <img src="assets/images/downloadimage.png" alt="" class="image"> -->
+
+                            <img [src]="path+data.pdocumentfilename" alt="img" class="image img-fluid">
+
+                                <div class="overlay">
+                                    <div class="text" (click)="downloadimgData(data)">Download <i
+                                            class="fa fa-download"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div *ngFor="let data of fileNameDocs">
+                            <div *ngIf="data.pfiletype =='PDF'">
+                                <hr>
+                                <div class="card-box">
+                                    <!-- <h4>{{data.documentfilename}}</h4> -->
+                                    <h4>{{data.pdocumentfilename.split('.').slice(0, -1).join('.')}}</h4>
+                                    
+                                </div>
+                                <div class="over-box">
+                                    <img src="assets/images/Sample PDF.png" alt="" class="image">
+                                    <div class="overlay">
+                                        <div class="text" (click)="downloadimgData(data)">Download <i
+                                                class="fa fa-download"></i></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- </div> -->
+
+                        <!-- <div *ngIf="filetypeDocs =='pdf' || filetypeDocs =='PDF'  ">
+                            <hr>
+                            <div class="card-box">
+                                <h4>{{fileName1Docs}}</h4>
+                            </div>
+                            <div class="over-box">
+                                <img src="assets/images/Sample PDF.png" alt="" class="image">
+                                <div class="overlay">
+                                    <div class="text" (click)="downloadimgData(fileNameDocs)">Download <i
+                                            class="fa fa-download"></i></div>
+                                </div>
+                            </div>
+
+                        </div> -->
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<style>
+    .over-box {
+        position: relative;
+        width: 50%;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: hsla(197, 93%, 5%, 0.422);
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: .3s ease;
+        transition: .3s ease;
+    }
+
+    .over-box:hover .overlay {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .text {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        cursor: pointer;
+    }
+</style>

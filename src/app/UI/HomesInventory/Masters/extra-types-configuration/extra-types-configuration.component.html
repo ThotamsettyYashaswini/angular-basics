@@ -1,0 +1,297 @@
+<div class="content-inner-view">
+    <div class="row">
+        <div class="col-12">
+            <p class="bc-2">Extra Types</p>
+        </div>
+    </div>
+    <form [formGroup]="extratypeentry">
+        <div class="row">
+            <div class="col-md-4 col-xl-4">
+                <div class="form-group">
+                    <label id="adddeductiontype" title="Addition or Deductions">Addition/Deductions</label>
+                    <div class="input-group">
+                        <select id="AddDeductionType" class="form-control" (change)="AddDeduction_Change($event)" formControlName="adddeductiontype"
+                            [ngClass]="{'is-invalid': extratypeErrorMessage.adddeductiontype}">
+                            <option ng-selected="selected" value="" disabled>Select</option>
+                            <option value="Addition">Addition</option>
+                            <option value="Deduction">Deduction</option>
+                        </select>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="extratypeErrorMessage?.adddeductiontype">{{extratypeErrorMessage.adddeductiontype}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-4">
+                <div class="form-group">
+                    <label id="itemtypeid" title="Project Type">Project Type</label>
+                    <select id="projectname" class="form-control " formControlName="itemtypeid" [ngClass]="{ 'is-invalid': extratypeErrorMessage.itemtypeid }"
+                        (change)="projecttype_Change($event)">
+                        <option value="" ng-selected="selected" disabled>Select</option>
+                        <option *ngFor="let projecttype of lstprojecttypes;trackBy: trackByFn" [value]="projecttype.itemtypeid">{{projecttype.itemtype}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        <span *ngIf="extratypeErrorMessage.itemtypeid">{{extratypeErrorMessage.itemtypeid}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+              <div class="col-md-6 col-xl-4">
+              
+                            <div class="form-group">
+                             <label id="projectidfirst" title="Layout Name/Project Name">Layout Name/Project Name</label>
+                             
+                
+                               <ng-select [items]="lstpermintnumber" formControlName="projectidfirst" bindLabel="projectname"
+                    bindValue="projectid" [multiple]=false placeholder="Select" [searchable]="true"
+                    [searchFn]="customSearchFn" [clearable]=true dropdownPosition="bottom"
+                    [clearOnBackspace]=true [ngClass]="{ 'is-invalid': extratypeErrorMessage.projectidfirst}" (change)="permitno_Change($event)">
+           <ng-template ng-header-tmp let-item="items" let-index="index">
+             <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid!=1"><strong>Project Name</strong> </label>
+             <label class="col-4 p-0" *ngIf="projecttypeid==1"><strong>Permit No.</strong></label>
+             <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid==1"><strong>Layout Name</strong> </label>
+            
+           </ng-template>
+           <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+             <div class="row">
+               <span class="col-4 text-dark word-break text-wrap" *ngIf="item.itemtypeid==1">{{item.permitno}}</span>
+               <span class="col-4 text-dark" >{{item.projectname}}</span>
+              
+             </div>
+           </ng-template>
+           </ng-select>
+          
+                                <div class="invalid-feedback">
+                                    <span *ngIf="extratypeErrorMessage?.projectidfirst">{{extratypeErrorMessage.projectidfirst}}</span>
+                                </div>
+                          </div>
+                          
+                    </div>
+                    
+            <div class="col-md-4 col-xl-4 ">
+                <div class="form-group">
+                    <label id="extratypesid" title="Extra Type">Extra Type</label>
+                    <div class="input-group">
+                        <select id="extratype" class="form-control" formControlName="extratypesid" [ngClass]="{ 'is-invalid': extratypeErrorMessage.extratypesid}"
+                            (change)="extratype_Change($event)">
+                            <option value="" ng-selected="selected">Select</option>
+                            <option *ngFor="let extratype of lstextratype;trackBy: trackByFn" [value]="extratype.extratypesid">{{extratype.extratypename}}</option>
+                        </select>
+                        <!-- <div class="input-group-append">
+                            <button type="button" (click)="clickToAddExtratype()" class="btn btn-lg-icon px-2 p-0"
+                                data-toggle="modal" data-target="#add_extratype">
+                                <img src="assets/images/icon-add-blue.svg" width="16px" height="16px">
+                            </button>
+                        </div> -->
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="extratypeErrorMessage?.extratypesid">
+                            {{extratypeErrorMessage.extratypesid}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- BY SURENDRA -->
+<div class="row">
+    <div class="col-md-4 col-xl-4">
+        <div class="p-1 mb-1 mt-1">
+            <label class="sec-head-bold">Charge Depends on</label>
+            <div class="form-group mb-0">
+                <div class="d-flex">
+                    <div class="form-check form-check-inline radio-btn-secondary mr-5 mb-2">
+                        <input class="form-check-input" type="radio" name="extratypedependancetype" id="valuetype" formControlName="extratypedependancetype" value="Value" (change)="pchargetyprvaluechange()" checked>
+                        <label class="mt-2" for="valuetype"> Value</label>
+                    </div>
+                    <div class="ml-2 mt-n2"></div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-check form-check-inline  radio-btn-secondary mr-5 pr-1 mb-2">
+                        <input class="form-check-input" type="radio" name="extratypedependancetype" id="UOMtype" formControlName="extratypedependancetype" value="UOM" (change)="chargeUOMchange()">
+                        <label class="mt-2" for="UOMtype"> UOM</label>
+                    </div>
+                    <div class="ml-3 col-md-8 mt-n2" *ngIf="showuomfield">
+                        <div class="input-group">
+                            <label id="primarylandareauom" title="UOM"></label>
+                            <select class="form-control" (change)="UOMvalue_change($event)" formControlName="primarylandareauom" [ngClass]="{ 'is-invalid': extratypeErrorMessage.primarylandareauom }">
+            <option value="" ng-selected="selected">Select</option>
+            <option *ngFor="let UOMvalues of lstUOMvalue;trackBy: trackByFn" [value]="UOMvalues.primarylandareauom">{{UOMvalues.primarylandareauomname}}</option>
+          </select>
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="extratypeErrorMessage?.primarylandareauom">{{extratypeErrorMessage.primarylandareauom}}</span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="col-md-6 col-xl-6 pl-2">
+            <div class="mb-1 mt-1">
+                <label class="sec-head-bold">Charge Type</label>
+                <div class="form-group mb-0">
+                    <label id="extravalue" title="Type" hidden></label>
+                    <div class="d-flex">
+
+                        <div class="form-check form-check-inline radio-btn-secondary mr-5 mb-2">
+                            <input class="form-check-input" type="radio" (change)="fixedtype()" name="extracaltype"
+                                id="chargetypefixed1" value="Fixed" formControlName="extracaltype">
+                            <label class="mt-2" for="chargetypefixed1"> Fixed </label>
+                        </div>
+                        <div class="ml-4 col-md-6 mt-n2" *ngIf="showtype">
+                            <div class="input-group">
+
+                                <input class="form-control" style="text-align:right;" type="text" value=""
+                                appNumbersWithZeroOnly appRoundecimal="9@0"  formControlName="extravalue" maxlength="9"
+                                    [ngClass]="{ 'is-invalid':  extratypeErrorMessage.extravalue }">
+                            </div>
+                            <div class="invalid-feedback">
+                                <span *ngIf="extratypeErrorMessage?.extravalue">{{extratypeErrorMessage.extravalue}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+
+                        <div class="form-check form-check-inline radio-btn-secondary">
+                            <input class="form-check-input" type="radio" name="extracaltype" id="chargetypeper1"
+                                (change)="percentagetype()" value="Percentage" formControlName="extracaltype">
+                            <label class="mt-2" for="chargetypeper1"> Percentage </label>
+                        </div>
+                        <div class="ml-2  p-0 col-md-5 mt-n2" *ngIf="!showtype">
+                            <div class="input-group">
+                                <label id="extravalue" title="Type"></label>
+                                <input class="form-control" type="text" ThreeDigitDecimalNumber value=""
+                                    formControlName="extravalue" [ngClass]="{ 'is-invalid':extratypeErrorMessage.extravalue}">
+
+                            </div>
+                            <div class="invalid-feedback">
+                                <span *ngIf="extratypeErrorMessage?.extravalue">{{extratypeErrorMessage.extravalue}}</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+           <hr>
+        <div class="row">
+
+            <div class="col-md-4 col-xl-4">
+                <label id="pEffectfromdate" class="sec-head-bold" title="Effective From Date">Effective From Date</label>
+
+                <div class="form-group w-100 m-0 p-0">
+                    <div class="input-group">
+                        <input id="effectfromdate" class="form-control" readonly type="text" [bsConfig]="dpConfigfrom" bsDatepicker formControlName="pEffectfromdate" maxlength="10" [ngClass]="{ 'is-invalid': extratypeErrorMessage.pEffectfromdate }">
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="extratypeErrorMessage?.pEffectfromdate">{{extratypeErrorMessage.pEffectfromdate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex col-md-8  mt-4 pt-2 justify-content-end">
+                <a (debounceClick)="addExtratypeConfigDetailstogrid()" href="" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" appButtonDoubleClick [debounceTime]="500" aria-selected="false"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">{{addbutton}}
+                </a>
+            </div>
+        </div>
+    </form>
+<hr>
+<div class="row">
+    <div class="col-md-12 col-xl-12">
+        <ngx-datatable #table class="material expandable table" [rows]="ExtraTypeConfigurationdetails" [headerHeight]="50" [footerHeight]="50" [rowHeight]="auto" [selected]="selected" [limit]="5" [height]="100" [scrollbarH]="true"  [sortable]="true" [draggable]="true" [canAutoResize]="true">
+            <ngx-datatable-column width="100" name="" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+                            <!-- <div class="position-absolute ml-5" id="icon-edit" (click)='OnEdit(row,rowIndex)' class="text-left justify-content-left pull-left"></div> -->
+                             <div  *ngIf="row.priority==''"class="position-absolute" id="icon-delete" (click)='OnDelete(row,rowIndex)' class="text-left justify-content-left pull-left"></div>
+        
+                    </ng-template>
+                  </ngx-datatable-column>
+            <ngx-datatable-column name="Extra Type Name" prop="extratypename" [cellClass]="'cell-left'"
+                [headerClass]="'header-left'">
+            </ngx-datatable-column>
+            
+            <!-- <ngx-datatable-column name="Type" prop="extracaltype" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+
+            </ngx-datatable-column> -->
+
+            <ngx-datatable-column width="100" name="Type" prop="extracaltype" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                
+            </ngx-datatable-column>
+            <ngx-datatable-column width="100" name="Type Value" prop="extravalue" [cellClass]="'cell-left'"
+            [headerClass]="'header-right'">
+            <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+              ngx-datatable-cell-template>
+              <span *ngIf="row.extracaltype=='Fixed'">{{row.extravalue | mycurrencypipe}}</span>
+              <span *ngIf="row.extracaltype=='Percentage'">{{row.extravalue}}%</span>
+            </ng-template>
+          </ngx-datatable-column>
+            <ngx-datatable-column name="Addition / Deduction" prop="adddeductiontype" [cellClass]="'cell-left'"
+                [headerClass]="'header-left'">
+
+            </ngx-datatable-column>
+              <ngx-datatable-column width="100" name="Effective From Date" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            {{row.pEffectfromdate }}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column width="100" name="Effective To Date" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            {{row.pEffecttodate | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <!-- BY SURENDRA -->
+
+                    <ngx-datatable-column width="100" name="Charge Depends on UOM" prop="piscadreapplicableonuom" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+
+                            <span *ngIf="row.piscadreapplicableonuom==true" class="done"></span>
+                            <span *ngIf="row.piscadreapplicableonuom==false" class="notdone"></span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column width="100" name="UOM" prop="primarylandareauomname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                            ngx-datatable-cell-template>
+                            <span *ngIf="row.piscadreapplicableonuom==true">{{row.primarylandareauomname}}</span>
+                          
+                          </ng-template>
+                    </ngx-datatable-column>
+
+        </ngx-datatable>
+
+    </div>
+
+</div>
+
+<div class="row mt-1 ml-1 mb-1">
+    <div class="col-md-12 col-xl-12">
+        <div class="d-flex justify-content-end mt-1">
+
+            <a data-toggle="tab" class="btn btn-g-icon mr-4 px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"
+                appButtonDoubleClick [debounceTime]="1000" (debounceClick)="ClearExtratypesConfiguration()"><img src="assets/images/icon-cancel-white.svg"
+                    width="20px" height="20px" class="mr-3">Clear</a>
+            <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveExtratypesConfiguration()" class="btn btn-b-icon px-3 border-0"
+                [disabled]="disablesavebutton">
+                <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                <span *ngIf="!disablesavebutton"><img class="mr-3" height="20px" src="assets/images/icon-check-white.svg"
+                        width="20px"></span>
+                {{savebutton}}
+            </button>
+
+        </div>
+    </div>
+</div>
+</div>
+

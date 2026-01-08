@@ -1,0 +1,845 @@
+<div class="row">
+    <div class="col-md-8 col-xl-8 mt-3">
+        <div class=" card-box">
+            <span class="bc-2">{{title}}</span>
+            <span class="pull-right"><a routerLink='{{View}}'><img src="assets/images/VIEW.svg" width="20px"
+                    height="20px">
+                View</a></span>
+        </div>
+
+        <form [formGroup]="commercialbuildingform" autocomplete="off">
+
+            <div class="card-box mt-3">
+                <div class="menu-toggle">
+                    <a class="btn-expand-collapse"><img id="expand" width="24px" height="24px" src="assets/images/nav-close.svg" />
+                        <img id="collapse" width="24px" height="24px" src="assets/images/nav-hamburger.svg" /></a>
+                </div>
+
+                <!-----------------Top nav end---------------->
+                <div class="">
+
+
+                    <div class="">
+                        <div class="">
+                            <div class=" pb-4">
+                                <div class="">
+                                    <div class="row  mt-2">
+                                        <div class="col-md-12">
+                                            <div class="sec-head p-0">PROJECT SETUP - {{title}}</div>
+                                        </div>
+                                    </div>
+
+                                    <app-land-select (selectavailablearea)=onselectavailablearea($event)></app-land-select>
+
+                                    <div class="row  mt-4">
+                                        <div class="col-md-12">
+                                            <div class="sec-head p-0">Area Details</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-xl-4 ">
+                                            <div class="form-group">
+                                                <label id="Companyname" title="Project type">Project type</label>
+                                                <select id="itemtypeid" class="form-control" formControlName="itemtypeid"  [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.itemtypeID }">
+                                                <option *ngFor="let ItemType of ItemTypes" [value]="ItemType.itemtypeid"
+                                                    selected="true">
+                                                    {{ItemType.itemtype}}
+                                                </option>
+                                            </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xl-4 " *ngIf="hidebranch">
+                                            <div class="form-group">
+                                                <label title="Branch Name" id="pBranchId">Branch Name</label>
+                                                <select [attr.disabled]="updateformdata ? '' : null" id="pbranchnameid" class="form-control" formControlName="pBranchId" (change)="branchid_Change($event)" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.pBranchId }">
+                                                <option value=""  disabled>Select</option>
+                                                <option *ngFor="let branchnames of lstbranchnames"  [value]="branchnames.pBranchId">
+                                                    {{branchnames.pbranchname}}</option>
+                                            </select>
+                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.pBranchId">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="launchdate" title="Launch Date">Launch Date</label>
+                                                <input class="form-control" id="launchdateid" readonly type="text" [bsConfig]="LaunchdateConfig" [bsValue]="today" bsDatepicker formControlName="launchdate" (ngModelChange)="DateChange($event)" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.launchdate }">
+                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.launchdate">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-----------------Top Nav Start --------------------->
+                                    <ul class="nav filtered-tab nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item"><a class="active disableTabs" data-toggle="tab" id="towersdetailsid" href="#tower-details" role="tab" aria-controls="loanname" aria-selected="true" (click)="tab('Towers Details')">Towers Details</a>
+                                        </li>
+                                        <li class="nav-item"> <a class="disableTabs" id="areastatementid" data-toggle="tab" href="#area-statement" role="tab" aria-controls="Installmentduedate" aria-selected="false" (click)="tab('Area Statement')">Area Statement</a>
+                                        </li>
+                                        <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Boundaries"> <a class="disableTabs" data-toggle="tab" id="documentsid" href="#documents" role="tab" aria-controls="loanconfig" aria-selected="false" (click)="tab('Documents')">Documents</a>
+                                        </li>
+
+                                    </ul>
+
+                                    <!-----------------Top Nav End --------------------->
+
+
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade  active show " id="tower-details" role="tabpanel" aria-labelledby="fresh-tab">
+                                            <div class="row">
+                                                <div class="col-12 mt-4">
+                                                    <p class="bc-2">Tower Details</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-1">
+                                                <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label title="Project Name" id="projectname">Project Name</label>
+                                                        <!-- <input class="form-control" type="text" value="Kapil Towers"> -->
+                                                        <input id="projectnameid" class="form-control" type="text" appCharactersonly formControlName="projectname" maxlength=75 [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.projectname }" (blur)="checkprojectname()">
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.projectname">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+                                                <!--col-end-->
+
+                                                <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label id="primaryprojectarea" title="Land Area">Project Area</label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" id="primaryprojectareaid" type="text" formControlName="primaryprojectarea" appNumbersonly maxlength="2" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primaryprojectarea}">
+                                                            <label id="primaryprojectareauomid" title="Land Uom" hidden="true">Land Uom</label>
+                                                            <div class="input-group-append">
+                                                                <select class="form-control" disabled formControlName="primaryprojectareauomid" (change)="primaryUom_Change($event)" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primaryprojectareauomid }">
+                                                                <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                    [value]="Primaryauom.primarylandareauom"
+                                                                    selected="true">
+                                                                    {{Primaryauom.primarylandareauomname}}
+                                                                </option>
+                                                            </select>
+                                                            </div>
+                                                        </div>
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.primaryprojectarea">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label id="secondaryprojectarea" title="Land Area"><span class="badge-success badge p-1 font-weight-strong ">Availble Land - {{availableareaINACRES}} </span></label>
+                                                        <div class="input-group mt-1">
+                                                            <input class="form-control" id="secondaryprojectareaid" type="text" formControlName="secondaryprojectarea" appRoundecimal="2@2" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondaryprojectarea }">
+                                                            <label id="secondaryprojectareauomid" title="Land Uom" hidden="true">Land
+                                                            Uom</label>
+                                                            <div class="input-group-append">
+                                                                <select class="form-control" id="idsecondaryprojectareauom" formControlName="secondaryprojectareauomid" (change)="secondaryUom_Change($event)" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondaryprojectareauomid }">
+                                                                <option value="" ng-selected="selected">Select</option>
+                                                                <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                    [value]="secondaryuom.secondarylandareauom">
+                                                                    {{secondaryuom.secondarylandareauomname}}
+                                                                </option>
+                                                            </select>
+                                                            </div>
+                                                        </div>
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.secondaryprojectarea">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label id="standardrate" title="Standard Rate per sqft">Standard Rate per
+                                                sqft</label>
+                                                        <div class="input-group">
+                                                            <input id="standardrateid" class="form-control" type="text" formControlName="standardrate" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.standardrate }" appMycurrencyFormatter maxlength="10" style="text-align: right;">
+                                                        </div>
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.standardrate">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+                                              <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label id="minbookingamount" title="Min Booking Amount">Min Booking Amount</label>
+                                                        <div class="input-group">
+                                                            <input id="minbookingamountid" class="form-control" type="text" formControlName="minbookingamount" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.minbookingamount }" appMycurrencyFormatter maxlength="10" style="text-align: right;">
+                                                        </div>
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.minbookingamount">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+
+                                           
+                                                <!--col-end-->
+                                                <!-- <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label>Balance Area</label>
+                                                <label class="w-100">Nil</label>
+                                            </div>
+                                        </div> -->
+                                                <hr>
+                                                <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>No of Blocks or Towers <span  *ngIf="!ShowGeneratedata"> : {{Temptowerdata.length}}</span></label>
+                                                        <!-- <input class="form-control" type="text" value="2"> -->
+                                                        <input class="form-control" type="text" formControlName="noofblocks" appRoundecimal="3@3" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.noofblocks }" *ngIf="ShowGeneratedata">
+                                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.noofblocks">
+                                                        </app-validation-message>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-8 col-xl-8 mt-3 pt-1" *ngIf="ShowGeneratedata">
+                                                    <div class="d-flex justify-content-end  mt-2 ml-3 mb-2">
+
+                                                        <!-- <a href=""
+                                                        data-toggle="tab" class="btn  btn-b-icon px-3 border-0"
+                                                        role="tab" aria-controls="hot" aria-selected="false"><img
+                                                            src="assets/images/icon-add-white.svg" class="mr-3"
+                                                            width="20px" height="20px">Generate </a> -->
+
+                                                        <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" (click)="generatedata()">
+                                                            <img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px" *ngIf="!disablesavebutton"><i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i> {{Generatebutton}}
+                                                        </a>
+                                                    </div>
+
+
+                                                </div>
+                                                <!-- <form [formGroup]="addtowersForm" autocomplete="off"> -->
+                                                <!-- <div class="col-md-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Select Tower</label>
+                                                        <select class="form-control">
+                                                        <option>01</option>
+                                                        <option>02</option>
+                                                    </select>
+                                                        <input class="form-control" type="text"
+                                                            formControlName="blockname" 
+                                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.blockname }">
+                                                        <app-validation-message
+                                                        [messgae]="LandpurchaseValidationErrors?.blockname">
+                                                    </app-validation-message> 
+                                                    </div>
+                                                </div> -->
+                                                <!-- modal  Module-->
+                                                <div class="modal right animated slideInRight" id="add-detail">
+                                                    <div class="modal-dialog">
+                                                        <div class="model-cst modal-content">
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+
+                                                                <button type="button" class="close" (click)="CloseModel()">&times;</button>
+                                                                <div class="col-md-12">
+                                                                    <div class="row mt-2" formGroupName="lsttempdata" *ngIf="ShowEditdata">
+                                                                        <div class="col-md-12 col-xl-12">
+                                                                            <div class="form-group">
+                                                                                <label name="Name of Tower" id="blockname">Name of Tower</label>
+                                                                                <input class="form-control" type="text" value="" formControlName="blockname" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.blockname }">
+                                                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.blockname">
+                                                                                </app-validation-message>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-12 col-xl-12">
+                                                                            <div class="form-group">
+                                                                                <label name="No of levels in Super-Structure" id="nooflevelssuperstructure">No of levels in Super-Structure
+                                                                                <label style="font-size: 12px !important;    margin-bottom: 0px;">
+                                                                                (Including Ground level)
+                                                                                </label>
+                                                                                </label>
+                                                                                <input class="form-control" type="text" value="" formControlName="nooflevelssuperstructure" appRoundecimal="2@2" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.nooflevelssuperstructure }">
+                                                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.nooflevelssuperstructure">
+                                                                                </app-validation-message>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-xl-12">
+                                                                            <div class="form-group">
+                                                                                <label name="No of levels in Sub-Structure" id="nooflevelssubstructure">No of levels in Sub-Structure 
+                                                                                        <label style="font-size: 12px !important;    margin-bottom: 0px;">
+                                                                                                (Below Ground Level)
+                                                                                                </label>
+                                                                                </label>
+                                                                                <input class="form-control" type="text" value="" formControlName="nooflevelssubstructure" appRoundecimal="2@2" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.nooflevelssubstructure }">
+                                                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.nooflevelssubstructure">
+                                                                                </app-validation-message>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-xl-12">
+                                                                            <div class="form-group">
+                                                                                <div class="material-switch"> <span class="mr-2">Super & Substructure Common for all towers?</span>
+                                                                                    <input id="show-in-navigation" formControlName="substructureall" type="checkbox">
+                                                                                    <label for="show-in-navigation" class="badge-success"></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-xl-12 mt-2 mb-2 justify-content-end">
+
+
+                                                                            <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0 pull-right" role="tab" aria-controls="hot" aria-selected="false" (click)="adddata()">
+                                                                                <img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">add
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- </form> -->
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="col-md-12 p-0 mt-3 col-xl-12">
+                                                <!-- <table id="example" class="table text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.no</th>
+                                                        <th>Tower Name</th>
+                                                        <th>Super-Structure</th>
+                                                        <th>Sub-structure</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Kapil IT Tower</td>
+                                                        <td>18</td>
+                                                        <td>4</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Kapil Hotel Tower</td>
+                                                        <td>20</td>
+                                                        <td>4</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table> -->
+                                                <!-- <ngx-datatable #table class="material expandable table" [rows]="CompanyData"
+                                                [headerHeight]="60" [footerHeight]="0" [scrollbarH]="true"
+                                                [height]="200" [selected]="selected" rowHeight="auto" [limit]="10"
+                                                [columnMode]="'flex'" [limit]="10">
+                                                
+                                                <ngx-datatable-column [flexGrow]="0.5">
+                                                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                                                        ngx-datatable-cell-template>
+                                                        
+                                                        <i class="fa fa-pencil" title="Modify"
+                                                            *ngIf="!this.isEditable[rowIndex]"
+                                                            (click)="this.isEditable[rowIndex]=!this.isEditable[rowIndex]"></i>
+
+                                                        
+                                                        <i class="fa fa-floppy-o" *ngIf="this.isEditable[rowIndex]"
+                                                            title="Save" (click)="save(row, rowIndex);"></i>
+                                                        <i class="fa fa-trash-o" *ngIf="this.isEditable[rowIndex]"
+                                                            title="Delete" (click)="delete(row,rowIndex)"></i>
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+
+
+                                               
+                                                <ngx-datatable-column [width]="50" [resizeable]="false"
+                                                    [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                                                    <ng-template let-row="row" let-expanded="expanded"
+                                                        ngx-datatable-cell-template>
+                                                        <a class="table-icons" [class.datatable-icon-right]="!expanded"
+                                                            [class.datatable-icon-down]="expanded"
+                                                            title="Expand/Collapse Row"
+                                                            (click)="toggleExpandRow(row, expanded)">
+                                                        </a>
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+
+                                               
+                                                <ngx-datatable-column name="Block Name" prop="blockname">
+                                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                        let-value="value" let-row="row">
+                                                        <input #input class="k-textbox" [formControl]="row.blockname"
+                                                            [disabled]="!isEditable[rowIndex]">
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+                                                
+                                                <ngx-datatable-column name="Super-Structure"
+                                                    prop="nooflevelssuperstructure">
+                                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                        let-value="value" let-row="row">
+                                                        <input #input class="k-textbox"
+                                                            [formControl]="row.nooflevelssuperstructure"
+                                                            [disabled]="!isEditable[rowIndex]">
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+                                                
+                                                <ngx-datatable-column name="Sub-structure"
+                                                    prop="nooflevelssubstructure">
+                                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                        let-value="value" let-row="row">
+
+                                                        <input #input value="nooflevelssubstructure"
+                                                            [(ngModel)]="row.nooflevelssubstructure"
+                                                            [disabled]="!isEditable[rowIndex]">
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+
+
+                                            </ngx-datatable> -->
+
+
+
+                                                <ngx-datatable [rows]="Temptowerdata" class="material expandable" columnMode="force" [limit]="5" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarH]="true">
+
+                                                    <!-- <ngx-datatable-column name="Hall" prop="blockname">
+                                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">                                     
+                                                    
+                                                      <span title="Double click to edit" (dblclick)="editing[rowIndex + '-blockname'] = true"
+                                                        *ngIf="!editing[rowIndex + '-blockname']">
+                                                        {{value}}
+                                                      </span>
+                                                      <input autofocus 
+                                                        *ngIf="editing[rowIndex+ '-blockname']" type="text" [value]="value" />
+                                                    </ng-template>
+                                                  </ngx-datatable-column> -->
+
+                                                    <ngx-datatable-column name="Tower No." prop="blocknumber" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column name="Tower Name" prop="blockname" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column name="Super-Structure" prop="nooflevelssuperstructure" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column name="Sub-structure" prop="nooflevelssubstructure" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column name="Select" prop="selected" [cellClass]="'cell-left'" [headerClass]="'header-left'" frozenLeft="True">
+                                                        <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                                            <div id="icon-edit" (click)="editcommercialbuilding($event, row, rowIndex)" *ngIf="row.ptypeofoperation!='OLD'">
+                                                            </div>
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                </ngx-datatable>
+
+
+
+                                            </div>
+
+
+
+
+
+
+
+
+                                            <!--col-end-->
+                                            <!--row-end-->
+
+                                            <!--form-end-->
+                                            <!--form-end-->
+                                            <!--row-end-->
+                                            <div class="d-flex justify-content-end mt-4">
+
+                                                <div class="d-flex justify-content-end mt-4 mb-4">
+                                                    <!-- <a class="btn btn-g-icon mr-4 px-3 border-0" (click)="clearForm()"><img
+                                                        src="assets/images/icon-cancel-white.svg" width="20px"
+                                                        height="20px" class="mr-3" />Clear</a>
+                                                <a class="btn btn-s-icon px-3 border-0" (click)="SaveForm()"><img
+                                                        src="assets/images/icon-cancel-white.svg" width="20px"
+                                                        height="20px" class="mr-3" />Save &
+                                                    Continue</a> -->
+
+                                                    <div class="d-flex justify-content-end mt-3">
+
+                                                        <button (click)="clearForm()" class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                                    <img src="assets/images/icon-cancel-white.svg" width="20px"
+                                                        height="20px" class="mr-3">Clear
+                                                </button>
+                                                        <button (click)="SaveForm()" class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                                    <img src="assets/images/icon-check-white.svg" class="mr-3"
+                                                        width="20px" height="20px" *ngIf="!disablesavebutton">
+                                                    <i class="fa"
+                                                        [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                                    {{savebutton}}
+                                                </button>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <!--buttons-end-->
+
+                                        </div>
+
+                                        <!-- -*----------------------------------------Tab1 end ----------------------------------------->
+                                        <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="fresh-tab">
+
+
+                                            <!-- <div class="row mt-1">
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="form-group">
+                                                    <label>Select Document Type</label>
+                                                    <select class="form-control">
+                                                        <option>Sale Deed</option>
+                                                        <option>Link Documents</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-xl-4 pt-1 mt-4">
+
+                                                <a href="#" data-toggle="tab" class="btn col-md-12  px-5 border "
+                                                    role="tab" aria-controls="hot" aria-selected="false"><img
+                                                        src="assets/images/icon-upload-blue.svg" class="mr-3"
+                                                        width="20px" height="20px">Upload Attachment</a>
+
+                                            </div>
+                                        </div> -->
+                                            <app-companyconfig-documents></app-companyconfig-documents>
+                                            <!-- <div class="d-flex justify-content-end mt-4"> <a href="#"
+                                                class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                                    src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                                    class="mr-3" />Clear</a> <a href="#loanconfig" data-toggle="tab"
+                                                class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot"
+                                                aria-selected="false"><img
+                                                    src="assets/images/icon-chewron-right-whitesolid.svg" width="20px"
+                                                    height="20px" class="mr-3" />Next</a> </div> -->
+                                            <div class="row mt-4">
+                                                <div class="col-md-12">
+                                                    <div class="d-flex justify-content-end">
+                                                        <button *ngIf="updateformdata==false" (click)="clearDocumentForm()" class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                                        <img src="assets/images/icon-cancel-white.svg" width="20px"
+                                                            height="20px" class="mr-3">Clear
+                                                    </button>
+                                                        <button (click)="SaveDocumentForm()" class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                                        <img src="assets/images/icon-check-white.svg" class="mr-3"
+                                                            width="20px" height="20px" *ngIf="!disablesavebutton">
+                                                        <i class="fa"
+                                                            [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                                        {{savebutton}}
+                                                    </button>
+                                                        <!--buttons-end-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="area-statement" role="tabpanel" aria-labelledby="fresh-tab">
+                                            <div class="">
+                                                <div class=" mt-4">
+                                                    <p class="bc-2">Area Statement</p>
+                                                </div>
+                                            </div>
+                                            <form [formGroup]="areastatementform" (ngSubmit)="updateareastatement()">
+
+                                                <div class="row mt-1">
+                                                    <div class="col-md-6 col-xl-6 ">
+                                                        <div class="form-group">
+                                                            <label>Select Tower</label>
+                                                            <select class="form-control" (change)="TowersList_Change($event)" formControlName="buildingblocksstructureid" [ngClass]="{ 'is-invalid': updatebutton && f.buildingblocksstructureid.errors }">
+                                                    <option value="" ng-selected="selected">Select</option>
+                                                    <option *ngFor="let TowersList of TowersListdetails" value="{{TowersList.buildingblocksstructureid}}">{{TowersList.blockname}}</option>
+                                                </select>
+                                                            <div *ngIf="updatebutton && f.buildingblocksstructureid.errors" class="invalid-feedback">
+                                                                <div *ngIf="f.buildingblocksstructureid.errors.required">Select Tower is required</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-1">
+                                                    <div class="col-md-12 col-xl-12 h-100 ">
+
+                                                        <div class="col-md-12 col-lg-12 m-450 p-0">
+                                                            <div class="card-box m-450">
+
+                                                                <div class=" mt-2">
+                                                                    <div class="">
+                                                                        <h2 class="sec-head">{{ProjectName}}</h2>
+                                                                    </div>
+
+                                                                    <ngx-datatable [rows]="TowersFloorsListdetails" class="material expandable" columnMode="force" [limit]="10" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarH]="true">
+                                                                        <ngx-datatable-column width="50" name="" prop="selected" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                                                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                                                                <div id="icon-edit" (click)="floornumber_Change(row)"></div>
+
+                                                                            </ng-template>
+                                                                        </ngx-datatable-column>
+
+                                                                        <ngx-datatable-column width="150" name="Floor No." prop="floornumber" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                                        </ngx-datatable-column>
+                                                                        <ngx-datatable-column width="150" name="Floor Name" prop="floorname" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                                        </ngx-datatable-column>
+                                                                        <ngx-datatable-column width="150" name="Slab Area" prop="slabarea" [cellClass]="'cell-right'" [headerClass]="'header-center'">
+                                                                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+
+                                                                                <label *ngIf="value!=0">{{value}}</label>
+                                                                            </ng-template>
+                                                                        </ngx-datatable-column>
+                                                                        <ngx-datatable-column width="150" name="Land owner share" prop="landownerarea" [cellClass]="'cell-right'" [headerClass]="'header-center'" *ngIf="landpurchasetype==''">
+                                                                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+
+                                                                                <label *ngIf="value!=0">{{value}}</label>
+                                                                            </ng-template>
+                                                                        </ngx-datatable-column>
+                                                                        <ngx-datatable-column width="150" name="Developer Share" prop="developerarea" [cellClass]="'cell-right'" [headerClass]="'header-center'" *ngIf="landpurchasetype==''">
+                                                                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+
+                                                                                <label *ngIf="value!=0">{{value}}</label>
+                                                                            </ng-template>
+                                                                        </ngx-datatable-column>
+                                                                        <ngx-datatable-column width="150" name="Remarks" prop="remarks" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                                                        </ngx-datatable-column>
+                                                                    </ngx-datatable>
+
+                                                                    <div *ngIf="TowersFloorsListdetails!=''">
+                                                                        <p class="btn btn-s-icon px-3 border-0" (click)="SaveTowersFloorsList()" style="float: right;cursor: pointer;">
+                                                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px" *ngIf="!disablesavebutton"> <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>                                                                            {{savebutton}}
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                    <!-- main content end -->
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal right animated slideInRight" id="floor-add-detail">
+                                                        <div class="modal-dialog">
+                                                            <div class="model-cst modal-content">
+                                                                <!-- Modal body -->
+                                                                <!-- <div class="modal-body">-->
+
+                                                                <button type="button" class="close" (click)="CloseModel()" style="float: right !important;width: 55px;">&times;</button>
+
+                                                                <!-- </div>-->
+                                                                <div class="col-md-12 col-xl-12" *ngIf="TowersFloorsListdetails!=''">
+
+
+                                                                    <div class="col-md-12 col-lg-12 m-450 p-0">
+                                                                        <div class="card-box m-450">
+                                                                            <div class=" mt-2">
+                                                                                <div class="">
+                                                                                    <h2 class="sec-head">{{ProjectName}}</h2>
+                                                                                </div>
+
+
+                                                                                <div class="row p-0">
+                                                                                    <div class="col-md-12 col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Floor Number</label>
+                                                                                            <!-- <select formControlName="floornumber" (change)="floornumber_Change($event)" [ngClass]="{ 'is-invalid': updatebutton && f.floornumber.errors }" class="form-control">
+                                                                            <option value="" ng-selected="selected">Select</option>
+                                                                            <option *ngFor="let TowersFloorsList of TowersFloorsListdetails" value="{{TowersFloorsList.floornumber}}">{{TowersFloorsList.floornumber}}</option>
+                                                                        </select>
+                                                                            <div *ngIf="updatebutton && f.floornumber.errors" class="invalid-feedback">
+                                                                                <div *ngIf="f.floornumber.errors.required">Floor Number is required</div>
+                                                                            </div>-->
+                                                                                            <input class="form-control" type="text" formControlName="floornumber" readonly>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-12 col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Floor Name</label>
+
+                                                                                            <input class="form-control" type="text" formControlName="floorname">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Slab Area</label>
+                                                                                            <div class="input-group">
+                                                                                                <input class="form-control" type="text" value="" appRoundecimal="5@5" formControlName="slabarea" [ngClass]="{ 'is-invalid': updatebutton && f.slabarea.errors }">
+                                                                                                <div class="input-group-append">
+                                                                                                    <select [ngClass]="{ 'is-invalid': updatebutton && f.areauomid.errors }" formControlName="areauomid" class="form-control">
+                                                                                        <!-- <option value="" ng-selected="selected">Select</option> -->
+                                                                                    <option value="4" ng-selected="selected">Square Feet</option>
+                                                                                </select>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                            <div *ngIf="updatebutton && f.slabarea.errors" class="invalid-feedback">
+                                                                                                <div *ngIf="f.slabarea.errors.required">Slab Area is required</div>
+                                                                                            </div>
+                                                                                            <div *ngIf="updatebutton && f.areauomid.errors" class="invalid-feedback">
+                                                                                                <div *ngIf="f.areauomid.errors.required">Area is required</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-xl-12" *ngIf="landpurchasetype==''">
+                                                                                        <div class="form-group">
+                                                                                            <label>Land Owners Share</label>
+                                                                                            <div class="input-group">
+                                                                                                <input class="form-control" type="text" value="" appRoundecimal="5@5" formControlName="landownerarea" [ngClass]="{ 'is-invalid': updatebutton && f.landownerarea.errors }">
+                                                                                                <div *ngIf="updatebutton && f.landownerarea.errors" class="invalid-feedback">
+                                                                                                    <div *ngIf="f.landownerarea.errors.required">Land Owners Share is required</div>
+                                                                                                </div>
+                                                                                                <div class="input-group-append">
+                                                                                                    <select [ngClass]="{ 'is-invalid': updatebutton && f.areauomid.errors }" formControlName="areauomid" class="form-control">
+                                                                                            <!-- <option value="" ng-selected="selected">Select</option> -->
+                                                                                        <option value="4" ng-selected="selected">Square Feet</option>
+                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row p-0">
+
+                                                                                    <div class="col-md-12 col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Remarks</label>
+                                                                                            <input class="form-control" type="text" value="" formControlName="remarks">
+                                                                                            <!-- <div *ngIf="updatebutton && f.remarks.errors" class="invalid-feedback">
+                                                                                <div *ngIf="f.remarks.errors.required">Remarks is required</div>
+                                                                            </div> -->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-xl-12" *ngIf="shareapplicableforallfloors==0">
+                                                                                        <div class="form-group">
+                                                                                            <div class="material-switch"> <span class="mr-2">Common for all floors</span>
+                                                                                                <input id="show-in-navigation" formControlName="all" type="checkbox">
+                                                                                                <label for="show-in-navigation" class="badge-success"></label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <button class="btn btn-s-icon px-3 border-0" style="float: right;" autocomplete="off"><!----><img class="mr-3" height="20px" src="assets/images/icon-check-white.svg" width="20px" *ngIf="!disablesavebutton"><i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i> {{updatbutton}}</button>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--col-end-->
+                                                    <div class="col-md-12 col-xl-12" style="margin-top: 150px;" *ngIf="SaveTowersFloorsListc">
+                                                        <p class="btn btn-s-icon px-3 border-0" (click)="AreaStatementformcontinue()" style="float: right;cursor: pointer;">
+                                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px" *ngIf="!disablesavebutton"> <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i> {{Continuebutton}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+
+
+
+
+                                            <!--buttons-end-->
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4 col-lg-4" *ngIf="LandDetailsData.length!='0'">
+        <div class="card-box">
+            <div class="col-12 mt-2">
+                <div class="card" *ngFor="let LanddataDetails of LandDetailsData">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <span class="sec-head text-capitalize">{{LanddataDetails.nameofland}}</span>
+                                <span class="font-13 text-light1 d-flex">{{LanddataDetails.purchasedate}}</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <span class="sec-head">{{LanddataDetails.landpurchasetype}}</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Total Area</label>
+                                <label class="w-100 text-primary">{{LanddataDetails.totalarea}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Total Document Value</label>
+                                <label class="w-100 text-danger">{{LanddataDetails.totaldocumentvalue |
+                                mycurrencypipe}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Land Value</label>
+                                <label
+                                    class="w-100 text-success">{{LanddataDetails.totallandvalue | mycurrencypipe}}</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="sec-head">Purchase Details</h3>
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let purchaseLanddataDetails of LandPurchaseDetailsData">
+
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Company Name </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.companyname}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Survey No(s). </label><span>:</span>
+                                <label class=" col-md-6 "><b>{{purchaseLanddataDetails.surveyno}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Vendor Name </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.vendorname}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Date of Purchase </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.purchasedate}}</b></label>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Total Area </label><span>:</span>
+                                <label class="col-md-6 ">
+                                <b *ngIf="purchaseLanddataDetails.primaryLandareaValue!=0">{{purchaseLanddataDetails.primaryLandareaValue}}
+                                        {{purchaseLanddataDetails.primarylandareauomname}}</b>
+                                      <b *ngIf="purchaseLanddataDetails.secondarylandareavalue!=0">{{purchaseLanddataDetails.secondarylandareavalue}}
+                                        {{purchaseLanddataDetails.secondarylandareauomname}}</b>
+                                        </label>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="Address!=''">
+                                <h3 class="sec-head">Address Details</h3>
+                                <label *ngIf="Address!=''">{{Address}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- main content end -->
+                <!-- main content end -->
+            </div>
+
+        </div>
+    </div>
+</div>

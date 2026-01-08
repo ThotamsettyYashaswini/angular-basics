@@ -1,0 +1,267 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Hearing Details</span>
+                    <span class="pull-right"><a routerLink='/ViewHearingDetails'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+
+
+
+
+
+                <form [formGroup]="hearingDetailsForm">
+
+
+
+                    <div class="row mt-3">
+
+                        <!--col-end-->
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="caseNO" title="Case No.">Case No.</label>
+
+                                <ng-select title="Case No." id="caseNO" [items]="casenumList" formControlName="caseNO"
+                                    bindLabel="plbcasenumber" bindValue="plbcaseid" (change)="caseNoChange($event)"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.caseNO}">
+                                </ng-select>
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.caseNO">{{PlotsLayoutsValidationErrors.caseNO}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="psurveyno" title="Survey No.">Survey No.</label>
+
+                                <input id="psurveyno" class="form-control" type="text" formControlName="psurveyno">
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.caseNO">{{PlotsLayoutsValidationErrors.caseNO}}</span>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="pdocumentno" title="Document No.">Document No.</label>
+
+                                <input id="pdocumentno" class="form-control" type="text" formControlName="pdocumentno">
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.caseNO">{{PlotsLayoutsValidationErrors.caseNO}}</span>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="hearingDate" title="Hearing Date">Hearing Date</label>
+                                <fieldset [disabled]="disabletransactiondate">
+                                    <input id="hearingDate" class="form-control" readonly type="text"
+                                        [bsConfig]="ProjectLaunchdateConfig" bsDatepicker
+                                        formControlName="hearingDate"
+                                        (ngModelChange)="DateChange($event)"
+                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.hearingDate}">
+                                </fieldset>
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.hearingDate">{{PlotsLayoutsValidationErrors.hearingDate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="form-group">
+                                <label id="category" title="Category">Category</label>
+
+                                <ng-select title="Category" id="category" [items]="categoryList" formControlName="category"
+                                    bindLabel="categoryType" bindValue="categoryType" (change)="categoryChange($event)"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.category}">
+                                </ng-select>
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.category">{{PlotsLayoutsValidationErrors.category}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="hearingAttendedBy" title="Hearing Attended By">Hearing Attended By</label>
+                                <input id="hearingAttendedBy" class="form-control" type="text"
+                                    formControlName="hearingAttendedBy">
+
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.hearingAttendedBy">{{PlotsLayoutsValidationErrors.hearingAttendedBy}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="nextHearing" title="Next Hearing">Next Hearing Date</label>
+                                <!-- <input id="projectname" class="form-control" type="text" formControlName="fillingDate"> -->
+                                <fieldset [disabled]="disableNextHearingDate">
+                                <input id="nextHearing" class="form-control" readonly type="text"
+                                    [bsConfig]="nextHearingDateConfig" bsDatepicker formControlName="nextHearing"
+                                    (ngModelChange)="DateChange1($event)">
+                                </fieldset>
+                                <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.nextHearing}" -->
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.nextHearing">{{PlotsLayoutsValidationErrors.nextHearing}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 col-xl-8">
+
+                            <div class="form-group">
+                                <label id="phearingdetails" title="Hearing Details">Hearing Details</label>
+
+                                <textarea class="form-control" rows="4" id="phearingdetails" title="phearingdetails"
+                                    formControlName="phearingdetails" maxlength="300"></textarea>
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.phearingdetails">{{PlotsLayoutsValidationErrors.phearingdetails}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        
+
+                        
+
+                        
+
+
+
+
+
+
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="hearingType" title="Hearing Type">Hearing Type</label>
+
+                                <ng-select title="Case Party Type" id="hearingType" [items]="hearingList"
+                                    formControlName="hearingType" bindLabel="pcasehearingtype"
+                                    bindValue="pcasehearingtype" placeholder="Select" [searchable]=true [clearable]=true
+                                    dropdownPosition="bottom" [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.hearingType}">
+                                </ng-select>
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.hearingType">{{PlotsLayoutsValidationErrors.hearingType}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 col-xl-12">
+
+                            <div class="form-group">
+                                <label id="remarks" title="Remarks">Remarks</label>
+
+                                <textarea class="form-control" rows="4" id="remarks" title="Remarks"
+                                    formControlName="remarks"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.remarks }"
+                                    maxlength="300"></textarea>
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.remarks">{{PlotsLayoutsValidationErrors.remarks}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-end mt-4 mb-4">
+                            <!-- 
+                            <button appButtonDoubleClick [debounceTime]="500"
+                                (debounceClick)="ClearLandDetails()"
+                                class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px"
+                                    height="20px" *ngIf="!disableclearbutton">
+                                <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                                Clear
+                            </button> -->
+                            <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveHearingDetails()"
+                                class="btn btn-s-icon px-3 border-0">
+                                <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+                                <!-- <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i> -->
+                                {{savebutton}}
+                            </button>
+
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    ul.nav-tabs.filtered-tab .nav-item a:hover {
+        color: #000 !important;
+    }
+</style>

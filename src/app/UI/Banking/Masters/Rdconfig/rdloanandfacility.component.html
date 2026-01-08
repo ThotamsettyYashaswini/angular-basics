@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-12 mt-5 p-0">
+    <p class="bc-2">Loan Facility</p>
+  </div>
+</div>
+
+<form [formGroup]="Rdloanfacilityform">
+<div class="row">
+  <div class="col-md-6 col-xl-6">     
+        <label>Is Loan Facility Available Against Recurring Deposit?</label>
+        <div class="material-switch pull-right">
+          <input id="loanfacty" name="pIsloanfacilityapplicable" formControlName="pIsloanfacilityapplicable" type="checkbox" data-toggle="collapse" data-target="#lf" (change)="Loanfacility($event)">
+          <label for="loanfacty" class="badge-success" data-toggle="collapse" data-target="#lf"></label>
+        </div>    
+  </div>
+</div>
+
+
+<div class="loanyes" >
+  <div class="row">
+    <div class="col-md-12 col-xl-6">
+      <div *ngIf="isloanfacilityaplicable">
+        <label>How much percentage of Fixed deposit can be availed as loan?</label>
+        <div class="col-md-6 col-xl-3 pl-0">
+          <div class="input-group ">
+            <input appMycurrencyFormatter appRoundecimal="2@2" class="form-control w-25 rounded-left" formControlName="pEligiblepercentage" type="text" value="">
+            <div class="input-group-append">
+              <label class=" btn-lg-icon  pt-1 pr-2 pl-2 h-100 pb-0  rounded-right "> % </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-xl-4">
+     
+        <label>Age of Recurring deposit for availing loan</label>
+      
+          <div class="material-switch pull-right">
+            <input id="loanageprd" formControlName="pIsloanageperiod" name="pIsloanageperiod" type="checkbox" data-toggle="collapse" data-target="#loanage" (change)="Loanageperiod($event)">
+            <label for="loanageprd" class="badge-success" data-toggle="collapse" data-target="#loanage"></label>
+          </div>   
+          <div class="input-group" *ngIf="isloanage">
+            <input appMycurrencyFormatter maxlength="17" formControlName="pAgeperiod" class="form-control" type="text" value="">
+            <div class="input-group-append">
+              <select formControlName="pAgeperiodtype" class="form-control w-auto btn-lg-icon">
+                <option>Days</option>
+                <option>Months</option>
+                <option>Years</option>
+              </select>
+            </div>
+          </div>
+        
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <hr class="light">
+  <div class="col-md-12 col-xl-12">
+    <div class="form-group">
+      <label class="sec-head-bold">Pre-Maturity Conditions</label>
+    </div>
+    <div class="col-md-12 col-xl-6 p-0">
+      <div class="form-group">
+        <label>Lockin Period for Pre-Mature closure of Recurring deposit</label>
+        <div class="material-switch pull-right">
+          <input formControlName="pIsprematuretylockingperiod" id="lockin" name="pIsprematuretylockingperiod" type="checkbox" data-toggle="collapse" data-target="#lockinprd" (change)="Lockinperiod($event)">
+          <label for="lockin" class="badge-success" data-toggle="collapse" data-target="#lockinprd"></label>
+        </div>  
+        <div class="col-md-6 col-xl-6 pl-0" *ngIf="islockin">
+          <div class="input-group">
+            <input appMycurrencyFormatter maxlength="17" formControlName="pPrematuretyageperiod" class="form-control" type="text" value="">
+            <div class="input-group-append">
+              <select formControlName="pPrematuretyageperiodtype" class="form-control w-auto btn-lg-icon">
+                <option>Days</option>
+                <option>Months</option>
+                <option>Years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="light">
+<div class="col-md-6 col-xl-6 p-0">
+  <div class="border-box ">
+    <!--col-end-->
+    <div class="col-md-10 col-xl-10">                 
+        <div class="material-switch pull-right">
+          <input formControlName="pIslatefeepayble" id="latefee" name="pIslatefeepayble" type="checkbox" data-toggle="collapse" data-target="#latefeeappl" (change)="Latefeeapplicable($event)">
+          <label for="latefee" class="badge-success" data-toggle="collapse" data-target="#latefeeappl"></label>
+        </div>     
+    </div>
+    <!--col-end-->
+    <div class="col-md-40">
+      <h2 class="sec-head-bold"> Late Fee Payable</h2>
+      <div class="form-group m-0" *ngIf="islatefeeapplicable">
+        <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+          <input formControlName="pLatefeepaybletype" class="form-check-input" type="radio" name="pLatefeepaybletype" id="latefee1" value="comfixed"
+           (change)="latefeePayablechange('fixed')"  checked>
+          <label class="mt-2" data-toggle="collapse" for="latefee1"> Fixed </label>
+          <div *ngIf="forFixed" class="ml-5 mt-n2 comfixed" style="display:block;">
+            <input appMycurrencyFormatter removeZero maxlength="17" formControlName="pLatefeepayblevalue" class="form-control w-auto text-right" type="text" placeholder="Rs.">
+          </div>
+        </div>
+      </div>
+      <div class="form-group m-0" *ngIf="islatefeeapplicable">
+        <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+          <input formControlName="pLatefeepaybletype" class="form-check-input" 
+          type="radio" name="pLatefeepaybletype" id="latefee2" value="compercentage"
+          (change)="latefeePayablechange('percentage')">
+          <label class="mt-2" data-toggle="collapse" data-target="#Percentage" for="latefee2"> Percentage </label>
+          <div *ngIf="forPercentage" class="ml-2 mt-n2 compercentage " >
+            <input removeZero appRoundecimal="2@2"  maxlength="5" formControlName="pLatefeepayblevalue" class="form-control w-auto" type="text" placeholder="%">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--col-end-->
+    <div class="col-md-12 col-xl-12 pl-0" *ngIf="islatefeeapplicable">
+      <div class="form-group mt-2">
+        <label>Late Fee is applicable from</label>
+        <div class="d-flex">
+          <input appMycurrencyFormatter maxlength="3" formControlName="pLatefeeapplicablefrom" class="form-control w-auto" type="text" placeholder="">
+          <!-- <label class="mt-2"> <strong>&nbsp;&nbsp; days</strong> &nbsp; after maturity</label> -->
+          <div class="input-group-append">
+            <select formControlName="pLatefeeapplicabletype" class="form-control w-auto btn-lg-icon">
+              <option>Days</option>
+              <option>Months</option>
+              <option>Years</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<!--row-end-->

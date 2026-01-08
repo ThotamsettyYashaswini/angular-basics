@@ -1,0 +1,182 @@
+<div class="row mt-4">
+  <div class="col-md-12 col-xl-12">
+    <h2 class="sec-head-bold">Member Type Configuration
+    </h2>
+  </div>
+</div>
+
+<form [formGroup]="MemberTypeForm">
+
+  <div class="row mt-1">
+    <div class="col-md-6 col-xl-4">
+      <div class="form-group">
+        <label id="pmembertype" title="Member Type">* Member Type</label>
+        <input appTitlecaseword appAlphanumericwithSpecialCharacters class="form-control" type="text" maxlength="50"
+          formControlName="pmembertype" (change)="GenerateMemberCode($event)"  [ngClass]="{ 'is-invalid':  MemberTypeErrorMessages.pmembertype }" />
+          <div class="invalid-feedback">
+            <span
+              *ngIf="MemberTypeErrorMessages.pmembertype">{{MemberTypeErrorMessages?.pmembertype}}</span>
+          </div>
+      </div>
+    </div>
+    <!--col-end-->
+    <div class="col-md-6 col-xl-4">
+      <div class="form-group">
+        <label id="pmembertypecode" title="Member code">* Member code</label>
+        <input appUppercase appAlphanumericcharsonly class="form-control" (change)="ChangeMemberCode($event)"
+          type="text" maxlength="10" formControlName="pmembertypecode" [ngClass]="{ 'is-invalid':  MemberTypeErrorMessages.pmembertypecode }">
+          <div class="invalid-feedback">
+            <span
+              *ngIf="MemberTypeErrorMessages.pmembertypecode">{{MemberTypeErrorMessages?.pmembertypecode}}</span>
+          </div>
+      </div>
+    </div>
+    <hr>
+
+    <!--col-end-->
+    <div class="col-md-6 col-xl-4">
+      <div class="row">
+        <div class="col-md-6 col-xl-6 m-0">
+          <div class="form-group m-0">
+            <label>Company Code</label>
+          </div>
+          <div class="form-group m-0">
+            <label class="font-weight-bold text-grey">{{Ccode}}</label>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-6 m-0">
+          <div class="form-group m-0">
+            <label>Branch Code</label>
+          </div>
+          <div class="form-group m-0">
+            <label class="font-weight-bold text-grey">{{Bcode}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--col-end-->
+    <div class="col-md-6 col-xl-4">
+      <div class="form-group m-0">
+        <label>Series</label>
+      </div>
+      <div class="form-group m-0">
+        <input appNumbersonly class="form-control" type="text" placeholder="101" formControlName="pseries"
+          (change)="GenerateSeries($event)" maxlength="5">
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+      <div class="form-group m-0">
+        <label>Member Name and Code</label>
+      </div>
+      <div class="form-group ">
+        <label class="font-weight-bold text-grey">{{MemberNameandCode}}</label>
+      </div>
+    </div>
+    <hr>
+    <!-- <div class="col-md-6 col-xl-4">
+      <div class="form-group">
+        <label class="mt-1 col-md-12 col-xl-12 m-0 p-0 font-weight-bold" for="">Are shares issued to this member
+          type?</label>
+        <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions1" (change)="SharesIssuedOrNot('Yes')" id="check-yes" value="Yes" checked>
+          <label class="mt-1" for="check-yes"> Yes </label>
+        </div>
+        <div class="form-check form-check-inline mr-5 radio-btn-secondary ">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions1" (change)="SharesIssuedOrNot('No')" id="check-no" value="No">
+          <label class="mt-1" for="check-no"> No </label>
+        </div>
+        <div class="form-check form-check-inline mr-5 radio-btn-secondary ">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="check-n-app"
+            value="Not Applicable">
+          <label class="mt-1" for="check-n-app"> Not Applicable </label>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-md-12 mt-1">
+      <div class="material-switch"><span class="mr-2">Are shares issued to this member
+          type?</span><input formControlName="pissharesissueapplicable" id="someSwitchOptionInfo" type="checkbox"
+          class="ng-untouched ng-valid ng-dirty" (change)="SharesIssuedOrNot($event)"><label class="check-success"
+          for="someSwitchOptionInfo"></label></div>
+    </div>
+
+
+
+    <!--col-end-->
+  </div>
+
+
+
+
+  <!-- <div class="row mt-4">
+  <div class="col-md-12 col-xl-12">
+    <div class="d-flex justify-content-end mt-4"> <a href="#loanconfig" data-toggle="tab"
+        class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img
+          src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-3" />Add</a> </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-12 col-xl-12">
+    <table id="example" class="table">
+      <thead>
+        <tr>
+          <th>Member Type</th>
+          <th>Member Code</th>
+          <th>Are share issued to to member type?</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Associate member</td>
+          <td>AMBJF001001</td>
+          <td>Yes</td>
+          <td><a href="#">
+              <div id="icon-edit"></div>
+            </a> <a href="#">
+              <div id="icon-delete"></div>
+            </a></td>
+        </tr>
+        <tr>
+
+          <td>Normal Member</td>
+          <td>AMBJF001001</td>
+          <td>Yes</td>
+          <td><a href="#">
+              <div id="icon-edit"></div>
+            </a> <a href="#">
+              <div id="icon-delete"></div>
+            </a></td>
+        </tr>
+        <tr>
+
+          <td>Elected member</td>
+          <td>AMBJF001001</td>
+          <td>Yes</td>
+          <td><a href="#">
+              <div id="icon-edit"></div>
+            </a> <a href="#">
+              <div id="icon-delete"></div>
+            </a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+  <div class="row mt-2">
+    <div class="col-md-12 col-xl-12">
+      <div class="d-flex justify-content-end mt-4">
+        <!-- <a (click)="SaveAndUpdateMemberType()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab"
+          aria-controls="hot" aria-selected="false"><img src="assets/images/icon-check-white.svg" width="20px"
+            height="20px" class="mr-3" />Save</a> -->
+            <a appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveAndUpdateMemberType()"
+            class="btn btn-b-icon mr-4 px-3 border-0"><i class="fa"
+            [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> {{ButtonText}}</a>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,790 @@
+<div class="section-container">
+    <div class="row p-0">
+        <div class="col-xl-12 col-md-12">
+            <div class="section-content ">
+                <div class="card-box mt-2 mb-3">
+                    <span class="bc-2">Court Case Details</span>
+
+                    <span class="pull-right"><a routerLink='/ViewCourtCaseDetails'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+
+
+
+
+
+                <div class="card-box plot-layout">
+                    <div class="col-md-12 col-xl-12 p-0 mt-3">
+                        <div class="col-md-12 col-xl-12  p-0 mt-3 m-0">
+                            <h2 class="sec-head">Court Case Details</h2>
+                        </div>
+                        <div class="col-md-12 col-xl-12 p-0 mt-3">
+                            <div class="form-group m-0">
+                                <label id="landpurchasetype" title="Select Land">Select Land</label>
+                            </div>
+
+                            <kendo-grid [kendoGridBinding]="Landdata" [pageSize]="pageSize"
+                            [skip]="gridState.skip" [pageable]="{buttonCount: 2}" [reorderable]="true"
+                            [sortable]="true" [resizable]="true" [sort]="gridState.sort" >
+
+                                <!-- <kendo-grid-column title="Select" field="" class="pl-3" width="50" *ngIf="savebutton != 'Update' ">
+                                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                        <input type="radio" value="" name="fixed" id="status{{rowIndex}}"
+                                            [checked]="dataItem.selectvalue"
+                                            (change)="checkSeized($event,dataItem,rowIndex)" />
+                                    </ng-template>
+                                </kendo-grid-column> -->
+
+                                <!--  -->
+                                <!-- <kendo-grid-column title="Select" field="" class="pl-3" width="50" >
+                                <ng-template kendoGridHeaderTemplate let-dataItem let-rowIndex="rowIndex">
+                                    <input type="checkbox" name="selectAll" (change)="selectAllStudentsChange($event,dataItem,rowIndex)"
+                                      [checked]="allStudentsSelected" />
+                                  </ng-template>
+                                  <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                    <input type="checkbox" (change)="clickselectforpayments($event,dataItem,rowIndex)"
+                                      [checked]="dataItem.add" />
+                                  </ng-template>
+                                </kendo-grid-column> -->
+
+
+                                <!-- <kendo-grid-column title="Select" field="" class="pl-3" width="50">
+                                
+                                       <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                     <input type="checkbox" id="status{{rowIndex}}" [checked]="dataItem.selectvalue" (change)="checkSeized($event,dataItem,rowIndex)" />
+                                       </ng-template>
+                                     </kendo-grid-column>  -->
+
+                                     <kendo-grid-column title="Select" field="" class="pl-3" width="50">
+                                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                          <input type="checkbox"
+                                                 id="status{{rowIndex}}"
+                                                 [checked]="savebutton === 'Update' || dataItem.selectvalue"
+                                                 (change)="checkSeized($event, dataItem, rowIndex)"
+                                                 [disabled]="savebutton === 'Update'" />
+                                        </ng-template>
+                                      </kendo-grid-column>
+
+                                <!--  -->
+
+                                <kendo-grid-column field="nameofland" title="Name of Layout" width="150"
+                                    [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+                                <!-- <kendo-grid-column field="landpurchasetype" title="Purchase Type"
+                                    [headerClass]="{'kendo-g-center': true}" width="150"
+                                    class="kendo-center"></kendo-grid-column> -->
+
+                                <kendo-grid-column field="companyname" title="Company Name"
+                                    [headerClass]="{'kendo-g-center': true}" width="200"
+                                    class="kendo-center"></kendo-grid-column>
+
+                                    <!-- <kendo-grid-column field="registrationfee" title="Registration Fee"
+                                    [headerClass]="{'kendo-g-center': true}" width="150"
+                                    class="kendo-center"></kendo-grid-column> -->
+
+                                <!-- <kendo-grid-column field="primaryLandareaValue" title="Total Land Area"
+                                    [headerClass]="{'kendo-g-center': true}" width="150"
+                                    class="kendo-center"></kendo-grid-column> -->
+
+                                <kendo-grid-column field="totalarea"
+                                    title="Total Land area in Acres" width="240"
+                                    [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+
+                                <!-- <kendo-grid-column field="availableareaINACRES" title="Available land area in Acres"
+                                    width="240" [headerClass]="{'kendo-g-center': true}"
+                                    class="kendo-center"></kendo-grid-column> -->
+
+                                    <kendo-grid-column field="vendorname" title="Purchased From"
+                                        [headerClass]="{'kendo-g-center': true}"
+                                        class="kendo-center" width="150"></kendo-grid-column>
+
+
+                            </kendo-grid>
+
+                          
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <form [formGroup]="caseDetailsForm">
+
+                    
+                    <div class="card-box" >
+                        <div class="row" >
+                            <div class="col-md-12">
+                                <!-- <label>Lien release details of</label> -->
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>S.No</td>
+                                        <td>Site Name</td>
+                                        <td>Survey No.</td>
+                                        <td>Acres</td>
+                                        <td>Guntas</td>
+                                        <td>Document No.</td>
+                                        <!-- <td>Release Date</td> -->
+                                    </tr>
+                                    <tr *ngFor="let dataList of proDetailsList let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{dataList.plandname}}</td>
+                                        <td>{{dataList.psurveyno}}</td>
+                                        <td>{{dataList.pprimarylandarea}}</td>
+                                        <td>{{dataList.psecondarylandarea}}</td>
+                                        <td>{{dataList.pregistereddocumentno}}</td>
+                                        <!-- <td>{{dataList.pReleaseddate | date}}</td> -->
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="card-box" *ngIf=" savebutton == 'Update' " hidden>
+                        
+
+                        <div class="row" >
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>S.No</td>
+                                        <td>Survey No.</td>
+                                        <td>Acres</td>
+                                        <td>Guntas</td>
+                                        <td>Document No.</td>
+                                    </tr>
+                                    <tr *ngFor="let dataList of proDetailsList let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{dataList.psurveyno}}</td>
+                                        <td>{{dataList.pprimarylandarea}}</td>
+                                        <td>{{dataList.psecondarylandarea}}</td>
+                                        <td>{{dataList.pregistereddocumentno}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="row mt-3" hidden>
+                        <div class="col-md-6 col-xl-6">
+
+                            <div class="form-group">
+                                <label class="required-field" id="surveyNo" title="Survey No.">Survey No.</label>
+
+                                <!-- <ng-select title="Survey No." [items]="surveyData"
+                                    formControlName="surveyNo" bindLabel="surveyno" bindValue="surveyno"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                </ng-select> -->
+
+                                <ng-multiselect-dropdown [settings]="dropdownSettings" [(ngModel)]="selectedItems" [checkboxes]="true"
+                                [checkboxesValueField]="'id'" [checkboxesState]="checkboxStates"
+                                [data]="surveyData" formControlName="surveyNo"   (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                </ng-multiselect-dropdown>
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.surveyNo">{{PlotsLayoutsValidationErrors.surveyNo}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-box mt-2 mb-3">
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label class="required-field" id="repDocNo" title="Document No.">Documents No.</label>
+
+                                <input class="form-control" type="text" formControlName="repDocNo" >
+
+
+                                <!-- <ng-select title="Document No." [items]="surveyData"
+                                    formControlName="repDocNo" bindLabel="registereddocumentno" bindValue="registereddocumentno"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.repDocNo}">
+                                </ng-select> -->
+
+                                <!-- <ng-select title="Survey No." [items]="surveyData"
+                                    formControlName="surveyNo" bindLabel="surveyno" bindValue="surveyno"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                </ng-select> -->
+
+                              
+
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.repDocNo">{{PlotsLayoutsValidationErrors.repDocNo}}</span>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+                        
+
+
+                        <!--col-end-->
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <!-- <label id="casePartyType" title="Case Party Type">Case Party Type</label>
+
+                                <ng-select title="Case Party Type" [items]="courtCaseDataType"
+                                    formControlName="casePartyType" bindLabel="ppartytype" bindValue="ppartytype"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.casePartyType}">
+                                </ng-select> -->
+
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="form-group m-0">
+                                      <label id="casePartyType" title="Petitioner or Respondent" class="mt-2 required-field"></label>
+                                    </div>
+                          
+                                    <div class="form-check form-check-inline radio-btn-secondary">
+                                      <input class="form-check-input" type="radio" id="petitioner" name="casePartyType" value="Petitioner" formControlName="casePartyType" [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.casePartyType}">
+                                      <label class="p-0 mt-1 ml-1" for="petitioner"> Petitioner &nbsp; &nbsp; </label>
+                                    </div>
+                                    
+                                    <div class="form-check form-check-inline radio-btn-secondary">
+                                      <input class="form-check-input" type="radio" id="respondent" name="casePartyType" value="Respondent" formControlName="casePartyType" [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.casePartyType}">
+                                      <label class="p-0 mt-1 ml-1 " for="respondent"> Respondent &nbsp; &nbsp;</label>
+                                    </div>
+                                    
+                                    
+                                    <!-- <div class="invalid-feedback-cst">
+                                      <span *ngIf="contactValidationErrors.casePartyType">{{contactValidationErrors?.casePartyType}}</span>
+                                    </div> -->
+
+                                    <div class="invalid-feedback">
+                                        <span
+                                            *ngIf="PlotsLayoutsValidationErrors?.casePartyType">{{PlotsLayoutsValidationErrors.casePartyType}}</span>
+                                    </div>
+                          
+                                  </div>
+
+                                
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-xl-2" *ngIf="caseDetailsForm.controls.casePartyType.value == 'Petitioner' ">
+                            <div class="form-group">
+                                <label id="numPetitionersOrRespondent" title="No. Of Petitioners">No. Of Petitioners</label>
+                                <input class="form-control" type="text" appNumbersonly  formControlName="numPetitionersOrRespondent" maxlength="2"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.numPetitionersOrRespondent}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.numPetitionersOrRespondent">{{PlotsLayoutsValidationErrors.numPetitionersOrRespondent}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-xl-2" *ngIf="caseDetailsForm.controls.casePartyType.value == 'Respondent' ">
+                            <div class="form-group">
+                                <label id="numPetitionersOrRespondent" title="No. Of Respondent">No. Of Respondent</label>
+                                <input class="form-control" type="text" formControlName="numPetitionersOrRespondent" maxlength="2" appNumbersonly
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.numPetitionersOrRespondent}">
+
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.numPetitionersOrRespondent">{{PlotsLayoutsValidationErrors.numPetitioners}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-md-2 col-xl-2">
+                            <div class="form-group">
+                                <label id="caseNO" title="Case No.">Case No.</label>
+                                <input class="form-control" type="text" formControlName="caseNO"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.caseNO}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.caseNO">{{PlotsLayoutsValidationErrors.caseNO}}</span>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="caseTitle" title="Case Title">Case Title</label>
+                                <input class="form-control" type="text" formControlName="caseTitle"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.caseTitle}">
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.caseTitle">{{PlotsLayoutsValidationErrors.caseTitle}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xl-3">
+
+                            <div class="form-group">
+                                <label id="fillingDate" title="Filing Date">Filing Date</label>
+                                <!-- <input id="projectname" class="form-control" type="text" formControlName="fillingDate"> -->
+                                <input class="form-control" readonly type="text" [bsConfig]="ProjectLaunchdateConfig"
+                                    bsDatepicker formControlName="fillingDate" (ngModelChange)="DateChange($event)"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.fillingDate}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.fillingDate">{{PlotsLayoutsValidationErrors.fillingDate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="repDocNo" title="Document No.">Document
+                                    No.</label>
+                                <input id="repDocNo" class="form-control" type="text" formControlName="repDocNo"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.repDocNo}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.repDocNo">{{PlotsLayoutsValidationErrors.repDocNo}}</span>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-3 col-xl-3">
+
+                            <div class="form-group">
+                                <label class="required-field" id="surveyNo1" title="Survey No.">Survey No.</label>
+
+                                 <!-- <ng-select title="Survey No." [items]="surveyData"
+                                    formControlName="surveyNo" bindLabel="surveyno" bindValue="surveyno"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.surveyNo}">
+                                </ng-select> -->
+
+                                <input id="surveyNo1" class="form-control" type="text"
+                                    formControlName="surveyNo1"
+                                    >
+
+
+                                <!-- <ng-multiselect-dropdown [settings]="dropdownSettings" [(ngModel)]="selectedItems" [checkboxes]="true"
+                                [checkboxesValueField]="'id'" [checkboxesState]="checkboxStates"
+                                [data]="surveyData" formControlName="surveyNo"   (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                </ng-multiselect-dropdown> -->
+
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.surveyNo">{{PlotsLayoutsValidationErrors.surveyNo}}</span>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xl-3">
+
+                            <div class="form-group">
+                                <label id="relatedCaseNo" title="Related Case No.">Related Case No.</label>
+                                <ng-select title="Related Case No." id="relatedCaseNo" [items]="relatedCaseNoList" formControlName="relatedCaseNo"
+                                    bindLabel="prelatedcaseno" bindValue="prelatedcaseno" (change)="relatedCaseNoChange($event)"
+                                    placeholder="Select" [searchable]=true [clearable]=true dropdownPosition="bottom"
+                                    [clearOnBackspace]=true
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.relatedCaseNo}">
+                                </ng-select>
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.relatedCaseNo">{{PlotsLayoutsValidationErrors.relatedCaseNo}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xl-3">
+                            <div class="form-group">
+                                <label id="purchasedThrough" title="Purchased Through">Purchased Through</label>
+                                <input id="purchasedThrough" class="form-control" type="text"
+                                    formControlName="purchasedThrough">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xl-3">
+                            <div class="form-group">
+                                <label id="situatedAt" title="Situated At ">Situated At</label>
+                                <input id="situatedAt" class="form-control" type="text"
+                                    formControlName="situatedAt">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xl-3">
+
+                            <div class="form-group">
+                                <label id="discussionPurchaseLand" title="Who Represented In Purchase Of Land ">Who Represented In Purchase Of Land</label>
+                                <input id="discussionPurchaseLand" class="form-control" type="text"
+                                    formControlName="discussionPurchaseLand"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.discussionPurchaseLand}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.discussionPurchaseLand">{{PlotsLayoutsValidationErrors.discussionPurchaseLand}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="primaryLandareaValue" title="Land Area">Suit Extent Area</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" formControlName="primaryLandareaValue"
+                                           appNumbersonly maxlength="2"
+                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryLandareaValue}">
+                                    <label id="primarylandareauom" title="Land Uom" hidden="true">Land Uom</label>
+                                    <div class="input-group-append">
+                                        <select class="form-control" disabled formControlName="primarylandareauom"
+                                                (change)="primaryUom_Change($event)"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primarylandareauom}">
+                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                    [value]="Primaryauom.primarylandareauom" selected="true">
+                                                {{Primaryauom.primarylandareauomname}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="PlotsLayoutsValidationErrors?.primaryLandareaValue">
+                                        {{PlotsLayoutsValidationErrors.primaryLandareaValue}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="secondarylandareavalue" title="Land Area"></label>
+                                <div class="input-group mt-1">
+                                    <input class="form-control" type="text" formControlName="secondarylandareavalue"
+                                           (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                           [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareavalue}"
+                                           (blur)="getConvertedArea()">
+                                    <label id="secondarylandareauom" title="Land Uom" hidden="true">Land Uom</label>
+                                    <div class="input-group-append">
+                                        <select class="form-control" formControlName="secondarylandareauom"
+                                                (change)="secondaryUom_Change($event)" 
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondarylandareauom}" (blur)="getConvertedArea()">
+                                            <option value="" ng-selected="selected">Select</option>
+                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                    [value]="secondaryuom.secondarylandareauom">
+                                                {{secondaryuom.secondarylandareauomname}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="PlotsLayoutsValidationErrors?.secondarylandareavalue">
+                                        {{PlotsLayoutsValidationErrors.secondarylandareavalue}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="card-box mt-2 mb-3">
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="courtName" title="Court Name">Court Name</label>
+                                <input class="form-control" type="text" formControlName="courtName"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.courtName}">
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.courtName">{{PlotsLayoutsValidationErrors.courtName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="courtLocation" title="Court Location">Court Location</label>
+                                <input class="form-control" type="text" formControlName="courtLocation"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.courtLocation}">
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.courtLocation">{{PlotsLayoutsValidationErrors.courtLocation}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="advocateName" title="Advocate Name">Advocate Name</label>
+                                <input id="advocateName" class="form-control" type="text" formControlName="advocateName"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.advocateName}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.advocateName">{{PlotsLayoutsValidationErrors.advocateName}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="advocateMobNo" title="Advocate Mobile No.">Advocate Mobile No.</label>
+                                <input id="advocateMobNo" class="form-control" type="text"
+                                    formControlName="advocateMobNo" maxlength="10"  appNumbersonly
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.advocateMobNo}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.advocateMobNo">{{PlotsLayoutsValidationErrors.advocateMobNo}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="opponenetname" title="Opponent Name">Opponent Name</label>
+                                <input id="opponenetname" class="form-control" type="text"
+                                    formControlName="opponenetname"
+                                    >
+                                    <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.opponenetname}" -->
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.opponenetname">{{PlotsLayoutsValidationErrors.opponenetname}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="opponenetadvocatename" title="Opponent Advocate Name">Opponent Advocate Name</label>
+                                <!-- <input id="caseStatus" class="form-control" type="text" formControlName="caseStatus"> -->
+
+                                <input id="opponenetadvocatename" class="form-control" type="text"
+                                formControlName="opponenetadvocatename"
+                                >
+                                <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.opponenetadvocatename}" -->
+                                <!-- <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.opponenetadvocatename">{{PlotsLayoutsValidationErrors.opponenetadvocatename}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
+
+                            <div class="form-group">
+                                <label id="opponenetadvocatemobile" title="Opponent Advocate Mobile">Opponent Advocate Mobile</label>
+                                <input id="opponenetadvocatemobile" class="form-control" type="text"
+                                    formControlName="opponenetadvocatemobile" maxlength="10"  appNumbersonly
+                                    >
+                                    <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.opponenetadvocatemobile}"
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.opponenetadvocatemobile">{{PlotsLayoutsValidationErrors.opponenetadvocatemobile}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="repDocNo" title="Represented By Document No.">Represented By Document
+                                    No.</label>
+                                <input id="repDocNo" class="form-control" type="text" formControlName="repDocNo"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.repDocNo}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.repDocNo">{{PlotsLayoutsValidationErrors.repDocNo}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" hidden>
+
+                            <div class="form-group">
+                                <label id="discussionPurchaseLand" title="Who is With Discussion In Purchased Land">Who
+                                    is With Discussion In Purchased Land</label>
+                                <input id="discussionPurchaseLand" class="form-control" type="text"
+                                    formControlName="discussionPurchaseLand"
+                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.discussionPurchaseLand}">
+
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.discussionPurchaseLand">{{PlotsLayoutsValidationErrors.discussionPurchaseLand}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="card-box mt-2 mb-3">
+
+                    <div class="row mt-3">                       
+
+                        <div class="col-md-4 col-xl-4" >
+                            <div class="form-group">
+                                <label id="advocateName" title="Advocate Name">Advocate Name</label>
+                                <input id="advocateName" class="form-control" type="text" formControlName="advocateName">
+                                   <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.advocateName}"
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.advocateName">{{PlotsLayoutsValidationErrors.advocateName}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" >
+                            <div class="form-group">
+                                <label id="advocateMobNo" title="Advocate Mobile No.">Advocate Mobile No.</label>
+                                <input id="advocateMobNo" class="form-control" type="text"
+                                    formControlName="advocateMobNo" maxlength="10"  appNumbersonly
+                                    >
+                                    <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.advocateMobNo}"
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.advocateMobNo">{{PlotsLayoutsValidationErrors.advocateMobNo}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4" >
+                            <div class="form-group">
+                                <label id="advocateEmail" title="Advocate Email">Advocate Email</label>
+                                <input id="advocateEmail" class="form-control" type="text" formControlName="advocateEmail">
+                                <!-- [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.advocateEmail}"
+                                <div class="invalid-feedback">
+                                    <span
+                                        *ngIf="PlotsLayoutsValidationErrors?.advocateEmail">{{PlotsLayoutsValidationErrors.advocateEmail}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-end mt-4 mb-4">                               
+                                <!-- <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveCourtCaseDetails()"
+                                    class="btn btn-s-icon px-3 border-0">
+                                    <img src="assets/images/icon-add-brown.svg" class="mr-3" width="20px" height="20px">Add To Grid
+                                </button> -->
+
+                                <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                            aria-controls="hot" aria-selected="false"
+                                            (click)="addToGrid()"><img src="assets/images/icon-add-brown.svg"
+                                                class="mr-3" width="20px" height="20px">{{buttonName}} </a>
+    
+                            </div>
+                        </div>
+                     </div>
+
+                     <div class="col-md-12 col-xl-12 mt-4"  *ngIf="addGridData !='' ">
+
+
+                        <kendo-grid [kendoGridBinding]="addGridData" [pageable]="false" [sortable]="false"
+                            [groupable]="false" [resizable]="false" >
+
+                            <kendo-grid-column field="pFunctionId" title="Select" width="60" [headerClass]="{'kendo-center': true}" class="kendo-center">
+
+                            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                <div id="icon-edit" (click)="advocateDetailsGridDataEdit(dataItem,rowIndex)"></div>
+
+                                <div id="icon-delete" (click)="deleteAdvocateDetailsGridData(dataItem,rowIndex)"></div>
+
+                            </ng-template>
+                            </kendo-grid-column>    
+                           
+                                
+                            <kendo-grid-column field="padvocatename" width="100" title="Advocate Name"
+                                [headerClass]="{'kendo-center': true}" class="kendo-center"></kendo-grid-column>
+
+                            <kendo-grid-column field="padvocatephone" width="100" title="Advocate Mobile"
+                                [headerClass]="{'kendo-center': true}" class="kendo-center"></kendo-grid-column>
+
+                                <kendo-grid-column field="padvocatemail" width="100" title="Advocate Email"
+                                [headerClass]="{'kendo-center': true}" class="kendo-center"></kendo-grid-column>
+                                
+                        </kendo-grid>
+
+                        </div>
+
+                     
+                </div>
+
+
+
+
+
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-end mt-4 mb-4">
+                            <!-- 
+                            <button appButtonDoubleClick [debounceTime]="500"
+                                (debounceClick)="ClearLandDetails()"
+                                class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px"
+                                    height="20px" *ngIf="!disableclearbutton">
+                                <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                                Clear
+                            </button> -->
+                            <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="saveCourtCaseDetails()"
+                                class="btn btn-s-icon px-3 border-0">
+                                <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px" height="20px">
+                                <!-- <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i> -->
+                                {{savebutton}}
+                            </button>
+
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    ul.nav-tabs.filtered-tab .nav-item a:hover {
+        color: #000 !important;
+    }
+</style>

@@ -1,0 +1,634 @@
+<div class="plot-layout">
+<div class="row  p-0">
+    <div class="col-md-8 col-lg-8">
+        <div class="row">
+            <div class="col-md-12 col-xl-12 ">
+                <div class="card-box ">
+                    <span class="bc-2">Plots/Layout</span>
+
+                    <span class="pull-right"><a routerLink='/AreaStatement'><img src="assets/images/VIEW.svg"
+                                width="20px" height="20px">
+                            View</a></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-box plot-layout">
+            <div class="col-md-12 col-xl-12 p-0 mt-3">
+                <div class="col-md-12 col-xl-12  p-0 mt-3 m-0">
+                    <h2 class="sec-head">Plots/Layout</h2>
+                </div>
+                <div class="col-md-12 col-xl-12 p-0 mt-3">
+                    <div class="form-group m-0">
+                        <label id="landpurchasetype" title="Select Land">Select Land</label>
+                    </div>
+
+                    <ngx-datatable #table class="material expandable table" [rows]="Landdata" [headerHeight]="40"
+                        [limit]="4" [footerHeight]="50" [rowHeight]="50" [columnMode]="ColumnMode.force"
+                        [selected]="selected" [height]="100" style="height: 310px !important; overflow-y:visible"
+                        [scrollbarH]="true">
+                        <ngx-datatable-column width="50" name="" [cellClass]="'cell-left'" [headerClass]="'header-left'"
+                            frozenLeft="True">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                <input *ngIf="chklandbankid==row.landbankid" type="radio" id="{{rowIndex}}" value=""
+                                    name="fixed" (change)="checkFixedDepositGridRow(rowIndex,row)" checked
+                                    [disabled]="landradiodisabled">
+                                <input *ngIf="chklandbankid!=row.landbankid" type="radio" id="{{rowIndex}}" value=""
+                                    name="fixed" (change)="checkFixedDepositGridRow(rowIndex,row)"
+                                    [disabled]="landradiodisabled">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column width="150" name="Name of Land" prop="nameofland"
+                            [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column width="150" name="Purchase type" prop="landpurchasetype"
+                            [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column width="150" name="Date of Purchase" [cellClass]="'cell-left'"
+                            [headerClass]="'header-left'">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                {{row.purchasedate}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <!-- <ngx-datatable-column width="150" name="Land Owner/Developer" prop="companyname" [cellClass]="'cell-left'" [headerClass]="'header-center'">
+                        </ngx-datatable-column> -->
+                        <ngx-datatable-column width="200" name="Total Land Area" prop="" [cellClass]="'cell-left'"
+                            [headerClass]="'header-left'">
+                            <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group"
+                                ngx-datatable-cell-template>
+                                <span *ngIf="row.primaryLandareaValue!='0'">{{row.primaryLandareaValue}}
+                                    {{row.primarylandareauomname}}</span>
+
+                                <span *ngIf="row.secondarylandareavalue!='0'">{{row.secondarylandareavalue}}
+                                    {{row.secondarylandareauomname}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <!-- <ngx-datatable-column width="200" name="Total Available Area" prop="availableareatodisplay"
+                            [cellClass]="'cell-left'" [headerClass]="'header-center'">
+                        </ngx-datatable-column> -->
+                        <ngx-datatable-column width="200" name="Total Land area in Acres"
+                            prop="totallandareainacrestodisplay" [cellClass]="'cell-left'"
+                            [headerClass]="'header-left'">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column width="200" name="Available land area in Acres"
+                            prop="availableareaINACRES" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+
+                <div class="row md-3 m-0 p-0">
+                    <div class="col-md-6 col-xl-6 p-0 ">
+                        <div class="form-group">
+                            <label id="Companyname" title="Project type">Project type</label>
+                            <select class="form-control" [(ngModel)]="itemtypeID" disabled>
+                                <option *ngFor="let ItemType of ItemTypes" [value]="ItemType.itemtypeid"
+                                    selected="true">
+                                    {{ItemType.itemtype}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6 p-0" *ngIf="launchdate">
+                        <div class="form-group">
+                            <label id="pBranchId" title="Branch Name">Branch Name</label>
+                            <select class="form-control" [(ngModel)]="pBranchId"
+                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pBranchId}"
+                                (change)="branchid_Change($event)" [disabled]="branchdisable">
+                                <option value="" ng-selected="selected" disabled>Select</option>
+                                <option *ngFor="let branchnames of lstbranchnames" [value]="branchnames.pBranchId">
+                                    {{branchnames.pbranchname}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <span
+                                    *ngIf="PlotsLayoutsValidationErrors?.pBranchId">{{PlotsLayoutsValidationErrors.pBranchId}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-12 p-0 mt-3">
+                    <ul class="nav filtered-tab nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="disableTabs" data-toggle="tab" href="#Project-Details" role="tab"
+                                aria-controls="" aria-selected="true">Project Area </a></li>
+
+                        <li class="nav-item "> <a class="disableTabs" data-toggle="tab" href="#Charges-and-Fees"
+                                role="tab" aria-controls="" aria-selected="false">Charges and Fees</a> </li>
+
+                        <!-- 
+                        <li class="nav-item"> <a class="disableTabs" data-toggle="tab" href="#Area-Statement" role="tab" aria-controls="" aria-selected="false">Area Statement</a> </li> -->
+
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+
+                        <div class="tab-pane fade  active show " id="Project-Details" role="tabpanel"
+                            aria-labelledby="fresh-tab">
+                            <form [formGroup]="PlotsLayoutsform" autocomplete="off">
+                                <div class="row mt-3">
+
+                                    <!--col-end-->
+                                    <div class="col-md-6 col-xl-6" *ngIf="launchdate">
+                                        <div class="form-group">
+                                            <label id="launchdate" title="Project Launch Date">Project Launch
+                                                Date</label>
+                                            <input id="launchdatepipe" class="form-control" readonly type="text" [bsConfig]="ProjectLaunchdateConfig" bsDatepicker
+                                                formControlName="launchdate"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.launchdate }"
+                                                (ngModelChange)="DateChange($event)">
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.launchdate">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+
+                                        <div class="form-group">
+                                            <label id="layoutname"
+                                                title="Project/Layout/Venture Name">Project/Layout/Venture
+                                                Name</label>
+                                            <input id="projectname" class="form-control" type="text" formControlName="layoutname"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.layoutname }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.layoutname">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ">
+                                    <div class="col-md-6 col-xl-6">
+
+                                        <div class="form-group">
+                                            <label id="primaryprojectarea" title="Project Area">Project Area</label>
+                                            <div class="input-group">
+                                                <input id="primaryarea" class="form-control" appMycurrencyFormatter appNumbersonly maxlength="2" formControlName="primaryprojectarea"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryprojectarea }"
+                                                    type="text">
+                                                <!-- <app-validation-message [messgae]="PlotsLayoutsValidationErrors?.projectarea">
+                                                </app-validation-message> -->
+                                                <label id="primaryprojectareauomid" title="Land Uom" hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+
+
+                                                    <!-- <select class="form-control"
+                                                        formControlName="primaryprojectareauomid"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryprojectareauomid }">
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option value="{{primarylandareauom}}"
+                                                            *ngIf="primarylandareauom!=''">
+                                                            {{primarylandareaname}}</option> -->
+
+                                                    <!-- <option *ngFor="let Primaryauom of primaryUomdata"
+                                                        [value]="Primaryauom.primarylandareauom" selected="true">
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option> -->
+                                                    <!-- </select> -->
+
+                                                    <select class="form-control"
+                                                        formControlName="primaryprojectareauomid"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.primaryprojectareauomid }"
+                                                        disabled>
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option *ngFor="let Primaryauom of primaryUomdata"
+                                                            [value]="Primaryauom.primarylandareauom" selected="true">
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.primaryprojectarea">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="secondaryprojectarea" title="Project Area">
+                                                <div id="sbi-bal" *ngIf="availableareaINACRES!='undefined'"><span
+                                                        class="badge-success badge p-1 font-weight-strong ">Available
+                                                        Land in Acre - {{availableareaINACRES}} </span></div>
+                                            </label>
+                                            <div class="input-group">
+                                                <input id="secondaryarea" class="form-control" appRoundecimal="2@2"
+                                                    formControlName="secondaryprojectarea"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondaryprojectarea }"
+                                                    type="text">
+                                                <!-- <app-validation-message [messgae]="PlotsLayoutsValidationErrors?.standardunitarea">
+                                                </app-validation-message> -->
+                                                <label id="secondaryprojectareauomid" title="Land Uom"
+                                                    hidden="true">Land
+                                                    Uom</label>
+                                                <div class="input-group-append">
+                                                    <select id="secondaryuomid" class="form-control"
+                                                        formControlName="secondaryprojectareauomid"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondaryprojectareauomid }">
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                            [value]="secondaryuom.secondarylandareauom">
+                                                            {{secondaryuom.secondarylandareauomname}}
+                                                        </option>
+                                                    </select>
+
+                                                    <!--                                                     
+                                                    <select class="form-control"
+                                                        formControlName="secondaryprojectareauomid"
+                                                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.secondaryprojectareauomid }">
+                                                        <option value="" ng-selected="selected">Select</option>
+                                                        <option value="{{secondarylandareauom}}">
+                                                            {{secondarylandareaname}}</option>
+                                                        <option *ngFor="let Primaryauom of primaryUomdata"
+                                                            [value]="Primaryauom.primarylandareauom" >
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option>
+                                                    </select> -->
+                                                </div>
+                                            </div>
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.secondaryprojectarea">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="permitno" title="Permit Number">Permit Number</label>
+                                            <input id="permitnumber" class="form-control" type="text" maxlength="75"
+                                                formControlName="permitno"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.permitno }">
+                                            <app-validation-message [messgae]="PlotsLayoutsValidationErrors?.permitno">
+                                            </app-validation-message>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="rerAno" title="RERA Number">RERA Number</label>
+                                            <input id="raranumber" class="form-control" type="text" formControlName="rerAno"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.rerAno }"
+                                                maxlength="25">
+                                            <app-validation-message [messgae]="PlotsLayoutsValidationErrors?.rerAno">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="standardrate" title="Standard Rate per sqyd">Standard Rate per
+                                                sqyd</label>
+                                            <div class="input-group">
+                                                <input id="standardratedis" class="form-control" type="text" formControlName="standardrate"
+                                                    [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.standardrate }"
+                                                    appMycurrencyFormatter maxlength="10" style="text-align: right;">
+                                                <!-- <app-validation-message [messgae]="PlotsLayoutsValidationErrors?.standardrate">
+                                                </app-validation-message> -->
+                                                <label id="standardrateuomid" title="Land Uom" hidden="true">Land
+                                                    Uom</label>
+                                                <!-- <div class="input-group-append">
+                                                    <select class="form-control" formControlName="standardrateuomid" [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.standardrateuomid }" disabled>
+                                                        <option *ngFor="let Primaryauom of sqryrdsdata"
+                                                            [value]="Primaryauom.primarylandareauom">
+                                                            {{Primaryauom.primarylandareauomname}}
+                                                        </option>
+                                                    </select>
+
+                                                </div> -->
+                                            </div>
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.standardrate">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="totalnoofplotunits" title="Total Number of Plots">Total Number
+                                                of
+                                                Plots</label>
+                                            <input class="form-control" id="totalnoofplotscount" type="text" appNumbersonly
+                                                formControlName="totalnoofplotunits"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.totalnoofplotunits }"
+                                                maxlength="3" (blur)="OnEnter(row,$event)">
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.totalnoofplotunits">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label id="minbookingamount" title="MIN.Booking Amount">MIN.Booking
+                                                Amount</label>
+                                            <input class="form-control" type="text" appMycurrencyFormatter
+                                                appNumbersonly maxlength="10" style="text-align: right;"
+                                                formControlName="minbookingamount"
+                                                [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.minbookingamount }">
+                                            <app-validation-message
+                                                [messgae]="PlotsLayoutsValidationErrors?.minbookingamount">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="ClearLandDetails()"
+                                            class="btn btn-g-icon mr-4 px-3 border-0" [hidden]="disableclearbutton">
+                                            <img src="assets/images/icon-cancel-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disableclearbutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disableclearbutton}"></i>
+                                            Clear
+                                        </button>
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLandDetails()" class="btn btn-s-icon px-3 border-0"
+                                            [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                        <!-- <a href="#loanconfig" data-toggle="tab" class="btn btn-b-icon px-3 border-0"
+                                            role="tab" aria-controls="hot" aria-selected="false"><img
+                                                src="assets/images/icon-check-white.svg" width="20px" height="20px"
+                                                class="mr-3" />Save & Continue</a> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade " id="Charges-and-Fees" role="tabpanel" aria-labelledby="fresh-tab">
+
+                            <form [formGroup]="ChargesandFeesform" autocomplete="off">
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="row">
+
+                                        <div class="col-md-5 col-xl-5 p-0">
+                                            <div class="form-group">
+                                                <label id="chargetypeid" title="Charges and Fees">Charges and
+                                                    Fees</label>
+                                                  
+                                                      <ng-multiselect-dropdown [placeholder]="'Select'" name="selectedCharges" [data]="lstcharges" [settings]="ChargesSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                                [(ngModel)]="selectedChargeslist" [ngModelOptions]="{standalone: true}">
+                                                
+                                            </ng-multiselect-dropdown>                 
+                                            <label class="w-100" *ngIf="ChargeData.length==0">No Data Found...</label>                                             
+                                            </div>
+                                        </div>
+                             <div class="col-md-6 pt-2 pl-0 mt-4">
+                            <button type="button" (click)="clickToAddNewCharges()" class="btn btn-lg-icon pt-2 pb-2 px-2 p-0"  data-toggle="modal" data-target="#add_charges">
+                            <img src="assets/images/icon-add-blue.svg" width="15px" height="20px">
+                             </button>
+                               </div> 
+                                    </div>
+                                </div>
+                                <hr class=" mt-4">
+                                <div class="col-md-12 col-xl-12 mt-4 p-3">
+                                    <div class="row p-0" >
+                                        <div class="col-md-5 col-xl-5 p-0">
+                                            <div class="form-group">
+                                                <label id="ExtraAddition" title="Extra's - Addition">Extra-Addition</label>
+                                                      <ng-multiselect-dropdown [placeholder]="'Select'" name="selectedAdditions" [data]="AdditionExtratypesNames" [settings]="AdditionDeductionSettings" (onSelect)="onItemSelect_addition($event)" (onSelectAll)="onSelectAll_addition($event)" (onDeSelect)="onDeSelect_addition($event)" (onDeSelectAll)="onDeSelectAll_addition($event)"
+                                                [(ngModel)]="selectedAdditionslist" [ngModelOptions]="{standalone: true}" ngDefaultControl >
+                                            </ng-multiselect-dropdown>
+                                            <label class="w-100" *ngIf="AdditionData.length==0">No Data Found...</label>
+                                          
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-xl-1 pt-2 pl-0 mt-4">
+                            <button type="button" (click)="clickToAddNewCharges()" class="btn btn-lg-icon pt-2 pb-2 px-2 p-0"  data-toggle="modal" data-target="#add_extratype">
+                            <img src="assets/images/icon-add-blue.svg" width="15px" height="20px">
+                             </button>
+                               </div> 
+                                        <div class="col-md-5 col-xl-5 pl-2 pr-0">
+                                            <div class="form-group">
+                                                <label id="ExtraDeductions" title="Extra's -
+                                                    Deductions">Extra-Deduction</label>
+                                                      <ng-multiselect-dropdown [placeholder]="'Select'" name="selectedDeductions" [data]="DeductionExtratypesNames" [settings]="AdditionDeductionSettings" (onSelect)="onItemSelect_Deduction($event)" (onSelectAll)="onSelectAll_Deduction($event)" (onDeSelect)="onDeSelect_Deduction($event)" (onDeSelectAll)="onDeSelectAll_Deduction($event)"
+                                                [(ngModel)]="selectedDeductionslist" [ngModelOptions]="{standalone: true}" ngDefaultControl >
+                                            </ng-multiselect-dropdown>
+                                            <label class="w-100" *ngIf="DeductionData.length==0">No Data Found...</label>
+                                         </div>
+                                      </div>
+                         <div class="col-md-1 col-xl-1 pt-2 pl-0 mt-4">
+                            <button type="button" (click)="clickToAddNewCharges()" class="btn btn-lg-icon pt-2 pb-2 px-2 p-0"  data-toggle="modal" data-target="#add_extratype">
+                            <img src="assets/images/icon-add-blue.svg" width="15px" height="20px">
+                             </button>
+                               </div> 
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-end mt-4 mb-4">
+                                    <!-- <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" (click)="clearForm()" />Clear</a> -->
+
+                                    <button appButtonDoubleClick [debounceTime]="500"
+                                        (debounceClick)="saveChargesAndFeesData()" class="btn btn-s-icon px-3 border-0"
+                                        [disabled]="disablesavebutton">
+                                        <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                            height="20px" *ngIf="!disablesavebutton">
+                                        <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                        {{savebutton}}
+                                    </button>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- <div class="tab-pane fade " id="Area-Statement" role="tabpanel" aria-labelledby="fresh-tab" *ngIf="AreaStatement">
+                            Area-Statement
+                        </div> -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-4" *ngIf="LandDetailsData.length!='0'">
+        <div class="card-box">
+            <div class="col-12 mt-2">
+                <div class="card" *ngFor="let LanddataDetails of LandDetailsData">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <span class="sec-head text-capitalize">{{LanddataDetails.nameofland}}</span>
+                                <span class="font-13 text-light1 d-flex">{{LanddataDetails.purchasedate}}</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <span class="sec-head">{{LanddataDetails.landpurchasetype}}</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Total Area</label>
+                                <label class="w-100 text-primary">{{LanddataDetails.totalarea}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Total Document Value</label>
+                                <label class="w-100 text-danger">{{LanddataDetails.totaldocumentvalue |
+                                mycurrencypipe}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Land Value</label>
+                                <label
+                                    class="w-100 text-success">{{LanddataDetails.totallandvalue | mycurrencypipe}}</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="sec-head">Purchase Details</h3>
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let purchaseLanddataDetails of LandPurchaseDetailsData">
+
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Company Name </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.companyname}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Survey No(s). </label><span>:</span>
+                                <label class=" col-md-6 "><b>{{purchaseLanddataDetails.surveyno}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Vendor Name </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.vendorname}}</b></label>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Date of Purchase </label><span>:</span>
+                                <label class="col-md-6 "><b>{{purchaseLanddataDetails.purchasedate}}</b></label>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="col-md-4 p-0">Total Area</label><span>:</span>
+                                <label class="col-md-6 ">
+                                     <b *ngIf="purchaseLanddataDetails.primaryLandareaValue!=0">{{purchaseLanddataDetails.primaryLandareaValue}}
+                                        {{purchaseLanddataDetails.primarylandareauomname}}</b>
+                                      <b *ngIf="purchaseLanddataDetails.secondarylandareavalue!=0">{{purchaseLanddataDetails.secondarylandareavalue}}
+                                        {{purchaseLanddataDetails.secondarylandareauomname}}</b>
+                                </label>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="Address!=''">
+                                <h3 class="sec-head">Address Details</h3>
+                                <span style="display:inline" *ngIf="Address.paddress1!=''"><b>{{Address.paddress1}} , </b></span>
+                                 <span style="display:inline" *ngIf="Address.paddress2!=''"><b>{{Address.paddress2}} , </b></span>
+                                  <span style="display:inline" *ngIf="Address.pcity!=''"><b>{{Address.pcity}} ,</b></span>
+                                   <span style="display:inline" *ngIf="Address.pDistrict!=''"><b>{{Address.pDistrict}} ,</b></span>
+                                    <span style="display:inline" *ngIf="Address.pState!=''"><b>{{Address.pState}} ,</b></span>
+                                    <span style="display:inline" *ngIf="Address.pCountry!=''"><b>{{Address.pCountry}} -</b></span>
+                                    <span style="display:inline" *ngIf="Address.pincode!=''"><b>{{Address.pincode}} .</b> </span>
+
+                                <!-- <label *ngIf="Address!=''">{{Address}}</label> -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- main content end -->
+                <!-- main content end -->
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal right slideInReeight" id="add_charges" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="margin-right:0px !important;">
+        <div class="model-cst modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form [formGroup]="chargeentrygroup">
+                    <div class="form-group">
+                        <label id="chargenames" title="New Charge Name">New Charge Name</label>
+                        <div class="input-group">
+                            <input class="form-control" appInitCap formControlName="chargenames" [ngClass]="{'is-invalid':PlotsLayoutsValidationErrors.chargenames}" appCharactersonly maxlength="50">
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="PlotsLayoutsValidationErrors.chargenames">{{PlotsLayoutsValidationErrors.chargenames}}</span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label id="pAccounttype" title="Account Head">Account Head</label>
+                             <select class="form-control " formControlName="pAccounttype" [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.pAccounttype }">
+                  <option value="" ng-selected="selected" disabled>Select</option>
+                   <option value="INCOME">INCOME</option>
+                      <option value="LIABILITIES">LIABILITIES</option>
+               </select>
+                        <div class="invalid-feedback">
+                            <span *ngIf="PlotsLayoutsValidationErrors.pAccounttype">{{PlotsLayoutsValidationErrors.pAccounttype}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <a class="close" (click)="ClearChargeName()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveChargesName()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" [disabled]="disablesavebuttonnew"> <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebuttonnew, 'fa-check': !disablesavebuttonnew}"></i>{{addchargesbutton}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal right slideInReeight" id="add_extratype" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="margin-right:0px !important;">
+        <div class="model-cst modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form [formGroup]="extratypeentrygroup">
+                    <div class="form-group">
+                        <label id="extratypename" title="New Extra Type Name">New Extra Type Name</label>
+                        <div class="input-group">
+                            <input class="form-control" appInitCap formControlName="extratypename" [ngClass]="{'is-invalid':PlotsLayoutsValidationErrors.extratypename}"
+                                appAlphanumeric maxlength="30">
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="PlotsLayoutsValidationErrors.extratypename">{{PlotsLayoutsValidationErrors.extratypename}}</span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label id="adddeductiontypes" title="Addition or Deductions">Addition / Deductions</label>
+                        <div class="input-group">
+                            <select class="form-control" formControlName="adddeductiontypes" [ngClass]="{'is-invalid': PlotsLayoutsValidationErrors.adddeductiontype}">
+                                <option ng-selected="selected" value="" disabled>Select</option>
+                                <option value="Addition">Addition</option>
+                                <option value="Deduction">Deduction</option>
+                            </select>
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="PlotsLayoutsValidationErrors?.adddeductiontypes">{{PlotsLayoutsValidationErrors.adddeductiontypes}}</span>
+                        </div>
+                    </div> -->
+
+
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a class="close" (click)="Clearextratypename()" class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+                        <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveNewExtraTypes()" data-toggle="tab" class="btn btn-b-icon px-3 border-0"
+                            role="tab" aria-controls="hot" aria-selected="false" [disabled]="disablesavebuttonnew"> <i
+                                class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebuttonnew, 'fa-check': !disablesavebuttonnew}"></i>{{saveextratypebutton}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 15px;
+    }
+</style>

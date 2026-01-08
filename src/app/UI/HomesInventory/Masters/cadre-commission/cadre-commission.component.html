@@ -1,0 +1,316 @@
+<div class="col-md-12 col-xl-12 p-0 mt-3 ">
+    <div class=" card-box">
+        <span class="bc-2">Cadre Commission</span>
+        <span class="pull-right"><a routerLink='/CadreCommissionView'><img src="assets/images/VIEW.svg" width="20px"
+                    height="20px">
+                View</a></span>
+    </div>
+
+</div>
+
+<div class="content-inner-view">
+    
+
+    <form [formGroup]="cadreForm" autocomplete="off">
+        <div class="row mt-1">
+            <div class="col-md-4 col-xl-4">
+                <div class="form-group">
+                    <label  id="pitemtypeid" title="Project Type">Project Type</label>
+                    <select id="projectname"  class="form-control " formControlName="pitemtypeid" [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pitemtypeid }"  (change)="pprojecttype_Change($event)">
+            <option value="" ng-selected="selected">Select</option>
+            <option *ngFor="let projecttype of lstprojecttypes;trackBy: trackByFn" [value]="projecttype.itemtypeid">{{projecttype.itemtype}}</option>
+            </select>
+            <div class="invalid-feedback">
+                <span *ngIf="cadreConnissionErrorMessage.pitemtypeid">{{cadreConnissionErrorMessage.pitemtypeid}}</span>
+            </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="form-group">
+                 <label id="projectidfirst" title="Layout Name/Project Name">Layout Name/Project Name</label>
+                   <ng-select [items]="lstpermintnumber" formControlName="projectidfirst" bindLabel="projectname"
+        bindValue="projectid" [multiple]=false placeholder="Select" [searchable]="true"
+        [searchFn]="customSearchFn" [clearable]=true dropdownPosition="bottom"
+        [clearOnBackspace]=true [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.projectidfirst}" (change)="permitno_Change($event)">
+<ng-template ng-header-tmp let-item="items" let-index="index">
+ <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid!=1"><strong>Project Name</strong> </label>
+ <label class="col-4 p-0" *ngIf="projecttypeid==1"><strong>Permit No.</strong></label>
+ <label class="col-4 p-0" style="text-align:center" *ngIf="projecttypeid==1"><strong>Layout Name</strong> </label>
+
+</ng-template>
+<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+ <div class="row">
+   <span class="col-4 text-dark word-break text-wrap" *ngIf="item.itemtypeid==1">{{item.permitno}}</span>
+   <span class="col-4 text-dark" >{{item.projectname}}</span>
+  
+ </div>
+</ng-template>
+</ng-select>
+<div class="invalid-feedback">
+    <span *ngIf="cadreConnissionErrorMessage?.projectidfirst">{{cadreConnissionErrorMessage.projectidfirst}}</span>
+</div>
+              </div>
+        </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12 mt-2 ">
+                <p class="bc-2">Cadre Commission</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xl-4">
+                <div class="p-1 mb-1 mt-1">
+                    <label class="sec-head-bold">Depends on</label>
+                    <div class="form-group mb-0">
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline radio-btn-secondary mr-5 mb-2">
+                                <input class="form-check-input" type="radio" name="cadredependancetype" id="valuetype" formControlName="cadredependancetype" value="Value" (change)="pcadrevaluechange()" checked>
+                                <label class="mt-2" for="valuetype"> Value</label>
+                            </div>
+                            <div class="ml-2 mt-n2"></div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline  radio-btn-secondary mr-5 pr-1 mb-2">
+                                <input class="form-check-input" type="radio" name="cadredependancetype" id="UOMtype" formControlName="cadredependancetype" value="UOM" (change)="chargeUOMchange()">
+                                <label class="mt-2" for="UOMtype"> UOM</label>
+                            </div>
+                            <div class="ml-3 col-md-8 mt-n2" *ngIf="showuomfield">
+                                <div class="input-group">
+                                    <label id="primarylandareauom" title="UOM"></label>
+                                    <select class="form-control" (change)="UOMvalue_change($event)" formControlName="primarylandareauom" [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.primarylandareauom }">
+                    <option value="" ng-selected="selected">Select</option>
+                    <option *ngFor="let UOMvalues of lstUOMvalue;trackBy: trackByFn" [value]="UOMvalues.primarylandareauom">{{UOMvalues.primarylandareauomname}}</option>
+                  </select>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="cadreConnissionErrorMessage?.primarylandareauom">{{cadreConnissionErrorMessage.primarylandareauom}}</span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-6 pl-2">
+                <div class="p-1 mb-1 mt-1">
+                    <label class="sec-head-bold">Type</label>
+                    <fieldset [disabled]="disabletype">
+                    <div class="form-group mb-0">
+                        <div class="d-flex">
+                       
+                            <div class="form-check form-check-inline radio-btn-secondary mr-5 mb-2">
+                                <input class="form-check-input" type="radio" name="pcadrevaluefixedpercentage" id="chargetypefixed1" value="Fixed" formControlName="pcadrevaluefixedpercentage" (change)=fixedchargetype() >
+                                <label class="mt-2" for="chargetypefixed1"> Fixed </label>
+                            </div>
+                            <div class="ml-4 col-md-6 mt-n2" *ngIf="showchargetype">
+                                <div class="input-group">
+                                    <input class="form-control" id="cadretotvalue" style="text-align:right;" type="text" value="" appMycurrencyFormatter appNumbersWithZeroOnly appRoundecimal="9@0" maxlength="12" formControlName="pcadretotalvalue" [ngClass]="{ 'is-invalid':  cadreConnissionErrorMessage.pcadretotalvalue }" >
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="cadreConnissionErrorMessage?.pcadretotalvalue">{{cadreConnissionErrorMessage.pcadretotalvalue}}</span>
+                                </div>
+                            </div>
+                       
+                        </div>
+                        
+                        <div class="d-flex">
+                            <label id="pcadretotalvalue" title="Charge Type" hidden></label>
+
+                            <div class="form-check form-check-inline radio-btn-secondary">
+                                <input class="form-check-input" type="radio" name="pcadrevaluefixedpercentage" id="chargetypeper1" value="Percentage" formControlName="pcadrevaluefixedpercentage" (change)="percentagechargetype()" >
+                                <label class="mt-2" for="chargetypeper1"> Percentage </label>
+                            </div>
+                            <div class="ml-2  p-0 col-md-5 mt-n2" *ngIf="!showchargetype">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" maxlength="3" value="" formControlName="pcadretotalvalue" [ngClass]="{ 'is-invalid':cadreConnissionErrorMessage.pcadretotalvalue}">
+
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="cadreConnissionErrorMessage?.pcadretotalvalue">{{cadreConnissionErrorMessage.pcadretotalvalue}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                </div>
+            </div>
+        </div>
+
+      
+
+        <div class="row mt-1">
+            <div class="col-md-4 col-xl-4">
+                <div class="form-group">
+                    <label id="pcomrelid" title="Commission Release Type">Commission Release Type</label>
+                    <div class="input-group">
+                        <select id="release" class="form-control" formControlName="pcomrelid" [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pcomrelid}" (change)="releasetype_Change($event)">
+              <option value="" ng-selected="selected">Select</option>
+              <option *ngFor="let release of commissionTypes;trackBy: trackByFn" [value]="release.pcom_rel_id">{{release.prel_particulars}}</option>
+            </select>
+                        
+                    </div>
+                    <div class="invalid-feedback">
+                        <span *ngIf="cadreConnissionErrorMessage?.pcomrelid">{{cadreConnissionErrorMessage.pcomrelid}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+<hr>
+
+
+
+
+   <div class="row mt-1">
+    <div class="col-md-4 col-xl-4">
+       <div class="form-group">
+           <label id="pcadreid" title="Cadre Name">Cadre Name</label>
+           <div class="input-group">
+               <select class="form-control" id="cadreid" formControlName="pcadreid" (change)="SelectCadreName($event)"  class="form-control"  [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pcadreid}"  #ref>
+                     <option value="" disabled>Select</option>
+                     <option *ngFor="let ccadres of Cadredata;" [value]="ccadres.pcadreid"> {{ccadres.pcadrename}}</option>
+                   </select>
+
+
+               <div class="input-group-append">
+                   <button class="btn btn-lg-icon px-2 p-0" (click)="OpenModel()"> <img src="assets/images/icon-add-blue.svg" class="" width="18px" height="18px" ></button>
+               </div>
+               <div class="invalid-feedback">
+                <span *ngIf="cadreConnissionErrorMessage?.pcadreid">{{cadreConnissionErrorMessage.pcadreid}}</span>
+            </div>
+           </div>
+       </div>
+       </div>
+   </div> 
+
+
+
+   
+   
+   <div class="row mt-1">
+
+    <div class="col-md-4 col-xl-2">
+        <div class="form-group">
+            <label id="pcadre_order_id" title="Cadre Order Id">Cadre Order Id</label>
+            <div class="input-group">
+                <input class="form-control" style="text-align:right;" id="cadre_order_id"  formControlName="pcadre_order_id" appRoundecimal="9@0" appMycurrencyFormatter appNumbersonly maxlength="3" class="form-control" appNumbersonly [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pcadre_order_id}" >
+            </div>
+            <div class="invalid-feedback">
+                <span *ngIf="cadreConnissionErrorMessage?.pcadre_order_id">{{cadreConnissionErrorMessage.pcadre_order_id}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4">
+        <div class="form-group">
+            <label id="pcadrevalue" title="Cadre Commission Value">Cadre Commission Value</label>
+            <div class="input-group">
+                <input class="form-control" style="text-align:right;" id="pcadrevalue" formControlName="pcadrevalue" appRoundecimal="9@0" appMycurrencyFormatter appNumbersonly maxlength="12" class="form-control"  [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pcadrevalue}">
+            </div>
+            <div class="invalid-feedback">
+                <span *ngIf="cadreConnissionErrorMessage?.pcadrevalue">{{cadreConnissionErrorMessage.pcadrevalue}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex col-md-6  mt-4 pt-2 justify-content-end" *ngIf="buttonsave != 'UPDATE'">
+        <a (click)="addCadreCommissionToGrid()" href="" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">{{addbutton}}
+        </a>
+    </div>
+    </div> 
+                    <hr>
+
+                    
+                    <div class="row" *ngIf="buttonsave != 'UPDATE'">
+                        <div class="col-md-12 col-xl-12">
+                            <ngx-datatable #table class="material expandable table" [rows]="cadreconfigurationDetails" [headerHeight]="50" [footerHeight]="50" [rowHeight]="auto" [selected]="selected" [limit]="5" [height]="100" [sortable]="true" [draggable]="true" [canAutoResize]="true">
+                               
+                                
+                                <ngx-datatable-column width="220" name="Cadre Name" prop="pcadrename" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                </ngx-datatable-column>
+                                
+                                <ngx-datatable-column width="200" name="Cadre Commission Depends On UOM" prop="piscadreapplicableonuom" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group">
+            
+                                        <span *ngIf="row.piscadreapplicableonuom==true" class="done"></span>
+                                        <span *ngIf="row.piscadreapplicableonuom==false" class="notdone"></span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column width="110" name="Charge Type" prop="pcadrevaluefixedpercentage" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column width="180" name="Cadre Commission Value" prop="pcadrevalue" [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                                    <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                                        <span *ngIf="row.pcadrevaluefixedpercentage=='Fixed'">{{row.pcadrevalue | currencypipewithdecimal}}</span>
+                                        <span *ngIf="row.pcadrevaluefixedpercentage=='Percentage'">{{row.pcadrevalue}}%</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column width="150" name="Cadre Order Id" prop="pcadre_order_id" [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                                    
+                                </ngx-datatable-column>
+                                <ngx-datatable-column width="220" name="Commission Release Type" prop="prel_particulars" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column width="150" name="UOM" prop="primarylandareauomname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                </ngx-datatable-column>
+                             
+
+                            </ngx-datatable>
+            
+                        </div>
+            
+                    </div> 
+
+                
+
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="d-flex justify-content-end mt-4">
+                                <a class="close" (click)="ClearCadreCommission()" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear</a>
+                                <button appButtonDoubleClick [debounceTime]="500" (debounceClick)="SaveCadreCommissions()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false" [disabled]="disablesavebutton"> <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton, 'fa-check': !disablesavebutton}"></i>{{buttonsave}}</button>
+                            </div>
+                        </div>
+                    </div>
+            
+            
+        
+    </form>
+</div>
+
+<div class="modal right animated slideInRight" id="add-detail">
+    <div class="modal-dialog">
+        <div class="model-cst modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <button type="button" class="close" (click)="CloseModel()">&times;</button>
+                <form [formGroup]="CadreNameForm">
+                    <div class="form-group">
+                        <label for="">New Cadre Name</label>
+                        <input formControlName="pcadrename" appTitlecaseword appCharactersonly (keyup)="CadreNameTitle($event)" id="pcadrename" type="text" maxlength="100" class="form-control" [ngClass]="{ 'is-invalid': cadreConnissionErrorMessage.pcadrename}"  #ref>
+
+                        <div class="invalid-feedback">
+                            <span *ngIf="cadreConnissionErrorMessage?.pcadrename">{{cadreConnissionErrorMessage.pcadrename}}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a class="btn close btn-g-icon mr-4 px-3 border-0" (click)="Clear()"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3">Clear </a>
+                        <a (click)="ModelCadreNameSave()" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false">
+                            <img src="assets/images/icon-check-white.svg" width="20px" height="20px" class="mr-3">Save</a>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="container">
+    <!-- ======================================================================= tab nav end ============================================================================== -->
+    <div class="d-flex justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="rounded mt-5 h-100 shadow-lg col-12 d-flex p-0 login-bg">
+                <div class="col-md-12">
+                    <div class="m-4">
+                        <div class="row">
+                            <div class="col-7 d-flex align-items-center">
+                                <h4>Login</h4>
+                            </div>
+                            <div class="col-5">
+                                <div onClick="location.href='#'" class="text-end">
+                                    <a href="#" class="text-center"><img src="assets/images/logo.svg" width="100px"
+                                            height="100px" /></a>
+                                </div>
+        
+                            </div>
+                        </div>
+                      
+                       
+                        <form class="mt-2" [formGroup]="LoginForm">
+                            <!-- <h2 class="bc-2 mb-4"> LOGIN  </h2> -->
+                            <div class="form-group">
+                                <label>User Name </label>
+                                <input formControlName="pUserName" type="text" class="form-control" name="username"
+                                    [ngClass]="{ 'is-invalid':  submitted && LoginForm.controls.pUserName.errors }">
+                                <div *ngIf=" submitted &&  LoginForm.controls.pUserName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="LoginForm.controls.pUserName.errors.required">User Name Required!</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input formControlName="pPassword" type="password" class="form-control"
+                                    [type]="hide ? 'password' : 'text'" name="password"
+                                    [ngClass]="{ 'is-invalid':  submitted && LoginForm.controls.pPassword.errors }">
+                                <!-- <span class="d-flex justify-content-end"> <i class="fa fa-eye p-2 cursor-pointer position-absolute" (click)="ShowPassword()"></i></span> -->
+                                <span class="d-flex justify-content-end"><i
+                                        class="fa fa-eye p-2 cursor-pointer position-absolute"
+                                        style="margin-top: -36px; margin-left:320px"
+                                        (click)="ShowPassword()"></i></span>
+                                <div *ngIf=" submitted &&  LoginForm.controls.pPassword.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="LoginForm.controls.pPassword.errors.required">Password Required!</div>
+                                </div>
+                            </div>
+                            <div class="from-group mt-4 mb-2">
+                                <input type="submit" (click)="loginclick()" value="Sign In"
+                                    class="btn btn-b-icon px-3 border-0 btn-block">
+                            </div>
+                            <div class="text-center" style="font-size:12px;">
+                                <!--<a href="#" class="text-decoration-none"> Forgot your login details? </a>
+                <a href="#" class="text-decoration-none lc-title" style="font-size:12px !important; "> Get help signing in </a>-->
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--container-fluid-end-->

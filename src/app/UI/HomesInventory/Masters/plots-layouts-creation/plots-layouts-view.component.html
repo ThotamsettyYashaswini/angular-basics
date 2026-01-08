@@ -1,0 +1,83 @@
+<div class="">
+<div class="shadow-bg-view  p-0">
+    <div class="row  pb-2">
+        <div class="col d-flex flex-wrap align-items-center">
+            <a routerLink='/PlotsLayouts' class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-2" />New</a>
+        </div>
+    </div>
+  <div class="card-box">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 p-0">
+                <div class="col-md-12 col-xl-12 p-0 mt-3">
+                 <div class="col-md-12 col-xl-12 mt-3">
+                    <h2 class="sec-head">Plots/Layout Details</h2>
+                        </div>
+                        <div class="">
+                        <div class="col-md-12 col-xl-4 mt-3">
+                            <input (keyup)="updateFilter($event)" type="text" #search id="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" width="200">
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xl-12 mt-3">
+<!-- [scrollbarH]="true" -->
+
+                        <ngx-datatable #table class="material expandable table" [rows]="lstplotslayoutdetails" [headerHeight]="50" [footerHeight]="50" [rowHeight]="auto" [columnMode]="ColumnMode.force" [selected]="selected" [limit]="10" [height]="100" [scrollbarH]="true">
+                            <ngx-datatable-column name="" prop="selected" [cellClass]="'cell-left'" [headerClass]="'header-left'" width="100" frozenLeft="True">                         
+                                <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    <div id="icon-edit" (click)="editLayout($event, row, rowIndex)"></div>
+                                    <div id="icon-view" data-toggle="modal" data-target="#modal-layout-details-view" (click)="LayoutPlotsDetailsView(row.layoutid)"></div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Layout Name" prop="layoutname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column width="150" name="Branch Name" prop="pbranchname" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Project Area" [cellClass]="'cell-left'" [headerClass]="'header-left'" prop="totalprojectarea">
+                                <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                                    <span *ngIf="row.primaryprojectarea!=''">{{row.primaryprojectarea}} {{row.primaryprojectareauomname}}</span>
+
+                                    <span *ngIf="row.secondaryprojectarea!=''">{{row.secondaryprojectarea}} {{row.secondaryprojectareauomname}}</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Project Launch Date" prop="launchdate" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span >{{row.launchdate}}</span>
+                            </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Standard Rate" prop="standardrate" [cellClass]="'cell-right'" [headerClass]="'header-right'">
+                            <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span >{{row.standardrate | mycurrencypipe}}</span>
+                            </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Total no of Plot Units" prop="totalnoofplotunits" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="150" name="Layout Area in Acres" prop="layoutareainAcres" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                             <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span >{{row.layoutareainAcres.toFixed(3) | mycurrencypipe}}</span>
+                            </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column width="200" name="Layout Area in Square Yards" prop="layoutareainsquareYards" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                             <ng-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" ngx-datatable-cell-template>
+                            <span >{{row.layoutareainsquareYards.toFixed(3) | mycurrencypipe}}</span>
+                            </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal right animated slideInRight" id="modal-layout-details-view">
+    <div class="modal-dialog modal-xl" style="width:30% !important;">
+        <div class="model-cst modal-content">
+            <!-- Modal Header -->
+            <div class="">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <app-plots-layout-details-view></app-plots-layout-details-view>
+        </div>
+    </div>
+</div>

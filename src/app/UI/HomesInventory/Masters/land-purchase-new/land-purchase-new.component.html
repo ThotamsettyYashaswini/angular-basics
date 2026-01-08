@@ -1,0 +1,1958 @@
+<form [formGroup]="LandBankform" autocomplete="off">
+    <div class="row p-0">
+        <div class="col-md-8 col-lg-8">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 ">
+                    <div class="card-box ">
+                        <!-- <span class="bc-2">Related Links : <a routerLink="/PlotsLayouts">Create Layout</a></span> -->
+                        <span class="bc-2">Land Bank</span>
+                        <span class="pull-right"><a routerLink='/LandPurchaseView'><img src="assets/images/VIEW.svg"
+                                    width="20px" height="20px"> View</a></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="col-12 p-0 mt-2">
+
+                    <div class="form-group m-0" hidden="true">
+                        <label id="landpurchasetype" title="Land Purchase Type">Land Purchase Type</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                            <input class="form-check-input" type="radio" name="landpurchasetype" id="landpurchasetype1"
+                                formControlName="landpurchasetype" value="Purchased Land"
+                                (click)="typeofland('Purchased Land')">
+                            <label class="mt-1" for="landpurchasetype1"> Purchased Land </label>
+                        </div>
+
+                        <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                            <input class="form-check-input" type="radio" name="landpurchasetype" id="landpurchasetype2"
+                                formControlName="landpurchasetype" value="Development Land"
+                                (click)="typeofland('Development Land')">
+                            <label class="mt-1" for="landpurchasetype2"> Development Land </label>
+                        </div>
+                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.landpurchasetype">
+                        </app-validation-message>
+                    </div>
+
+                    <div class="pur-land">
+
+                        <div class="row mt-2">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group m-0">
+                                    <label id="nameofland" title="Name of layout">Name of layout</label>
+                                </div>
+                                <div class="form-group m-0">
+                                    <input class="form-control" type="text" formControlName="nameofland" maxlength=75
+                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.nameofland }"
+                                        [attr.readonly]="controlEnabled ? '' : null"
+                                        (blur)="validateSaveLandBankFormConfig('LandDetails')">
+
+                                    <!-- 
+                                    <ng-autocomplete [data]="Landdata" searchKeyword="nameofland" [itemTemplate]="itemTemplate" formControlName="nameofland" maxlength=75 [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.nameofland }" (selected)='selectEvent($event)'>
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.nameofland"></a>
+                                    </ng-template>
+                                    <app-validation-message [messgae]="LandpurchaseValidationErrors?.nameofland">
+                                    </app-validation-message> -->
+
+
+                                    <!-- <ul *ngIf="(landOptions$ | async)?.length || showSuggestionFlag " class="suggestions">
+                                        <li *ngFor="let land of landOptions$ | async" (click)="onLandSelected(land)">
+                                          {{ land.nameofland }}
+                                        </li>
+                                    </ul> -->
+
+                                    <app-validation-message [messgae]="LandpurchaseValidationErrors?.nameofland">
+                                    </app-validation-message>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group m-0">
+                                    <label id="address1" title="Address Line 1">Address Line 1</label>
+                                </div>
+                                <div class="form-group m-0">
+                                    <input class="form-control" type="text" formControlName="address1" maxlength=75
+                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.address1 }">
+                                    <app-validation-message [messgae]="LandpurchaseValidationErrors?.address1">
+                                    </app-validation-message>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group m-0">
+                                    <label id="address2" title="Address Line 2">Address Line 2</label>
+                                </div>
+                                <div class="form-group m-0">
+                                    <input class="form-control" type="text" formControlName="address2" maxlength=75
+                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.address2 }">
+                                    <app-validation-message [messgae]="LandpurchaseValidationErrors?.address2">
+                                    </app-validation-message>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group m-0">
+                                    <label id="cityvillage" title="City / Village">City / Village</label>
+                                    <input type="text" value="" class="form-control" formControlName="cityvillage"
+                                        maxlength="50" appAddressformat>
+                                    <!-- <div class="invalid-feedback-cst">
+                                        <span *ngIf="addressformErrorMessage.pcity">{{addressformErrorMessage.pcity}}</span>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group m-0">
+                                    <label id="stateid" title="State">State</label>
+                                    <ng-select title="State" id="stateid" [items]="stateDetails"
+                                        formControlName="stateid" bindLabel="pState" bindValue="pStateId"
+                                        [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                                        dropdownPosition="bottom" (change)="pState_Change($event)"
+                                        [clearOnBackspace]=true>
+                                    </ng-select>
+
+                                    <!-- <select id="" class="form-control" formControlName="pStateId" (change)="pState_Change($event)">
+                            <option value="" ng-selected="selected" disabled>Select</option>
+                            <option *ngFor="let state of stateDetails" [value]="state?.pStateId">{{state?.pState}}
+                            </option>
+
+                        </select> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group m-0">
+                                    <label id="districtid" title="District">District</label>
+                                    <ng-select title="District" id="districtid" [items]="districtDetails"
+                                        formControlName="districtid" bindLabel="pDistrict" bindValue="pDistrictId"
+                                        [multiple]=false placeholder="Select" [searchable]=true [clearable]=true
+                                        dropdownPosition="bottom" (change)="pDistrict_Change($event)"
+                                        [clearOnBackspace]=true>
+                                    </ng-select>
+                                    <!-- <select id="" class="form-control" formControlName="pDistrictId"  (change)="pDistrict_Change($event)">
+                            <option value="" ng-selected="selected" disabled>Select</option>
+                            <option *ngFor="let district of districtDetails" [value]="district?.pDistrictId">
+                                {{district?.pDistrict}}</option>
+
+                        </select> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xl-3">
+                                <div class="form-group m-0">
+                                    <label id="pincode" title="Pin Code">Pin Code</label>
+                                    <input type="text" value="" class="form-control" formControlName="pincode"
+                                        maxlength="6" appNumbersonly>
+                                    <!-- <div class="invalid-feedback-cst">
+                                        <span *ngIf="addressformErrorMessage.pcity">{{addressformErrorMessage.pcity}}</span>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <!-----------------Top Nav Start --------------------->
+
+                        <ul class="nav filtered-tab nav-tabs" id="myTab" role="tablist">
+
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                data-content="Land Details" > <a
+                                    class="active" data-toggle="tab" href="#land-details" role="tab"
+                                    aria-controls="fresh" aria-selected="true">Land
+                                    Details</a></li>
+                            <!-- <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Address" [ngClass]="{'disableTabs': addresstabEnabled}"> <a class="" data-toggle="tab" href="#Address" role="tab" aria-controls="warm" aria-selected="false">Address</a> </li> -->
+                            <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                data-content="Document" > <a class=""
+                                    data-toggle="tab" href="#land-documents" role="tab" aria-controls="cold"
+                                    aria-selected="false">Document</a> </li>
+                            <!-- <li class="nav-item" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="View Details"> <a class="disableTabs" data-toggle="tab" href="#view-details" role="tab" aria-controls="" aria-selected="false">View
+                                    Details</a> </li> -->
+                        </ul>
+
+                        <!-----------------Top Nav ENd --------------------->
+
+                        <div class="tab-content" id="myTabContent" *ngIf="Sharingdiv">
+                            <div class="tab-pane fade  active show " id="land-details" role="tabpanel"
+                                aria-labelledby="fresh-tab">
+                                <!-- <div formGroupName="pLandDetailsControls"> -->
+                                <div class="row ">
+
+                                    <!--col-end-->
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="companyname" title="Select Company">Company</label>
+                                            <select class="form-control" formControlName="companyname"
+                                                (change)="Companyname_Change($event)"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.companyname }">
+                                                <option value="" ng-selected="selected">Select</option>
+                                                <option *ngFor="let companyDatas of companyData"
+                                                    value="{{companyDatas.pCompanyname}}">
+                                                    {{companyDatas.pCompanyname}}</option>
+                                            </select>
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.companyname">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="representedbyId" title="Select Represented By">Represented
+                                                By</label>
+                                            <select class="form-control" formControlName="representedbyId"
+                                                (change)="Representedby_Change($event)"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.representedbyId }">
+                                                <option value="" ng-selected="selected">Select</option>
+                                                <option *ngFor="let representedby of lstrepresentedby"
+                                                    value="{{representedby.pEmployeeId}}">
+                                                    {{representedby.pEmployeeFullName}}</option>
+                                            </select>
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.representedbyId">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="developBy" title="Development by">Development given by</label>
+                                            <input appTitlecaseword class="form-control" type="text"
+                                                formControlName="developBy"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.developBy }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.developBy">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="Purchasedate" title="Date of Purchase">Reg. Date</label>
+                                            <input class="form-control" readonly type="text"
+                                                [bsConfig]="landbankdateConfig" bsDatepicker
+                                                formControlName="Purchasedate"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.Purchasedate }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.Purchasedate">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="registereddocumentno" title="Registered Document No.">Reg. Doc.
+                                                No.</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="registereddocumentno"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.registereddocumentno }"
+                                                maxlength="30">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.registereddocumentno">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="registereddocumentfee" title="Reg. Fee">Reg. Fee</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="registereddocumentfee"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.registereddocumentfee }"
+                                                maxlength="10" appNumbersonly style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.registereddocumentfee">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="otherexpensesfee" title="Other Expenses">Other Expenses</label>
+                                            <input class="form-control" type="text" formControlName="otherexpensesfee"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.otherexpensesfee }"
+                                                maxlength="30" style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.otherexpensesfee">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="sro" title="SRO">SRO</label>
+                                            <input class="form-control" type="text" formControlName="sro"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sro }"
+                                                maxlength="30">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.sro">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3" hidden>
+                                        <div class="form-group">
+                                            <label id="sroloaction" title="SRO">SRO Location</label>
+                                            <input class="form-control" type="text" formControlName="sroloaction"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sroloaction }"
+                                                maxlength="30">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.sroloaction">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="landvalue" title="Purchase Consideration">Purchase
+                                                Consideration</label>
+                                            <input appNumbersonly class="form-control" type="text"
+                                                formControlName="landvalue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.landvalue }"
+                                                style="text-align:right;" appMycurrencyFormatter maxlength="15"
+                                                (keyup)="computelandCostperAcre()">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.landvalue">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        <p class="bc-2">Boundaries</p>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="northboundary" title="North Boundary">North</label>
+                                            <input class="form-control" type="text" formControlName="northboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.northboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.northboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="eastboundary" title="East Boundary">East</label>
+                                            <input class="form-control" type="text" formControlName="eastboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.eastboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.eastboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="southboundary" title="South Boundary">South</label>
+                                            <input class="form-control" type="text" formControlName="southboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.southboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.southboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="westboundary" title="West Boundary">West</label>
+                                            <input class="form-control" type="text" formControlName="westboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.westboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.westboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+
+
+
+                                <div formGroupName="pLandDetailsControls">
+                                    <div class="row mt-1">
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="surveyno" title="Survey No's">Survey No's</label>
+                                                <input class="form-control" type="text" formControlName="surveyno"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.surveyno }"
+                                                    maxlength="30" (blur)="checkSurveyNo()">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.surveyno">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValue" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text"
+                                                        formControlName="primaryLandareaValue"
+                                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primaryLandareaValue }"
+                                                        appNumbersonly maxlength="2" (keyup)="computelandCostperAcre()">
+                                                    <label id="primarylandareauom" title="Land Uom" hidden="true">Land
+                                                        Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled
+                                                            formControlName="primarylandareauom"
+                                                            (change)="primaryUom_Change($event)"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primarylandareauom }">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                [value]="Primaryauom.primarylandareauom"
+                                                                selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.primaryLandareaValue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalue" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text"
+                                                        formControlName="secondarylandareavalue"
+                                                        (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondarylandareavalue }">
+                                                    <label id="secondarylandareauom" title="Land Uom" hidden="true">Land
+                                                        Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control"
+                                                            formControlName="secondarylandareauom"
+                                                            (change)="secondaryUom_Change($event)"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondarylandareauom }">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.secondarylandareavalue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label id="landvalue" title="Total Land Cost">Total Land Cost</label>
+                                                <input appNumbersonly class="form-control" type="text" formControlName="landvalue" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.landvalue }" style="text-align:right;" appMycurrencyFormatter maxlength="15" (keyup)="computelandCostperAcre()">
+                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.landvalue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-3 col-xl-3" hidden>
+                                            <div class="form-group">
+                                                <div class="form-group mt-4 pt-2">
+                                                    <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+
+                                                    <a class="btn btn-lg-icon px-3 border-0 collapsed"
+                                                        (click)="computelandCostperAcre()"><img
+                                                            src="assets/images/icon-add-brown.svg" width="20px"
+                                                            height="20px" class="mr-3">Cost Per Acre</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3" hidden>
+                                            <div class="form-group">
+                                                <div class="form-group mt-4 pt-2">
+                                                    <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+                                                    <div id="sbi-bal"><span
+                                                            class="badge-success badge p-1 font-weight-strong "> 1 Acre
+                                                            Value - {{LandCostperAcre | mycurrencypipe}} </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-6 col-xl-6">
+                                            <div id="sbi-bal"><span class="badge-success badge p-1 font-weight-strong ">Cost per Acre - {{LandCostperAcre}}</span></div>
+                                        </div> -->
+
+                                    </div>
+                                    <hr hidden>
+                                    <div class="row mt-1" hidden>
+                                        <div class="col-12">
+                                            <p class="bc-2">Boundaries</p>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="northboundary" title="North Boundary">North</label>
+                                                <input class="form-control" type="text" formControlName="northboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.northboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.northboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="southboundary" title="South Boundary">South</label>
+                                                <input class="form-control" type="text" formControlName="southboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.southboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.southboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="eastboundary" title="East Boundary">East</label>
+                                                <input class="form-control" type="text" formControlName="eastboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.eastboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.eastboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="westboundary" title="West Boundary">West</label>
+                                                <input class="form-control" type="text" formControlName="westboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.westboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.westboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+                                        <h1 [title]="user">{{user}}</h1>
+                                        <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                            aria-controls="hot" aria-selected="false"
+                                            (click)="addLandDetailstogrid()"><img src="assets/images/icon-add-brown.svg"
+                                                class="mr-3" width="20px" height="20px">Add </a>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row mt-1">
+                                    <div class="col-md-12 col-xl-12">
+                                        <ngx-datatable class="material expandable table" [rows]="Landpurchasedetails"
+                                            [headerHeight]="60" [columnMode]="'force'" [footerHeight]="0"
+                                            [rowHeight]="50" [scrollbarH]="false" [limit]="10">
+
+                                            <ngx-datatable-column width="50" name="" prop="" editable="true"
+                                                frozenLeft="True" *ngIf="typeofopr!='UPDATE'">
+                                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                    let-value="value" let-row="row" let-group="group">
+
+
+                                                    <label for="delete{{ rowIndex }}" *ngIf="savebutton!='Update'">
+                                                        <div id="icon-delete"
+                                                            (click)="removeHandler($event, row, rowIndex, group)"></div>
+                                                    </label>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column width="150" name="Survey No." prop="surveyno"
+                                                [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column width="150" name="Area (Acres)"
+                                                prop="primaryLandareaValue" [cellClass]="'cell-left'"
+                                                [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column width="150" name="Sub Area (Guntas/ Cents / Sq.Yards)"
+                                                prop="secondarylandareavalue" [cellClass]="'cell-left'"
+                                                [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+
+
+                                        </ngx-datatable>
+
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4" hidden>
+                                        <div class="form-group mt-4 pt-1">
+                                            <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+
+                                            <a class="btn btn-lg-icon px-3 border-0 collapsed"
+                                                (click)="computelandbankdetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                                    class="mr-3">Compute Area</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="row mt-1">
+
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 118px;">Total Area</label>
+                                            <!-- <label></label> -->
+                                            <!-- <input class="form-control" type="text" formControlName="totalarea" style="border: none; " readonly> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 131px;">{{totalAreaDisplay}}</label>
+                                            <!-- <label></label> -->
+                                            <!-- <input class="form-control" type="text" formControlName="totalarea" style="border: none; " readonly> -->
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 100px;">{{totalsubAreaDisplay}}</label>
+                                            <!-- <input class="form-control" type="text" formControlName="totalareainysquareyards" style="border: none;" readonly> -->
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3" hidden>
+                                        <div class="form-group">
+                                            <label>Total Area In Acres</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="totallandareainacres" style="border: none;" readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3" hidden>
+                                        <div class="form-group">
+                                            <label [hidden]="hideconversion">Conversion</label>
+                                            <input class="form-control" type="text" value="{{totalContions}}"
+                                                style="border: none; " readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                </div>
+                                <hr>
+                                <div class="row mt-1" hidden>
+                                    <div class="col-md-5 col-xl-5">
+                                        <div class="form-group">
+                                            <label id="totaldocumentvalue" title="Total Document Value">Total
+                                                Document Value :</label> <input appNumbersonly class="form-control"
+                                                type="text" formControlName="totaldocumentvalue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.totaldocumentvalue }"
+                                                style="text-align:right; width: 50%" appMycurrencyFormatter
+                                                maxlength="15">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.totaldocumentvalue">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Actual Cost of Land</label>
+                                            <input class="form-control" type="text"
+                                                value="{{totallandvalue | mycurrencypipe}}"
+                                                style="border: none; text-align: right;" readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                </div>
+
+                                <div *ngIf="Sharingdiv">
+                                    
+                                    <hr>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <p class="bc-2">Sharing</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+
+
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon"
+                                                        id="inland" value="inland" (click)="sharingtype('In Land')"
+                                                        [checked]="inland">
+                                                    <label class="mt-1" for="inland">
+                                                        In Land</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon"
+                                                        id="building" swa e3tg value="building"
+                                                        (click)="sharingtype('Building')" [checked]="building">
+                                                    <label class="mt-1" for="building"> Building</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon" id="na"
+                                                        swa e3tg value="NA" (click)="sharingtype('NA')" [checked]="na">
+                                                    <label class="mt-1" for="na"> NA</label>
+                                                </div>
+                                            </div>
+                                            <!-- <ngx-datatable class="material expandable table" [rows]="Landpurchasedetails" [headerHeight]="60" [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true" [limit]="10">
+
+
+                                                <ngx-datatable-column width="150" name="Land Owner" prop="vendorname">
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column width="150" name="Land Owner Share %">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                        <input type="text" style="width:-webkit-fill-available" > </ng-template>
+                                                </ngx-datatable-column>
+
+                                                <ngx-datatable-column width="150" name="Developer">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                                        {{row.companyname}}
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column width="150" name="Developer Share %">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                                        <input type="text" style="width:-webkit-fill-available">
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+
+                                            </ngx-datatable> -->
+                                            <!--<div [formGroupName]="addDevelopmentLandshareControls">-->
+                                            <div *ngIf="dataSharingdiv">
+                                                <ngx-datatable class="material expandable table"
+                                                    [rows]="LandOwnerSharingdata" [headerHeight]="60"
+                                                    [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50"
+                                                    [scrollbarH]="true" [limit]="10">
+
+                                                    <ngx-datatable-column width="150" name="Land Owner">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                                            {{row.shareownername}}
+
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                    <ngx-datatable-column width="150" name="Land Owner Share %">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                            <input type="text" [value]='row.sharepercentage'
+                                                                style="width:-webkit-fill-available"
+                                                                appRoundecimal="2@2" (blur)="onShare(row,$event)">
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                </ngx-datatable>
+
+                                                <ngx-datatable class="material expandable table"
+                                                    [rows]="DeveloperSharingdata" [headerHeight]="60"
+                                                    [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50"
+                                                    [scrollbarH]="true" [limit]="10">
+                                                    <ngx-datatable-column width="150" name="Developer">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                            {{row.shareownername}}
+
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column width="150" name="Developer Share %">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                                            <input type="text" [value]='row.sharepercentage'
+                                                                style="width:-webkit-fill-available"
+                                                                appRoundecimal="2@2" (blur)="onShare(row,$event)">
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                </ngx-datatable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <a *ngIf="showClearButton" (click)="clearForm()"
+                                            class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                                src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                                class="mr-3" />Clear</a>
+
+                                        <!-- <button (click)="SaveLandDetails()" class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button> -->
+
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLandDetails()" class="btn btn-s-icon px-3 border-0"
+                                            [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--col-end-->
+                                <!--row-end-->
+
+                                <!--form-end-->
+                                <!--form-end-->
+
+
+
+                            </div>
+
+                            <!-- -*----------------------------------------Tab1 end ----------------------------------------->
+
+                            <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="cold-tab"
+                                formGroupName="pAddressformcontrols">
+                                <!-- <div class="row"> -->
+                                <div class="col-12 mt-3">
+
+                                    <p class="bc-2">Address</p>
+                                </div>
+
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label id="Addresstype" title="Address Type">Address Type</label>
+                                        <select class="form-control" formControlName="Addresstype"
+                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.Addresstype }">
+                                            <option value="" ng-selected="selected" disabled>Select</option>
+                                            <option *ngFor="let addtype of addressTypes" [value]="addtype.pAddressType">
+                                                {{addtype.pAddressType}}</option>
+                                        </select>
+                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.Addresstype">
+                                        </app-validation-message>
+                                    </div>
+                                </div>
+
+                                <!-- </div> -->
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <app-address></app-address>
+                                        <div class="col-md-6 col-xl-4" style="margin-left: auto;margin-top: -48px;">
+                                            <div class="form-group">
+                                                <a class="btn btn-b-icon mr-4 px-3 border-0"
+                                                    (click)="getLatitudeLongitude()"><img
+                                                        src="assets/images/icon-add-white.svg" width="20px"
+                                                        height="20px" class="mr-3" />Get Map</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <!-- <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a> -->
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLandAddressDetails()"
+                                            class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ==================================================================== tab content pannnel 2 end =================================================================== -->
+                            <div class="tab-pane fade" id="land-documents" role="tabpanel" aria-labelledby="cold-tab">
+                                <app-companyconfig-documents></app-companyconfig-documents>
+                                <!--row-end-->
+
+                                <!--buttons-end-->
+
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <!-- <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a> -->
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLanddocumentDetails()"
+                                            class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane fade" id="view-details" role="tabpanel" aria-labelledby="cold-tab">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">View Details</p>
+                                    </div>
+                                </div>
+                                <ngx-datatable class="material expandable table" [rows]="Landpurchasedsharedetails"
+                                    [headerHeight]="60" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true"
+                                    [limit]="10">
+
+                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                        let-row="row" let-group="group">
+
+                                        <label for="delete{{ rowIndex }}">
+                                            <div id="icon-delete" (click)="removeHandler($event, row, rowIndex, group)">
+                                            </div>
+                                        </label>
+
+                                    </ng-template>
+
+                                    <ngx-datatable-column width="150" name="Land Name" prop="nameofland"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Company Name" prop="companyname"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Vendor" prop="vendorname"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Survey No." prop="surveyno"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column width="150" name="" prop="" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                    </ngx-datatable-column> -->
+                                    <ngx-datatable-column width="150" name="Registered Document No"
+                                        prop="registereddocumentno" [cellClass]="'cell-left'"
+                                        [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column width="150" name="Proceedings No" prop="proceedingno" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column> -->
+
+                                    <ngx-datatable-column width="150" name="Share" [cellClass]="'cell-center'"
+                                        [headerClass]="'header-center'">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.landsharepercentage}}%
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+
+                                    <ngx-datatable-column width="150" name="Total Area" prop="totallandareatodisplay"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+
+                                </ngx-datatable>
+                                <!-- <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <div class="d-flex justify-content-end mt-4 mb-4">
+                                            <a class="btn btn-g-icon mr-4 px-3 border-0" (click)="CreateNewLandDeatils()"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Create New</a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--row-end-->
+
+                                <!-- <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a>
+                                        <a href="#loanconfig" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-check-white.svg" width="20px" height="20px" class="mr-3" />Save</a>
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- ---------------------change from here -->
+                         <div class="tab-content" id="myTabContent" *ngIf="purchasedshow">
+                            <div class="tab-pane fade  active show " id="land-details" role="tabpanel"
+                                aria-labelledby="fresh-tab">
+                                <!-- <div formGroupName="pLandDetailsControls"> -->
+                                <div class="row ">
+
+                                    <!--col-end-->
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="companyname" title="Select Company">Company</label>
+                                            <select class="form-control" formControlName="companyname"
+                                                (change)="Companyname_Change($event)"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.companyname }">
+                                                <option value="" ng-selected="selected">Select</option>
+                                                <option *ngFor="let companyDatas of companyData"
+                                                    value="{{companyDatas.pCompanyname}}">
+                                                    {{companyDatas.pCompanyname}}</option>
+                                            </select>
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.companyname">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="representedbyId" title="Select Represented By">Represented
+                                                By</label>
+                                            <select class="form-control" formControlName="representedbyId"
+                                                (change)="Representedby_Change($event)"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.representedbyId }">
+                                                <option value="" ng-selected="selected">Select</option>
+                                                <option *ngFor="let representedby of lstrepresentedby"
+                                                    value="{{representedby.pEmployeeId}}">
+                                                    {{representedby.pEmployeeFullName}}</option>
+                                            </select>
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.representedbyId">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="vendorname" title="Purchased From">Purchased From</label>
+                                            <input appTitlecaseword class="form-control" type="text"
+                                                formControlName="vendorname"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.vendorname }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.vendorname">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 mt-3">
+                                        <div class="form-group">
+                                            <label id="Purchasedate" title="Date of Purchase">Reg. Date</label>
+                                            <input class="form-control" readonly type="text"
+                                                [bsConfig]="landbankdateConfig" bsDatepicker
+                                                formControlName="Purchasedate"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.Purchasedate }">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.Purchasedate">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="registereddocumentno" title="Registered Document No.">Reg. Doc.
+                                                No.</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="registereddocumentno"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.registereddocumentno }"
+                                                maxlength="30">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.registereddocumentno">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="registereddocumentfee" title="Reg. Fee">Reg. Fee</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="registereddocumentfee"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.registereddocumentfee }"
+                                                maxlength="10" appNumbersonly style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.registereddocumentfee">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="otherexpensesfee" title="Other Expenses">Other Expenses</label>
+                                            <input class="form-control" type="text" formControlName="otherexpensesfee"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.otherexpensesfee }"
+                                                maxlength="30" style="text-align:right;">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.otherexpensesfee">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="sro" title="SRO">SRO</label>
+                                            <input class="form-control" type="text" formControlName="sro"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sro }"
+                                                maxlength="30">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.sro">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3" hidden>
+                                        <div class="form-group">
+                                            <label id="sroloaction" title="SRO">SRO Location</label>
+                                            <input class="form-control" type="text" formControlName="sroloaction"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.sroloaction }"
+                                                maxlength="30">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.sroloaction">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4 mt-3">
+                                        <div class="form-group">
+                                            <label id="landvalue" title="Purchase Consideration">Purchase
+                                                Consideration</label>
+                                            <input appNumbersonly class="form-control" type="text"
+                                                formControlName="landvalue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.landvalue }"
+                                                style="text-align:right;" appMycurrencyFormatter maxlength="15"
+                                                (keyup)="computelandCostperAcre()">
+                                            <app-validation-message [messgae]="LandpurchaseValidationErrors?.landvalue">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        <p class="bc-2">Boundaries</p>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="northboundary" title="North Boundary">North</label>
+                                            <input class="form-control" type="text" formControlName="northboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.northboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.northboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="eastboundary" title="East Boundary">East</label>
+                                            <input class="form-control" type="text" formControlName="eastboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.eastboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.eastboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="southboundary" title="South Boundary">South</label>
+                                            <input class="form-control" type="text" formControlName="southboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.southboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.southboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label id="westboundary" title="West Boundary">West</label>
+                                            <input class="form-control" type="text" formControlName="westboundary"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.westboundary }"
+                                                maxlength="75">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.westboundary">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+
+
+
+                                <div formGroupName="pLandDetailsControls">
+                                    <div class="row mt-1">
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="surveyno" title="Survey No's">Survey No's</label>
+                                                <input class="form-control" type="text" formControlName="surveyno"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.surveyno }"
+                                                    maxlength="30" (blur)="checkSurveyNo()">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.surveyno">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="primaryLandareaValue" title="Land Area">Land Area</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text"
+                                                        formControlName="primaryLandareaValue"
+                                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primaryLandareaValue }"
+                                                        appNumbersonly maxlength="2" (keyup)="computelandCostperAcre()">
+                                                    <label id="primarylandareauom" title="Land Uom" hidden="true">Land
+                                                        Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control" disabled
+                                                            formControlName="primarylandareauom"
+                                                            (change)="primaryUom_Change($event)"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.primarylandareauom }">
+                                                            <option *ngFor="let Primaryauom of primaryUomdata"
+                                                                [value]="Primaryauom.primarylandareauom"
+                                                                selected="true">
+                                                                {{Primaryauom.primarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.primaryLandareaValue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label id="secondarylandareavalue" title="Land Area"></label>
+                                                <div class="input-group mt-1">
+                                                    <input class="form-control" type="text"
+                                                        formControlName="secondarylandareavalue"
+                                                        (keyup)="Secoundaryvaluechange()" appRoundecimal="4@3"
+                                                        [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondarylandareavalue }">
+                                                    <label id="secondarylandareauom" title="Land Uom" hidden="true">Land
+                                                        Uom</label>
+                                                    <div class="input-group-append">
+                                                        <select class="form-control"
+                                                            formControlName="secondarylandareauom"
+                                                            (change)="secondaryUom_Change($event)"
+                                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.secondarylandareauom }">
+                                                            <option value="" ng-selected="selected">Select</option>
+                                                            <option *ngFor="let secondaryuom of secondaryUomdata"
+                                                                [value]="secondaryuom.secondarylandareauom">
+                                                                {{secondaryuom.secondarylandareauomname}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.secondarylandareavalue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-md-6 col-xl-6">
+                                            <div class="form-group">
+                                                <label id="landvalue" title="Total Land Cost">Total Land Cost</label>
+                                                <input appNumbersonly class="form-control" type="text" formControlName="landvalue" [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.landvalue }" style="text-align:right;" appMycurrencyFormatter maxlength="15" (keyup)="computelandCostperAcre()">
+                                                <app-validation-message [messgae]="LandpurchaseValidationErrors?.landvalue">
+                                                </app-validation-message>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-3 col-xl-3" hidden>
+                                            <div class="form-group">
+                                                <div class="form-group mt-4 pt-2">
+                                                    <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+
+                                                    <a class="btn btn-lg-icon px-3 border-0 collapsed"
+                                                        (click)="computelandCostperAcre()"><img
+                                                            src="assets/images/icon-add-brown.svg" width="20px"
+                                                            height="20px" class="mr-3">Cost Per Acre</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3" hidden>
+                                            <div class="form-group">
+                                                <div class="form-group mt-4 pt-2">
+                                                    <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+                                                    <div id="sbi-bal"><span
+                                                            class="badge-success badge p-1 font-weight-strong "> 1 Acre
+                                                            Value - {{LandCostperAcre | mycurrencypipe}} </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-6 col-xl-6">
+                                            <div id="sbi-bal"><span class="badge-success badge p-1 font-weight-strong ">Cost per Acre - {{LandCostperAcre}}</span></div>
+                                        </div> -->
+
+                                    </div>
+                                    <hr hidden>
+                                    <div class="row mt-1" hidden>
+                                        <div class="col-12">
+                                            <p class="bc-2">Boundaries</p>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="northboundary" title="North Boundary">North</label>
+                                                <input class="form-control" type="text" formControlName="northboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.northboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.northboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="southboundary" title="South Boundary">South</label>
+                                                <input class="form-control" type="text" formControlName="southboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.southboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.southboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="eastboundary" title="East Boundary">East</label>
+                                                <input class="form-control" type="text" formControlName="eastboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.eastboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.eastboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xl-3">
+                                            <div class="form-group">
+                                                <label id="westboundary" title="West Boundary">West</label>
+                                                <input class="form-control" type="text" formControlName="westboundary"
+                                                    [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.westboundary }"
+                                                    maxlength="75">
+                                                <app-validation-message
+                                                    [messgae]="LandpurchaseValidationErrors?.westboundary">
+                                                </app-validation-message>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+                                        <h1 [title]="user">{{user}}</h1>
+                                        <a href="" data-toggle="tab" class="btn btn-lg-icon px-3 border-0" role="tab"
+                                            aria-controls="hot" aria-selected="false"
+                                            (click)="addLandDetailstogrid()"><img src="assets/images/icon-add-brown.svg"
+                                                class="mr-3" width="20px" height="20px">Add </a>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row mt-1">
+                                    <div class="col-md-12 col-xl-12">
+                                        <ngx-datatable class="material expandable table" [rows]="Landpurchasedetails"
+                                            [headerHeight]="60" [columnMode]="'force'" [footerHeight]="0"
+                                            [rowHeight]="50" [scrollbarH]="false" [limit]="10">
+
+                                            <ngx-datatable-column width="50" name="" prop="" editable="true"
+                                                frozenLeft="True" *ngIf="typeofopr!='UPDATE'">
+                                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                    let-value="value" let-row="row" let-group="group">
+
+
+                                                    <label for="delete{{ rowIndex }}" *ngIf="savebutton!='Update'">
+                                                        <div id="icon-delete"
+                                                            (click)="removeHandler($event, row, rowIndex, group)"></div>
+                                                    </label>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column width="150" name="Survey No." prop="surveyno"
+                                                [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column width="150" name="Area (Acres)"
+                                                prop="primaryLandareaValue" [cellClass]="'cell-left'"
+                                                [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column width="150" name="Sub Area (Guntas/ Cents / Sq.Yards)"
+                                                prop="secondarylandareavalue" [cellClass]="'cell-left'"
+                                                [headerClass]="'header-left'">
+                                            </ngx-datatable-column>
+
+
+                                        </ngx-datatable>
+
+                                    </div>
+
+                                    <div class="col-md-4 col-xl-4" hidden>
+                                        <div class="form-group mt-4 pt-1">
+                                            <!-- <a href="#" class="btn btn-lg-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-brown.svg" width="20px" height="20px" class="mr-3" (click)="computelandbankdetails()">Compute Area</a> -->
+
+                                            <a class="btn btn-lg-icon px-3 border-0 collapsed"
+                                                (click)="computelandbankdetails()"><img
+                                                    src="assets/images/icon-add-brown.svg" width="20px" height="20px"
+                                                    class="mr-3">Compute Area</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="row mt-1">
+
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 118px;">Total Area</label>
+                                            <!-- <label></label> -->
+                                            <!-- <input class="form-control" type="text" formControlName="totalarea" style="border: none; " readonly> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 131px;">{{totalAreaDisplay}}</label>
+                                            <!-- <label></label> -->
+                                            <!-- <input class="form-control" type="text" formControlName="totalarea" style="border: none; " readonly> -->
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label style="margin-left: 100px;">{{totalsubAreaDisplay}}</label>
+                                            <!-- <input class="form-control" type="text" formControlName="totalareainysquareyards" style="border: none;" readonly> -->
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3" hidden>
+                                        <div class="form-group">
+                                            <label>Total Area In Acres</label>
+                                            <input class="form-control" type="text"
+                                                formControlName="totallandareainacres" style="border: none;" readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3" hidden>
+                                        <div class="form-group">
+                                            <label [hidden]="hideconversion">Conversion</label>
+                                            <input class="form-control" type="text" value="{{totalContions}}"
+                                                style="border: none; " readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                </div>
+                                <hr>
+                                <div class="row mt-1" hidden>
+                                    <div class="col-md-5 col-xl-5">
+                                        <div class="form-group">
+                                            <label id="totaldocumentvalue" title="Total Document Value">Total
+                                                Document Value :</label> <input appNumbersonly class="form-control"
+                                                type="text" formControlName="totaldocumentvalue"
+                                                [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.totaldocumentvalue }"
+                                                style="text-align:right; width: 50%" appMycurrencyFormatter
+                                                maxlength="15">
+                                            <app-validation-message
+                                                [messgae]="LandpurchaseValidationErrors?.totaldocumentvalue">
+                                            </app-validation-message>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                    <div class="col-md-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Actual Cost of Land</label>
+                                            <input class="form-control" type="text"
+                                                value="{{totallandvalue | mycurrencypipe}}"
+                                                style="border: none; text-align: right;" readonly>
+                                        </div>
+                                    </div>
+                                    <!--col-end-->
+                                </div>
+
+                                <div *ngIf="Sharingdiv">
+                                    
+                                    <hr>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <p class="bc-2">Sharing</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+
+
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon"
+                                                        id="inland" value="inland" (click)="sharingtype('In Land')"
+                                                        [checked]="inland">
+                                                    <label class="mt-1" for="inland">
+                                                        In Land</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon"
+                                                        id="building" swa e3tg value="building"
+                                                        (click)="sharingtype('Building')" [checked]="building">
+                                                    <label class="mt-1" for="building"> Building</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mr-5 radio-btn-secondary">
+                                                    <input class="form-check-input" type="radio" name="shareon" id="na"
+                                                        swa e3tg value="NA" (click)="sharingtype('NA')" [checked]="na">
+                                                    <label class="mt-1" for="na"> NA</label>
+                                                </div>
+                                            </div>
+                                            <!-- <ngx-datatable class="material expandable table" [rows]="Landpurchasedetails" [headerHeight]="60" [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true" [limit]="10">
+
+
+                                                <ngx-datatable-column width="150" name="Land Owner" prop="vendorname">
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column width="150" name="Land Owner Share %">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                        <input type="text" style="width:-webkit-fill-available" > </ng-template>
+                                                </ngx-datatable-column>
+
+                                                <ngx-datatable-column width="150" name="Developer">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                                        {{row.companyname}}
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column width="150" name="Developer Share %">
+                                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                                        <input type="text" style="width:-webkit-fill-available">
+                                                    </ng-template>
+                                                </ngx-datatable-column>
+
+                                            </ngx-datatable> -->
+                                            <!--<div [formGroupName]="addDevelopmentLandshareControls">-->
+                                            <div *ngIf="dataSharingdiv">
+                                                <ngx-datatable class="material expandable table"
+                                                    [rows]="LandOwnerSharingdata" [headerHeight]="60"
+                                                    [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50"
+                                                    [scrollbarH]="true" [limit]="10">
+
+                                                    <ngx-datatable-column width="150" name="Land Owner">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                                            {{row.shareownername}}
+
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                    <ngx-datatable-column width="150" name="Land Owner Share %">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                            <input type="text" [value]='row.sharepercentage'
+                                                                style="width:-webkit-fill-available"
+                                                                appRoundecimal="2@2" (blur)="onShare(row,$event)">
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                </ngx-datatable>
+
+                                                <ngx-datatable class="material expandable table"
+                                                    [rows]="DeveloperSharingdata" [headerHeight]="60"
+                                                    [columnMode]="'force'" [footerHeight]="0" [rowHeight]="50"
+                                                    [scrollbarH]="true" [limit]="10">
+                                                    <ngx-datatable-column width="150" name="Developer">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                            {{row.shareownername}}
+
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+                                                    <ngx-datatable-column width="150" name="Developer Share %">
+                                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                                            <input type="text" [value]='row.sharepercentage'
+                                                                style="width:-webkit-fill-available"
+                                                                appRoundecimal="2@2" (blur)="onShare(row,$event)">
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+
+                                                </ngx-datatable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <a *ngIf="showClearButton" (click)="clearForm()"
+                                            class="btn btn-g-icon mr-4 px-3 border-0"><img
+                                                src="assets/images/icon-cancel-white.svg" width="20px" height="20px"
+                                                class="mr-3" />Clear</a>
+
+                                        <!-- <button (click)="SaveLandDetails()" class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button> -->
+
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLandDetails()" class="btn btn-s-icon px-3 border-0"
+                                            [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--col-end-->
+                                <!--row-end-->
+
+                                <!--form-end-->
+                                <!--form-end-->
+
+
+
+                            </div>
+
+                            <!-- -*----------------------------------------Tab1 end ----------------------------------------->
+
+                            <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="cold-tab"
+                                formGroupName="pAddressformcontrols">
+                                <!-- <div class="row"> -->
+                                <div class="col-12 mt-3">
+
+                                    <p class="bc-2">Address</p>
+                                </div>
+
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label id="Addresstype" title="Address Type">Address Type</label>
+                                        <select class="form-control" formControlName="Addresstype"
+                                            [ngClass]="{ 'is-invalid': LandpurchaseValidationErrors.Addresstype }">
+                                            <option value="" ng-selected="selected" disabled>Select</option>
+                                            <option *ngFor="let addtype of addressTypes" [value]="addtype.pAddressType">
+                                                {{addtype.pAddressType}}</option>
+                                        </select>
+                                        <app-validation-message [messgae]="LandpurchaseValidationErrors?.Addresstype">
+                                        </app-validation-message>
+                                    </div>
+                                </div>
+
+                                <!-- </div> -->
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <app-address></app-address>
+                                        <div class="col-md-6 col-xl-4" style="margin-left: auto;margin-top: -48px;">
+                                            <div class="form-group">
+                                                <a class="btn btn-b-icon mr-4 px-3 border-0"
+                                                    (click)="getLatitudeLongitude()"><img
+                                                        src="assets/images/icon-add-white.svg" width="20px"
+                                                        height="20px" class="mr-3" />Get Map</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <!-- <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a> -->
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLandAddressDetails()"
+                                            class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ==================================================================== tab content pannnel 2 end =================================================================== -->
+                            <div class="tab-pane fade" id="land-documents" role="tabpanel" aria-labelledby="cold-tab">
+                                <app-companyconfig-documents></app-companyconfig-documents>
+                                <!--row-end-->
+
+                                <!--buttons-end-->
+
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <!-- <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a> -->
+                                        <button appButtonDoubleClick [debounceTime]="500"
+                                            (debounceClick)="SaveLanddocumentDetails()"
+                                            class="btn btn-s-icon px-3 border-0" [disabled]="disablesavebutton">
+                                            <img src="assets/images/icon-check-white.svg" class="mr-3" width="20px"
+                                                height="20px" *ngIf="!disablesavebutton">
+                                            <i class="fa" [ngClass]="{'fa-spin fa-spinner': disablesavebutton}"></i>
+                                            {{savebutton}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane fade" id="view-details" role="tabpanel" aria-labelledby="cold-tab">
+                                <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <p class="bc-2">View Details</p>
+                                    </div>
+                                </div>
+                                <ngx-datatable class="material expandable table" [rows]="Landpurchasedsharedetails"
+                                    [headerHeight]="60" [footerHeight]="0" [rowHeight]="50" [scrollbarH]="true"
+                                    [limit]="10">
+
+                                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                        let-row="row" let-group="group">
+
+                                        <label for="delete{{ rowIndex }}">
+                                            <div id="icon-delete" (click)="removeHandler($event, row, rowIndex, group)">
+                                            </div>
+                                        </label>
+
+                                    </ng-template>
+
+                                    <ngx-datatable-column width="150" name="Land Name" prop="nameofland"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Company Name" prop="companyname"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Vendor" prop="vendorname"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column width="150" name="Survey No." prop="surveyno"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column width="150" name="" prop="" [cellClass]="'cell-center'" [headerClass]="'header-center'">
+                                    </ngx-datatable-column> -->
+                                    <ngx-datatable-column width="150" name="Registered Document No"
+                                        prop="registereddocumentno" [cellClass]="'cell-left'"
+                                        [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column width="150" name="Proceedings No" prop="proceedingno" [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column> -->
+
+                                    <ngx-datatable-column width="150" name="Share" [cellClass]="'cell-center'"
+                                        [headerClass]="'header-center'">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.landsharepercentage}}%
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+
+                                    <ngx-datatable-column width="150" name="Total Area" prop="totallandareatodisplay"
+                                        [cellClass]="'cell-left'" [headerClass]="'header-left'">
+                                    </ngx-datatable-column>
+
+                                </ngx-datatable>
+                                <!-- <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <div class="d-flex justify-content-end mt-4 mb-4">
+                                            <a class="btn btn-g-icon mr-4 px-3 border-0" (click)="CreateNewLandDeatils()"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Create New</a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--row-end-->
+
+                                <!-- <div class="col-md-12">
+                                    <div class="d-flex justify-content-end mt-4 mb-4">
+                                        <a href="#" class="btn btn-g-icon mr-4 px-3 border-0"><img src="assets/images/icon-cancel-white.svg" width="20px" height="20px" class="mr-3" />Clear</a>
+                                        <a href="#loanconfig" data-toggle="tab" class="btn btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-check-white.svg" width="20px" height="20px" class="mr-3" />Save</a>
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- ---------------------end -->
+                        <!-- Tab content end -->
+
+
+                    </div>
+
+
+                    <!-- <div class="dev-land radio-toggle">
+                        <div class="row mt-2">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Select Company</label>
+                                    <select class="form-control">
+                                        <option>Preethi Foods and villas pvt.ltd</option>
+                                        <option>Dakshin infra pvt.ltd</option>
+                                        <option>BVM Energy and Residency pvt ltd</option>
+                                        <option>Kapil Avenues Consultance pvt ltd</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Survey No's</label>
+                                    <input class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Vendor</label>
+                                    <input class="form-control" type="text" value="Kattamedhi Muthayalu and others">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group">
+                                    <label>Land Area</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" value="">
+                                        <div class="input-group-append">
+                                            <select class="form-control">
+                                                <option>Acres</option>
+                                                <option>Guntas</option>
+                                            </select>
+                                        </div>
+                                        <input class="form-control" type="text" value="">
+                                        <div class="input-group-append">
+                                            <select class="form-control">
+                                                <option>Acres</option>
+                                                <option>Guntas</option>
+                                                <option>Cents</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-xl-12">
+                                <div class="d-flex justify-content-end  mt-4 ml-3 mb-4">
+                                    <a href="" data-toggle="tab" class="btn  btn-b-icon px-3 border-0" role="tab" aria-controls="hot" aria-selected="false"><img src="assets/images/icon-add-white.svg" class="mr-3" width="20px" height="20px">Add </a>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="row mt-1">
+                            <div class="col-md-12 col-xl-12">
+                                <table id="example" class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>S.no</th>
+                                            <th>Survey No</th>
+                                            <th>Vendor</th>
+                                            <th>Area</th>
+                                            <th>Land Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>130 A, 131 A</td>
+                                            <td>Kattamedhi Muthayalu and others</td>
+                                            <td>8 acres 19 guntas</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>130 A, 131 A</td>
+                                            <td>Kattamedhi Muthayalu and others</td>
+                                            <td>8 acres 19 guntas</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4">
+                                <div class="form-group mt-4 pt-1">
+                                    <a href="#" class="btn btn-b-icon px-3 border-0 collapsed" data-toggle="collapse" data-target="#view-member" aria-expanded="false"><img src="assets/images/icon-add-white.svg" width="20px" height="20px" class="mr-3">Compute Area</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> -->
+
+
+                    <!-- main content end -->
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 land-card  mt-2">
+            <div class="search-hero">
+                <input class="form-control" placeholder="Search here..." type="text" [(ngModel)]="searchText"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="card-box" *ngFor="let LanddataDetails of Landdata | filter:searchText">
+                <div class="">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <span class="sec-head">{{LanddataDetails.nameofland}}
+                                        ({{LanddataDetails.landpurchasetype}})</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="icon-view" data-toggle="modal" data-target="#modal-land-details-view"
+                                        (click)="LandDetailsView(LanddataDetails.landbankid)"
+                                        class="text-right justify-content-end pull-right"></div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Total Area</label>
+                                    <!-- <label class="w-100 text-primary">{{LanddataDetails.totallandareainacrestodisplay}}</label> -->
+                                    <label class="w-100 text-primary">{{LanddataDetails.totallandareatodisplay}}</label>
+
+
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <label>Consumed Area</label>
+                                    <label class="w-100 text-danger">{{LanddataDetails.consumedareaINACRES}}</label>
+                                </div> -->
+                                <!-- <div class="col-md-4">
+                                    <label>Available Area</label>
+                                    <label class="w-100 text-success">{{LanddataDetails.availableareaINACRES}}</label>
+                                </div> -->
+                            </div>
+                            <!-- <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Krishnaiah</label>
+                                    <label class="w-100">9000000000</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="">Document View</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="">Layout View</a>
+                                </div>
+
+                            </div> -->
+
+                            <!-- <div class="justify-content-end pull-right pb-3">
+                                <a href="#" class="card-link text-orange font-weight-bold">Layout</a>
+                                <a href="#" class="card-link text-orange font-weight-bold">Layout</a>
+
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- main content end -->
+                </div>
+
+            </div>
+            <div *ngIf="map.length!='0'">
+                <agm-map [latitude]="map.lat" [longitude]="map.lng" style="height: 300px" [zoom]="12">
+                    <agm-marker [latitude]="map.lat" [longitude]="map.lng"></agm-marker>
+                </agm-map>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+<!-- modal  Module-->
+<div class="modal right animated slideInRight" id="modal-land-details-view">
+    <div class="modal-dialog modal-xl" style="width:50% !important;">
+
+        <div class="model-cst modal-content">
+            <!-- Modal Header -->
+            <div class="">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <app-land-details-view></app-land-details-view>
+        </div>
+    </div>
+</div>
+<style>
+    .avoid-clicks {
+        pointer-events: none;
+    }
+
+    .suggestions {
+        list-style-type: none;
+        padding: 0;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .suggestions li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .suggestions li:hover {
+        background-color: #f0f0f0;
+    }
+</style>

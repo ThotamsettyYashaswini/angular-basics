@@ -1,0 +1,133 @@
+<form>
+    <div class="row mt-4">
+      <div class="col d-flex flex-wrap align-items-center">
+        <a (click)="newContact()" class="btn btn-b-icon border-0"><img src="assets/images/icon-add-white.svg" width="20px"
+            height="20px" class="mr-2" />New</a>
+      </div>
+    </div>
+  
+    <div class="row mt-4">
+      <div class="col-md-12 col-xl-12 asset-kendo">
+  
+        <kendo-grid [kendoGridBinding]="allocatedConversionDetailsData" [pageSize]="pageSize" [skip]="gridState.skip"
+          [pageable]="{ buttonCount: 2 }" [reorderable]="true" [sortable]="true" [resizable]="true"
+          [sort]="gridState.sort" class="lendoAlign">
+  
+          <ng-template kendoGridToolbarTemplate>
+            <div class="d-flex justify-content-between mb-5">
+              <div class="col-4 pl-0 mt-n1">
+                <input placeholder="Search in all columns..." kendoTextBox class="form-control search-k-cst sb"
+                  (input)="onFilter($event.target.value)" />
+              </div>
+              <div class="col-7 d-flex justify-content-end pr-0 pl-4 ml-4">
+                <ul class="temp-ul mt-n1 mr-n2">
+                  <li class="temp-ico ml-2">
+                    <a kendoGridPDFCommand>
+                      <img class="pt-2" src="assets/images/pdf-icon-blue.svg" title="pdf" width="20px">
+                    </a>
+                  </li>
+                  <li class="temp-ico ml-2">
+                    <a kendoGridExcelCommand>
+                      <img class="pt-2" src="assets/images/icon-excel.svg" title="excel" width="20px">
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-template>
+  
+          <kendo-grid-column-group title="Allocated Conversion Details" [headerClass]="{'kendo-g-center': true}">
+  
+            <kendo-grid-column field="pproceedingno" title="Proceeding No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="pregistereddocument" title="Document No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+            <!-- <kendo-grid-column field="psubsurveyno" title="Sub Survey No." [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+            <kendo-grid-column field="pproceedingdate" title="Proceeding Date" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.pproceedingdate | date : 'dd-MM-yyyy'}}
+            </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="pissuedby" title="Issued By" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column>
+           
+            <!-- <kendo-grid-column field="pVillagemandal" title="Village" [headerClass]="{'kendo-g-center': true}"
+              class="kendo-center"></kendo-grid-column> -->
+            <kendo-grid-column field="ptotalconvertionlandareainacres" title="Land (Acres)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+            <kendo-grid-column field="ptotalconvertionlandareainsqyds" title="Land (sq. yds.)"
+              [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-grid-column>
+  
+          </kendo-grid-column-group>
+  
+          <kendo-grid-pdf fileName="Allocated_Conversion_Details.pdf" [allPages]="true" paperSize="A4"
+            [repeatHeaders]="true" [scale]="0.6" [landscape]="true">
+            <ng-template kendoGridPDFTemplate>
+              <div class="page-template">
+                <div class="header bc-2 text-center">
+                  <h5> Allocated Conversion Details </h5>
+                </div>
+              </div>
+            </ng-template>
+            <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  
+  
+  
+          </kendo-grid-pdf>
+  
+          <kendo-grid-excel fileName="Allocated_Conversion_Details.xlsx" [fetchData]="allData">
+  
+            <kendo-excelexport-column-group title="Allocated Conversion Details" [headerCellOptions]="headerCells">
+  
+              <kendo-excelexport-column field="pproceedingno" title="Proceeding No."
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+              <kendo-excelexport-column field="pregistereddocument" title="Document No."
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+              <kendo-excelexport-column field="psurveyno" title="Survey No." [headerClass]="{'kendo-g-center': true}"
+                class="kendo-center"></kendo-excelexport-column>
+              <!-- <kendo-excelexport-column field="psubsurveyno" title="Sub Survey No."
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column> -->
+              <kendo-excelexport-column field="pproceedingdate" title="Proceeding Date"
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+              <kendo-excelexport-column field="pissuedby" title="Issued By" [headerClass]="{'kendo-g-center': true}"
+                class="kendo-center"></kendo-excelexport-column>
+              <!-- <kendo-excelexport-column field="ppattakhathano" title="Patta Khatha No."
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+              <kendo-excelexport-column field="pVillagemandal" title="Village" [headerClass]="{'kendo-g-center': true}"
+                class="kendo-center"></kendo-excelexport-column> -->
+              <kendo-excelexport-column field="ptotalconvertionlandareainacres" title="Land (Acres)"
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+              <kendo-excelexport-column field="ptotalconvertionlandareainsqyds" title="Land (sq. yds.)"
+                [headerClass]="{'kendo-g-center': true}" class="kendo-center"></kendo-excelexport-column>
+  
+            </kendo-excelexport-column-group>
+          </kendo-grid-excel>
+        </kendo-grid>
+  
+      </div>
+    </div>
+  </form>
+  <div class="my-container">
+    <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+        <h3>
+          Loading...
+        </h3>
+  
+      </div>
+    </ng-template>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"
+      [template]="customLoadingTemplate"></ngx-loading>
+  
+  </div>
+
+  <style>
+    .asset-kendo kendo-grid .k-grid-header th.k-header {
+    text-align: center !important;
+   
+}
+</style>
