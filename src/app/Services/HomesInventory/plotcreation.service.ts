@@ -1350,7 +1350,7 @@ export class PlotcreationService {
       this._CommonService.comapnydetails.pPincode;
     //let Companyreportdetails = this.comapnydetails;;
     let Companyreportdetails = this._CommonService.comapnydetails;
-    let doc = new jsPDF(pagetype);
+    let doc = new (jsPDF as any)(pagetype);
     //let currencyformat = this._CommonService.currencysymbol;
     //let rupeeImage = this._CommonService._getRupeeSymbol();
     let kapil_logo = this._CommonService.getKapilGroupLogo();

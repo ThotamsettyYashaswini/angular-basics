@@ -44,6 +44,7 @@
     "angular-ng-autocomplete": "^2.0.1",
     "increase-memory-limit": "^1.0.7",
     "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.5.13",
     "ng-multiselect-dropdown": "^0.2.10",
     "ng2-search-filter": "^0.5.1",
     "ng4-loading-spinner": "^1.2.3",

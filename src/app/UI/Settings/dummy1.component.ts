@@ -30,32 +30,21 @@ export class Dummy1Component implements OnInit {
       agree: [false],
     });
     // this.getCourseDetails();
-    this.getUserFrom();
+    this.loadUsers();
   }
-
-  submitForm() {
-    debugger;
-
-    this.users.push({
-      id: this.id++,
-      ...this.userForm.value,
+  loadUsers() {
+    this.dummyservice.getUsers().subscribe((res) => {
+      this.userList = res;
     });
-
-    this.userForm.reset();
   }
-  // getCourseDetails() {
-  //   this.dummyservice.getCompanyslbreport().subscribe((res) => {
-  //     let json: any = [];
-  //     json = res;
-  //   });
-  // }
 
-  getUserFrom() {
-    const name = "kiran";
+  onUserChange(userName: string) {
+    if (!userName) {
+      this.functionIds = [];
+      return;
+    }
 
-    this.dummyservice.getUserForms1(name).subscribe((res) => {
-      console.log("FULL RESPONSE:", res);
-
+    this.dummyservice.getUserRightsByUserName(userName).subscribe((res) => {
       this.functionIds = [];
 
       if (res && res.moduleDTOList) {
@@ -71,8 +60,6 @@ export class Dummy1Component implements OnInit {
           }
         });
       }
-
-      console.log("Extracted Function IDs:", this.functionIds);
     });
   }
 }
