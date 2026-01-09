@@ -2,6 +2,16 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DummyserviceService } from "src/app/dummyservice.service";
 
+interface UserRights {
+  moduleDTOList: Array<{
+    lstSubModuleDTO: Array<{
+      functionsDTOList: Array<{
+        pFunctionID: number;
+      }>;
+    }>;
+  }>;
+}
+
 @Component({
   selector: "app-dummy1",
   templateUrl: "./dummy1.component.html",
@@ -34,7 +44,9 @@ export class Dummy1Component implements OnInit {
   }
   loadUsers() {
     this.dummyservice.getUsers().subscribe((res) => {
+      debugger;
       this.userList = res;
+      console.log("res:", userList);
     });
   }
 
@@ -44,22 +56,37 @@ export class Dummy1Component implements OnInit {
       return;
     }
 
-    this.dummyservice.getUserRightsByUserName(userName).subscribe((res) => {
-      this.functionIds = [];
+    this.dummyservice
+      .getUserRightsByUserName(userName)
+      .subscribe((res: UserRights) => {
+        debugger;
+        this.functionIds = [];
+        console.log("functionids:", this.functionIds);
+        debugger;
 
-      if (res && res.moduleDTOList) {
-        res.moduleDTOList.forEach((module) => {
-          if (module.lstSubModuleDTO) {
-            module.lstSubModuleDTO.forEach((sub) => {
-              if (sub.functionsDTOList) {
-                sub.functionsDTOList.forEach((func) => {
-                  this.functionIds.push(func.pFunctionID);
-                });
-              }
-            });
-          }
-        });
-      }
+        if (res && res.moduleDTOList) {
+          res.moduleDTOList.forEach((module) => {
+            if (module.lstSubModuleDTO) {
+              module.lstSubModuleDTO.forEach((sub) => {
+                if (sub.functionsDTOList) {
+                  sub.functionsDTOList.forEach((func) => {
+                    this.functionIds.push(func.pFunctionID);
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+  }
+  submitForm() {
+    debugger;
+
+    this.users.push({
+      id: this.id++,
+      ...this.userForm.value,
     });
+
+    this.userForm.reset();
   }
 }

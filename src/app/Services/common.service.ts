@@ -274,6 +274,7 @@ export class CommonService {
         return data;
     }
     callGetAPI(apiPath, params, parameterStatus) {
+        debugger;
 
         //let data = environment.apiURL;
         //if (parameterStatus.toUpperCase() == 'YES')
