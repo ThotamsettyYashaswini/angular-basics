@@ -1,17 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgModule } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { BsDatepickerConfig } from "ngx-bootstrap";
 import { DummyserviceService } from "src/app/dummyservice.service";
-
-interface UserRights {
-  moduleDTOList: Array<{
-    lstSubModuleDTO: Array<{
-      functionsDTOList: Array<{
-        pFunctionID: number;
-      }>;
-    }>;
-  }>;
-}
-
 @Component({
   selector: "app-dummy1",
   templateUrl: "./dummy1.component.html",
@@ -19,74 +9,125 @@ interface UserRights {
 })
 export class Dummy1Component implements OnInit {
   userForm!: FormGroup;
+
   users: any[] = [];
   id = 1;
-  // landList: any = [];
-  userList: any = [];
-  functionIds: number[] = [];
+  public ProjectLaunchdateConfig: Partial<BsDatepickerConfig> =
+    new BsDatepickerConfig();
+
+  companyList: any[] = [];
+  villageList: any[] = [];
+  documentList: any[] = [];
+  PlotsLayoutsValidationErrors: any = {};
 
   constructor(
     private fb: FormBuilder,
     private dummyservice: DummyserviceService
-  ) {}
+  ) {
+    this.ProjectLaunchdateConfig.containerClass = "theme-dark-blue";
+    this.ProjectLaunchdateConfig.showWeekNumbers = false;
+    //this.ProjectLaunchdateConfig.maxDate = this.today;
+    this.ProjectLaunchdateConfig.dateInputFormat = "DD/MM/YYYY";
+  }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ["", Validators.required],
       gender: ["", Validators.required],
-      dob: ["", Validators.required],
       course: [""],
-      Usersview: [""],
-      agree: [false],
+      company: ["", Validators.required],
+      village: ["", Validators.required],
+      agree: [false, Validators.requiredTrue],
+      fillingDate: ["", Validators.required],
     });
-    // this.getCourseDetails();
-    this.loadUsers();
+
+    this.getCompanies();
   }
-  loadUsers() {
-    this.dummyservice.getUsers().subscribe((res) => {
-      debugger;
-      this.userList = res;
-      console.log("res:", userList);
+
+  getCompanies(): void {
+    debugger;
+    this.dummyservice.GetCompanyslbreport().subscribe((res: any) => {
+      this.companyList = res;
     });
   }
 
-  onUserChange(userName: string) {
-    if (!userName) {
-      this.functionIds = [];
-      return;
+  onCompanyChange(event: any): void {
+    debugger;
+    const company = event.target.value;
+
+    this.villageList = [];
+    this.documentList = [];
+
+    this.userForm.patchValue({
+      village: "",
+    });
+
+    if (company) {
+      this.getVillages(company);
     }
+  }
 
+  getVillages(company: string): void {
+    debugger;
+    this.dummyservice.GetVillageslbreport(company).subscribe((res: any) => {
+      this.villageList = res;
+    });
+  }
+
+  onVillageChange(event: any): void {
+    debugger;
+    const village = event.cityvillage;
+    const company = this.userForm.value.company;
+
+    this.documentList = [];
+
+    if (company && village) {
+      this.getDocuments(company, village);
+    }
+  }
+
+  getDocuments(company: string, village: string): void {
+    debugger;
     this.dummyservice
-      .getUserRightsByUserName(userName)
-      .subscribe((res: UserRights) => {
-        debugger;
-        this.functionIds = [];
-        console.log("functionids:", this.functionIds);
+      .Getdocumentslbreport(company, village)
+      .subscribe((res: any) => {
         debugger;
 
-        if (res && res.moduleDTOList) {
-          res.moduleDTOList.forEach((module) => {
-            if (module.lstSubModuleDTO) {
-              module.lstSubModuleDTO.forEach((sub) => {
-                if (sub.functionsDTOList) {
-                  sub.functionsDTOList.forEach((func) => {
-                    this.functionIds.push(func.pFunctionID);
-                  });
-                }
-              });
-            }
-          });
+        if (res) {
+          this.documentList = res;
+        } else if (res) {
+          this.documentList = res;
+        } else {
+          this.documentList = [];
         }
+
+        console.log("Documents:", this.documentList);
       });
   }
-  submitForm() {
+  DateChange(date: Date) {
+    if (!date) {
+      this.PlotsLayoutsValidationErrors.fillingDate = "Date is required";
+    } else {
+      this.PlotsLayoutsValidationErrors.fillingDate = "";
+    }
+  }
+
+  // ---------------- SUBMIT ----------------
+  submitForm(): void {
     debugger;
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
+    }
 
     this.users.push({
       id: this.id++,
       ...this.userForm.value,
+      documents: this.documentList,
     });
 
     this.userForm.reset();
+    this.villageList = [];
+    this.documentList = [];
   }
 }

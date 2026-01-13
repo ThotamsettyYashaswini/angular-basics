@@ -1,126 +1,172 @@
 <div class="section-container">
     <div class="card-box">
+
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-            <div class="row">
+
+            <!-- NAME -->
+            <div class="row mb-3">
                 <div class="col-md-4">
-                    <label for="">Name</label>
+                    <label>Name</label>
                     <input type="text" class="form-control" formControlName="name">
                 </div>
             </div>
+
+            <!-- GENDER -->
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">Gender</label>
-                    <div class="mt-1">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" value="Male" formControlName="gender">
-                            <label class="form-check-label">Male</label>
-                        </div>
+                    <label class="fw-semibold">Gender</label>
+                    <div>
+                        <label class="me-3">
+                            <input type="radio" value="Male" formControlName="gender"> Male
+                        </label>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" value="Female" formControlName="gender">
-                            <label class="form-check-label">Female</label>
-                        </div>
+                        <label>
+                            <input type="radio" value="Female" formControlName="gender"> Female
+                        </label>
                     </div>
                 </div>
             </div>
+
+            <!-- DOB -->
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">Date of Birth</label>
-                    <input type="date" class="form-control" formControlName="dob">
+                    <label>Date of Birth</label>
+                    <input type="date" random type="text" [bsConfig]="ProjectLaunchdateConfig" bsDatepicker
+                        formControlName="fillingDate" (ngModelChange)="DateChange($event)"
+                        [ngClass]="{ 'is-invalid': PlotsLayoutsValidationErrors.fillingDate}">
+                </div>
+                <div class="invalid-feedback">
+                    <span
+                        *ngIf="PlotsLayoutsValidationErrors?.fillingDate">{{PlotsLayoutsValidationErrors.fillingDate}}</span>
                 </div>
             </div>
-            <div class="row mb-3" *ngIf="userForm.controls['dob'].value">
+
+            <!-- COURSE -->
+            <div class="row mb-3" *ngIf="userForm.get('fillingDate')?.value">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">Course</label>
+                    <label>Course</label>
                     <select class="form-select" formControlName="course">
                         <option value="">Select</option>
                         <option value="Angular">Angular</option>
                         <option value="React">React</option>
                         <option value="Java">Java</option>
                     </select>
-
                 </div>
             </div>
-            <!-- <div class="col-md-4">
-                <label class="form-label fw-semibold">Function IDs</label>
-                <select class="form-select">
-                    <option value="">Select</option>
-                    <option *ngFor="let id of functionIds" [value]="id">
-                        {{ id }}
-                    </option>
-                </select>
-            </div> -->
 
-            <!-- <div class="others">
-                <div class="col-md-6 col-xl-4 p-0">
-                    <div class="form-group">
-                        <label>Select User</label>
-                        <select class="form-select" formControlName="Usersview">
-
-                            <option value="">Select</option>
-                            <option *ngFor="let usery of userList" [value]="usery.pUserID">
-                                {{ usery.pUserID }}</option>
-
-                        </select>
-                    </div>
-                </div>
-            </div> -->
-
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label fw-semibold">Select User</label>
-                <select class="form-select" formControlName="Usersview" (change)="onUserChange($event.target.value)">
-                    <option value="">Select</option>
-                    <option *ngFor="let user of userList" [value]="user.pUserName">
-                        {{ user.pUserName }}
-                    </option>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3" *ngIf="functionIds.length">
-                <label class="form-label fw-semibold">Function IDs</label>
-                <select class="form-select">
-                    <option *ngFor="let id of functionIds" [value]="id">
-                        {{ id }}
-                    </option>
-                </select>
-            </div>
-
-
+            <!-- COMPANY -->
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">agree</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" formControlName="agree">
-                        <label class="form-check-label">I agree to the terms and conditions</label>
-                    </div>
+                    <label>Select Company</label>
+                    <select class="form-select" formControlName="company" (change)="onCompanyChange($event)">
+                        <option value="">Select</option>
+                        <option *ngFor="let company of companyList" [value]="company.companyname">
+                            {{ company.companyname }}
+                        </option>
+                    </select>
                 </div>
             </div>
 
+            <!-- VILLAGE -->
+            <div class="row mb-3" *ngIf="villageList.length">
+                <div class="col-md-4">
+                    <label>Select Village</label>
+                    <!-- <select class="form-select" formControlName="village" (change)="onVillageChange($event)">
+                        <option value="">Select</option>
+                        <option *ngFor="let village of villageList" [value]="village.cityvillage">
+                            {{ village.cityvillage }}
+                        </option>
+                    </select> -->
+                    <ng-select title="Select Village" [items]="villageList" formControlName="village"
+                        bindLabel="cityvillage" bindValue="cityvillage" (change)="onVillageChange($event)"
+                        placeholder="Select" [searchable]="true" [clearable]="true" dropdownPosition="bottom"
+                        [clearOnBackspace]="true">
+                    </ng-select>
 
 
-            <button type="submit">Submit</button>
+                    <div class="invalid-feedback">
+                        <span
+                            *ngIf="PlotsLayoutsValidationErrors?.village">{{PlotsLayoutsValidationErrors.village}}</span>
+                    </div>
 
+                </div>
+            </div>
 
+            <!-- DOCUMENT LIST -->
+            <div class="row mb-3" *ngIf="documentList.length">
+                <div class="col-md-8">
+                    <label>Documents</label>
+                    <div class="border p-3 bg-light rounded" style="max-height:250px; overflow:auto">
+                        <div *ngFor="let doc of documentList; let i = index">
+                            <p><b>{{ i + 1 }}.</b></p>
+                            <p>Registered Doc No: {{ doc.registereddocumentno }}</p>
+                            <p>Total Value: {{ doc.totaldocumentvalue }}</p>
+                            <p>Registration Fee: {{ doc.registrationfee }}</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label id="Documents">Documents</label>
+                <ng-select title="Getdocumentslbreport" id="documentsstyle" [items]="documentList"
+                    formControlName="documentids" bindLabel="Registered Doc No:" bindValue="registereddocumentno"
+                    placeholder="select" [searchable]="true" [clearable]="true" dropdownPosition="bottom"
+                    [clearOnBackspace]="true" [ngClass]="{ 'is-invalid' : PlotsLayoutsValidationErrors.documentids }">
 
+                </ng-select>
+                <div class="invalid-feedback">
+                    <span
+                        *ngIf="PlotsLayoutsValidationErrors?.documentids">{{PlotsLayoutsValidationErrors.documentids}}</span>
+                </div>
+
+            </div> -->
+
+            <!-- AGREE -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>
+                        <input type="checkbox" formControlName="agree">
+                        I agree to the terms & conditions
+                    </label>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
-        <div style="display:flex;justify-content:center;margin-top:20px">
-            <table [border]="1" cellpadding="8">
+
+        <!-- TABLE -->
+        <div class="mt-4">
+            <table border="1" cellpadding="8" width="100%">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Gender</th>
-                    <th>DOB</th>
+                    <th>Date</th>
                     <th>Course</th>
+                    <th>Company</th>
+                    <th>Village</th>
+                    <th>Documents</th>
                     <th>Agree</th>
                 </tr>
 
                 <tr *ngFor="let user of users">
-                    <td>{{user.id}}</td>
-                    <td>{{user.name}}</td>
-                    <td>{{user.gender}}</td>
-                    <td>{{user.dob}}</td>
-                    <td>{{user.course}}</td>
-                    <td>{{user.agree ? 'Yes' : 'No'}}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.fillingDate }}</td>
+                    <td>{{ user.course }}</td>
+                    <td>{{ user.company }}</td>
+                    <td>{{ user.village }}</td>
+                    <td>
+                        <div *ngFor="let doc of user.documents; let i = index">
+                            <p><b>{{ i + 1 }}.</b> {{ doc.registereddocumentno }}</p>
+                        </div>
+                    </td>
+                    <td>{{ user.agree ? 'Yes' : 'No' }}</td>
                 </tr>
             </table>
         </div>
+
+    </div>
+</div>

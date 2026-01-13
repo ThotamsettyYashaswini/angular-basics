@@ -7,15 +7,6 @@ import { HttpParams } from "@angular/common/http";
 })
 export class DummyserviceService {
   constructor(private _Commonservice: CommonService) {}
-
-  getUsers() {
-    return this._Commonservice.callGetAPI(
-      "/Settings/Users/UserRights/GetUsers",
-      "",
-      "NO"
-    );
-  }
-
   getUserRightsByUserName(userName: string) {
     const params = new HttpParams().set("UserName", userName);
     return this._Commonservice.callGetAPI(
@@ -24,6 +15,29 @@ export class DummyserviceService {
       "YES"
     );
   }
-
-  
+  GetCompanyslbreport() {
+    return this._Commonservice.callGetAPI(
+      "/HomesInventory/masters/LandBank/GetCompanyslbreport",
+      "",
+      "NO"
+    );
+  }
+  GetVillageslbreport(company: string) {
+    const params = new HttpParams().set("company", company);
+    return this._Commonservice.callGetAPI(
+      "/HomesInventory/masters/LandBank/Getvillageslbreport",
+      params,
+      "YES"
+    );
+  }
+  Getdocumentslbreport(company: string, village: string) {
+    const params = new HttpParams()
+      .set("company", company)
+      .set("village", village);
+    return this._Commonservice.callGetAPI(
+      "/HomesInventory/masters/LandBank/Getdocumentslbreport",
+      params,
+      "YES"
+    );
+  }
 }

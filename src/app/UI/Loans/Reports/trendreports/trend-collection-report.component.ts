@@ -5,7 +5,8 @@ import { GroupDescriptor, SortDescriptor, State } from '@progress/kendo-data-que
 import { ToastrService } from 'ngx-toastr';
 import { DuesReportsService } from 'src/app/Services/Loans/Transactions/dues-reports.service';
 import { CommonService } from 'src/app/Services/common.service';
-import { NgTypeToSearchTemplateDirective } from '@ng-select/ng-select/lib/ng-templates.directive';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 declare let $:any;
 @Component({
   selector: 'app-trend-collection-report',

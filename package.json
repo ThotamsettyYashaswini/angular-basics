@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
-    "@ng-select/ng-select": "^3.7.3",
+    "@ng-select/ng-select": "^2.20.5",
     "@progress/kendo-angular-buttons": "^5.2.3",
     "@progress/kendo-angular-common": "^1.2.2",
     "@progress/kendo-angular-dateinputs": "^4.2.2",
