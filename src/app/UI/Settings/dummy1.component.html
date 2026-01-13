@@ -136,37 +136,42 @@
         </form>
 
         <!-- TABLE -->
-        <div class="mt-4">
-            <table border="1" cellpadding="8" width="100%">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>Date</th>
-                    <th>Course</th>
-                    <th>Company</th>
-                    <th>Village</th>
-                    <th>Documents</th>
-                    <th>Agree</th>
-                </tr>
+        <kendo-grid [kendoGridBinding]="gridData" [pageable]="true" [sortable]="true" [resizable]="true" class="mt-4">
 
-                <tr *ngFor="let user of users">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>{{ user.fillingDate }}</td>
-                    <td>{{ user.course }}</td>
-                    <td>{{ user.company }}</td>
-                    <td>{{ user.village }}</td>
-                    <td>
-                        <div *ngFor="let doc of user.documents; let i = index">
-                            <p><b>{{ i + 1 }}.</b> {{ doc.registereddocumentno }}</p>
-                        </div>
-                    </td>
-                    <td>{{ user.agree ? 'Yes' : 'No' }}</td>
-                </tr>
-            </table>
-        </div>
+            <!-- ACTION COLUMN -->
+            <!-- <kendo-grid-column title="Actions" width="80">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    <button class="btn btn-sm btn-warning me-1" (click)="editUser(dataItem, rowIndex)">Edit</button>
+
+                    <button class="btn btn-sm btn-danger" (click)="deleteUser(rowIndex)">Delete</button>
+                </ng-template>
+            </kendo-grid-column> -->
+
+            <kendo-grid-column field="id" title="ID" width="50"></kendo-grid-column>
+            <kendo-grid-column field="name" title="Name"></kendo-grid-column>
+            <kendo-grid-column field="gender" title="Gender"></kendo-grid-column>
+            <kendo-grid-column field="fillingDate" title="DOB"></kendo-grid-column>
+            <kendo-grid-column field="course" title="Course"></kendo-grid-column>
+            <kendo-grid-column field="company" title="Company"></kendo-grid-column>
+            <kendo-grid-column field="village" title="Village"></kendo-grid-column>
+
+            <!-- DOCUMENTS COLUMN -->
+            <kendo-grid-column title="Documents">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <div *ngFor="let doc of dataItem.documents; let i=index">
+                        {{ i + 1 }}. {{ doc.registereddocumentno }}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="agree" title="Agree">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    {{ dataItem.agree ? 'Yes' : 'No' }}
+                </ng-template>
+            </kendo-grid-column>
+
+        </kendo-grid>
+
 
     </div>
 </div>

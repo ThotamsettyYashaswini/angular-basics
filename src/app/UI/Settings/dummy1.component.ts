@@ -11,6 +11,8 @@ export class Dummy1Component implements OnInit {
   userForm!: FormGroup;
 
   users: any[] = [];
+  gridData = [];
+
   id = 1;
   public ProjectLaunchdateConfig: Partial<BsDatepickerConfig> =
     new BsDatepickerConfig();
@@ -113,21 +115,21 @@ export class Dummy1Component implements OnInit {
   }
 
   // ---------------- SUBMIT ----------------
-  submitForm(): void {
-    debugger;
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-      return;
+  submitForm() {
+    if (this.userForm.valid) {
+      this.gridData.push({
+        id: this.gridData.length + 1,
+        name: this.userForm.value.name,
+        gender: this.userForm.value.gender,
+        fillingDate: this.userForm.value.fillingDate,
+        course: this.userForm.value.course,
+        company: this.userForm.value.company,
+        village: this.userForm.value.village,
+        documents: this.documentList,
+        agree: this.userForm.value.agree,
+      });
+
+      this.userForm.reset();
     }
-
-    this.users.push({
-      id: this.id++,
-      ...this.userForm.value,
-      documents: this.documentList,
-    });
-
-    this.userForm.reset();
-    this.villageList = [];
-    this.documentList = [];
   }
 }
